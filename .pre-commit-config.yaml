@@ -1,0 +1,139 @@
+# Pre-commit configuration for Hegels Agents
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+
+repos:
+  # Standard pre-commit hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+        description: Trim trailing whitespace
+      - id: end-of-file-fixer
+        description: Ensure files end with newline
+      - id: check-yaml
+        description: Check YAML files for syntax errors
+        args: ['--multi']
+      - id: check-json
+        description: Check JSON files for syntax errors
+      - id: check-toml
+        description: Check TOML files for syntax errors
+      - id: check-merge-conflict
+        description: Check for merge conflict markers
+      - id: check-added-large-files
+        description: Prevent adding large files
+        args: ['--maxkb=1000']
+      - id: check-case-conflict
+        description: Check for case conflicts on case-insensitive filesystems
+      - id: mixed-line-ending
+        description: Check for mixed line endings
+        args: ['--fix=lf']
+
+  # Python-specific hooks
+  - repo: https://github.com/psf/black
+    rev: 24.4.2
+    hooks:
+      - id: black
+        description: Format Python code with Black
+        language_version: python3
+        args: [--line-length=88]
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        description: Sort Python imports
+        args: [--profile=black]
+
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.4.4
+    hooks:
+      - id: ruff
+        description: Lint Python code with Ruff
+        args: [--fix, --exit-non-zero-on-fix]
+
+  # Type checking
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.10.0
+    hooks:
+      - id: mypy
+        description: Type check Python code with MyPy
+        additional_dependencies:
+          - types-PyYAML
+          - types-requests
+          - types-psycopg2
+        exclude: ^(tests/|docs/|scripts/examples/)
+
+  # Security checks
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.5
+    hooks:
+      - id: bandit
+        description: Security linting with Bandit
+        args: [--skip=B101]  # Skip assert_used test
+        exclude: ^tests/
+
+  # Documentation checks
+  - repo: https://github.com/pycqa/pydocstyle
+    rev: 6.3.0
+    hooks:
+      - id: pydocstyle
+        description: Check docstring style
+        args: [--convention=google]
+        exclude: ^(tests/|scripts/examples/|migrations/)
+
+  # Additional Python checks
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.0.0
+    hooks:
+      - id: flake8
+        description: Lint Python code with Flake8
+        additional_dependencies:
+          - flake8-docstrings
+          - flake8-bugbear
+        args: [--max-line-length=88, --extend-ignore=E203,W503]
+
+  # Secrets detection
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+      - id: detect-secrets
+        description: Detect secrets in code
+        args: ['--baseline', '.secrets.baseline']
+        exclude: |
+          (?x)^(
+            .*\.env\.template|
+            .*\.env\.example|
+            docs/.*|
+            tests/fixtures/.*
+          )$
+
+  # Configuration file validation
+  - repo: local
+    hooks:
+      - id: validate-yaml-configs
+        name: Validate YAML configuration files
+        entry: python scripts/validate_configs.py
+        language: python
+        files: ^configs/.*\.yaml$
+        pass_filenames: true
+
+      - id: check-python-imports
+        name: Check Python imports are valid
+        entry: python -c "import ast, sys; [ast.parse(open(f).read()) for f in sys.argv[1:]]"
+        language: python
+        files: \.py$
+        exclude: ^(docs/|migrations/)
+
+# Configuration for specific tools
+ci:
+  autofix_commit_msg: |
+    [pre-commit.ci] auto fixes from pre-commit.com hooks
+
+    for more information, see https://pre-commit.ci
+  autofix_prs: true
+  autoupdate_branch: ''
+  autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
+  autoupdate_schedule: weekly
+  skip: [mypy]  # Skip mypy in CI as it requires additional setup
+  submodules: false

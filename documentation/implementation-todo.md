@@ -13,21 +13,37 @@ This todo reflects the **progressive validation architecture** principles:
 ## Phase 0 – Repo & Environment + Configuration Management
 
 * [ ] Create `hegels_agents` repo + basic structure:
-  * [ ] `src/corpus/`
-  * [ ] `src/agents/`
-  * [ ] `src/debate/`
-  * [ ] `src/eval/`
-  * [ ] `src/config/`
-  * [ ] `scripts/`
+  * [ ] `src/corpus/` - Corpus processing modules to be implemented
+  * [ ] `src/agents/` - Agent implementations to be implemented
+  * [ ] `src/debate/` - Debate orchestration to be implemented
+  * [ ] `src/eval/` - Evaluation framework to be implemented
+  * [ ] `src/config/` - Configuration management system to be implemented
+  * [ ] `scripts/` - Production utility scripts to be implemented
 * [ ] Set up Python env (e.g. `uv` / `poetry` / `pipenv`):
-  * [ ] Add deps: `google-genai`, `psycopg2-binary` (or `asyncpg`), `pydantic`, `sqlalchemy` (optional), `pytest`, `tqdm`, etc.
+  * [ ] Add deps: `google-genai`, `psycopg2-binary`, `pydantic`, `sqlalchemy`, `pytest`, `tqdm`, etc. - Requirements file to be created
+  * [ ] Support for uv (recommended), poetry, and pip+venv to be documented
 * [ ] **Configure secrets + basic config management**:
-  * [ ] `GEMINI_API_KEY`
-  * [ ] `SUPABASE_DB_URL` (for later phases)
-  * [ ] Create `src/config/settings.py` with dict/YAML-based configuration
+  * [ ] `GEMINI_API_KEY` - Environment variable loading to be implemented
+  * [ ] `SUPABASE_DB_URL` (for later phases) - Template to be created
+  * [ ] Create `src/config/settings.py` with dict/YAML-based configuration - To be implemented
   * [ ] Design for evolution: simple params initially, sophisticated parameter management later
 
-> ✅ Many of these can be done in parallel by different people.
+> 🚧 **PHASE 0 IN PROGRESS** - Initial documentation and planning complete. Implementation of repository structure and dependencies pending.
+
+### Phase 0 Current Status:
+- **Documentation**: README and implementation plan drafted
+- **Repository Structure**: To be implemented
+- **Dependencies**: Requirements file to be created
+- **Configuration**: To be implemented
+- **Scripts**: To be developed
+- **Testing Infrastructure**: To be set up
+
+### Next Steps for Phase 0 Completion:
+- Create actual repository structure (src/ directories)
+- Implement requirements.txt with verified dependencies
+- Create basic configuration system
+- Develop essential utility scripts
+- Set up testing and development workflow
 
 ---
 

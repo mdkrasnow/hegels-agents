@@ -1,0 +1,62 @@
+# Hegels Agents YAML Configuration Template
+#
+# This file shows how to use YAML configuration files alongside environment variables.
+# Environment variables take precedence over values in this file.
+#
+# To use this file:
+# 1. Copy this file to config.yaml
+# 2. Customize the values below
+# 3. Load with: config = load_config('config.yaml')
+
+# Application Configuration
+environment: development
+debug: true
+log_level: DEBUG
+
+# Model Configuration (future use)
+model:
+  provider: gemini
+  model_name: gemini-pro
+  temperature: 0.7
+  max_tokens: 2048
+  timeout: 30
+
+# Database Configuration
+database:
+  connection_pool_size: 5
+  connection_timeout: 30
+  retry_attempts: 3
+
+# Dialectical Reasoning Configuration (future use)
+dialectical:
+  max_synthesis_iterations: 10
+  thesis_confidence_threshold: 0.8
+  antithesis_confidence_threshold: 0.8
+  synthesis_algorithm: "weighted_average"
+
+# Agent Configuration (future use)
+agents:
+  max_parallel_agents: 3
+  task_timeout: 300
+  result_cache_size: 100
+
+# Logging Configuration
+logging:
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file_path: "logs/hegels_agents.log"
+  max_file_size: 10485760  # 10MB
+  backup_count: 5
+
+# Development Settings
+development:
+  auto_reload: true
+  debug_sql: false
+  mock_api_calls: false
+
+# Production Settings
+production:
+  auto_reload: false
+  debug_sql: false
+  mock_api_calls: false
+  enable_metrics: true
+  metrics_port: 9090

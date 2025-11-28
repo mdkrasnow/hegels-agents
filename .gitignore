@@ -1,2 +1,335 @@
+# Hegels Agents .gitignore
+
+# =============================================================================
+# Python
+# =============================================================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 .claude/work
-*.pyc
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Virtual environments
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# PEP 582
+__pypackages__/
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# =============================================================================
+# Project-specific
+# =============================================================================
+
+# Environment variables (contains secrets)
+.env*
+.envrc
+
+# API keys and secrets
+secrets/
+*credentials*
+*secret.*
+*.token
+auth.json
+service-account*.json
+*-key.json
+.npmrc
+.pypirc
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Cache
+cache/
+*.cache
+.cache/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Corpus data (can be large)
+corpus/
+corpus_data/
+sample_corpus/
+test_corpus/
+
+# Embeddings cache (can be large)
+embeddings/
+*.embeddings
+*.vec
+
+# Experiment outputs
+experiments/
+experiment_outputs/
+results/
+outputs/
+
+# Research artifacts
+research_data/
+analysis/
+plots/
+figures/
+
+# =============================================================================
+# Development tools
+# =============================================================================
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# =============================================================================
+# Dependencies and builds
+# =============================================================================
+
+# Node.js (if using frontend tools)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# =============================================================================
+# CI/CD
+# =============================================================================
+
+# GitHub Actions artifacts
+.github/workflows/artifacts/
+
+# Local CI artifacts
+ci_artifacts/
+
+# =============================================================================
+# Documentation builds
+# =============================================================================
+
+# Sphinx documentation
+docs/_build/
+docs/build/
+.doctrees
+
+# =============================================================================
+# Research and experiments
+# =============================================================================
+
+# Large model files
+*.model
+*.pkl
+*.pickle
+models/
+
+# Experimental scripts (personal)
+scratch/
+experiments_local/
+personal/
+
+# Data analysis notebooks (output)
+analysis_*.ipynb
+exploration_*.ipynb
+
+# Checkpoint files
+checkpoints/
+*.checkpoint
+
+# =============================================================================
+# Backup files
+# =============================================================================
+
+# Backup files
+*.bak
+*.backup
+*.orig
+*.rej
+
+# =============================================================================
+# Configuration overrides
+# =============================================================================
+
+# Local configuration overrides
+configs/local/
+local.yaml
+local.yml
+override.yaml
+override.yml
+
+# Personal research configs
+configs/personal/
+configs/research/personal_*
+
+# =============================================================================
+# Performance and profiling
+# =============================================================================
+
+# Profiling output
+*.prof
+*.profile
+profile_*.txt
+
+# Memory dumps
+*.dump
+*.hprof
+
+# =============================================================================
+# Security
+# =============================================================================
+
+# Secrets scanning baseline (but track the template)
+# .secrets.baseline is tracked for detect-secrets
+
+# SSL certificates and keys
+*.crt
+*.csr
+*.key
+*.p12
+*.pem
+*.pfx
+
+# SSH keys
+id_rsa*
+id_ed25519*
+*.ppk
+
+# Cloud provider credentials
+.aws/credentials
+.aws/config
+.azure/credentials
+.kube/config
+.gcloud/
+
+# =============================================================================
+# Misc
+# =============================================================================
+
+# Archives
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Local environment overrides
+.local
+
+# Editor backup files
+*.un~
+
+# Additional development tool caches (duplicates removed)
+# (Core Python patterns, coverage, pytest, mypy are in sections above)
+
+# Ruff
+.ruff_cache/
+
+# Black
+.black/
