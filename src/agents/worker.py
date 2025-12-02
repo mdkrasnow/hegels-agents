@@ -111,6 +111,16 @@ Focus on being helpful, accurate, and thorough in your analysis."""
                     temperature=0.7,
                 )
             )
+            
+            # Check for None response or None text
+            if response is None:
+                self.logger.log_error(None, "Gemini API returned None response")
+                return "I apologize, but I received an empty response from the AI service. Please try your question again."
+            
+            if response.text is None:
+                self.logger.log_error(None, "Gemini API returned response with None text content")
+                return "I apologize, but the AI service response contained no text content. Please try your question again."
+            
             return response.text
         except Exception as e:
             self.logger.log_error(e, "Gemini API call failed")
@@ -153,6 +163,11 @@ Focus on being helpful, accurate, and thorough in your analysis."""
             response_text = self._make_gemini_call(full_prompt)
             
             # Parse response to extract reasoning (simple heuristic)
+            # Add safety check for None response_text (defense in depth)
+            if response_text is None:
+                self.logger.log_error(None, "Received None response_text in respond() method")
+                response_text = "I apologize, but I was unable to generate a response. Please try your question again."
+            
             content_lines = response_text.split('\n')
             
             # Try to identify reasoning sections

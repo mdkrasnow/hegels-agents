@@ -1,313 +1,266 @@
-# Training Layer Implementation Subagent Specifications
+# Subagent Specifications for Parallel Implementation
 
-## Mission Overview
-Implement the foundational training layer for Hegel's Agents system following the training-implementation-todo.md plan. Focus on Phase 1 Foundation Layer tasks that can be executed in parallel to maximize development velocity.
+## Overview
+This document defines 5 specialized subagents for parallel execution of independent implementation tasks across both the training layer and core system enhancement.
 
-## Deployment Strategy
-Deploy 5 specialized subagents to work on independent Phase 1 tasks concurrently. Each subagent follows a build-with-review cycle and reports structured results to the orchestrator.
+## Orchestrator-Subagent Communication Protocol
 
----
-
-## Subagent 1: Data Structures Architect
-**Task**: T1.1 - Define Core Data Structures  
-**Dependencies**: `[]` (No dependencies, can start immediately)  
-**File**: `src/training/data_structures.py`
-
-### Mission
-Create the foundational data structures for the training system, ensuring backward compatibility with existing AgentResponse while adding training capabilities.
-
-### Implementation Requirements
-- Create `RolePrompt`, `PromptProfile`, `TrainingStep` dataclasses
-- Extend existing `AgentResponse` with training metadata compatibility
-- Implement JSON serialization/deserialization
-- Use UUIDs for all profile IDs
-- Follow existing naming conventions (snake_case)
-
-### Success Criteria
-- [ ] All data structures properly typed with dataclasses
-- [ ] Serialization/deserialization to/from JSON works
-- [ ] Validates against existing AgentResponse interface (src/agents/utils.py:18)
-- [ ] Comprehensive unit tests with edge cases
-- [ ] Zero impact on existing AgentResponse usage
-
-### Critical Integration Points
-- Must work with existing `AgentResponse` in `src/agents/utils.py:18`
-- Should leverage `ConfigManager` pattern from `src/config/settings.py`
-- Integrate with `AgentLogger.log_response()` method
-
-### Build-With-Review Cycle
-1. **Analysis**: Read existing AgentResponse and related code
-2. **Design**: Create data structure specifications
-3. **Implementation**: Write dataclasses with full typing
-4. **Testing**: Create comprehensive unit tests
-5. **Integration**: Validate compatibility with existing code
-6. **Review**: Self-assess completeness and quality
-
-### Confidence Scoring
-Report confidence (0.0-1.0) on:
-- Backward compatibility preservation
-- JSON serialization robustness
-- Integration with existing logging
-- Test coverage completeness
-
----
-
-## Subagent 2: Database Schema Designer
-**Task**: T1.2 - Create Database Schema  
-**Dependencies**: `[]` (No dependencies, can start immediately)  
-**File**: `src/training/schema.sql` and migration scripts
-
-### Mission
-Design and implement the PostgreSQL/Supabase database schema for training data persistence, ensuring optimal performance and compatibility with existing infrastructure.
-
-### Implementation Requirements
-- Create training tables following the plan specifications
-- Add proper indexes for expected query patterns
-- Include JSONB indexes for prompt content searches
-- Create migration and rollback scripts
-- Use timestamptz consistently with existing patterns
-
-### Success Criteria
-- [ ] Schema creates successfully on clean database
-- [ ] All foreign key relationships properly defined
-- [ ] Indexes optimized for expected query patterns
-- [ ] Migration scripts handle existing data gracefully
-- [ ] Rollback scripts tested and working
-
-### Critical Integration Points
-- Leverage `DatabaseConfig` class in `src/config/settings.py:33`
-- Use existing environment variable `SUPABASE_DB_URL`
-- Plan for existing Supabase setup compatibility
-
-### Build-With-Review Cycle
-1. **Analysis**: Study existing database patterns and configuration
-2. **Design**: Create schema with performance considerations
-3. **Implementation**: Write SQL schema and migration scripts
-4. **Testing**: Test on clean database instance
-5. **Integration**: Validate with existing database config
-6. **Review**: Performance analysis and rollback testing
-
-### Confidence Scoring
-Report confidence (0.0-1.0) on:
-- Schema completeness and correctness
-- Index optimization effectiveness
-- Migration script reliability
-- Rollback procedure safety
-
----
-
-## Subagent 3: Profile Store Engineer
-**Task**: T1.3 - Implement PromptProfileStore  
-**Dependencies**: `[T1.1, T1.2]` (Requires data structures and schema)  
-**File**: `src/training/profile_store.py`
-
-### Mission
-Build the critical database persistence layer for prompt profiles with proper error handling, connection pooling, and transaction management.
-
-### Implementation Requirements
-- Implement all CRUD operations per the interface specification
-- Use existing database configuration patterns
-- Implement connection pooling for concurrent access
-- Add comprehensive error handling with logging
-- Use transactions for multi-table operations
-
-### Success Criteria
-- [ ] All CRUD operations work correctly
-- [ ] Connection pooling implemented properly
-- [ ] Error handling with proper logging
-- [ ] Comprehensive integration tests
-- [ ] Performance tests for concurrent access
-
-### Critical Integration Points
-- Use `get_config().get_database_url()` for connection
-- Leverage existing logging patterns from `AgentLogger`
-- Follow error handling patterns from `src/config/settings.py`
-
-### Build-With-Review Cycle
-1. **Analysis**: Study existing database usage patterns
-2. **Design**: Plan connection management and error handling
-3. **Implementation**: Build store with full CRUD operations
-4. **Testing**: Create integration and performance tests
-5. **Integration**: Validate with existing configuration
-6. **Review**: Test error conditions and concurrent access
-
-### Confidence Scoring
-Report confidence (0.0-1.0) on:
-- CRUD operation reliability
-- Error handling robustness
-- Performance under load
-- Integration completeness
-
----
-
-## Subagent 4: Trainer Wrapper Architect
-**Task**: T1.4 - Create HegelTrainer Wrapper (Read-Only Mode)  
-**Dependencies**: `[T1.3]` (Requires profile store)  
-**File**: `src/training/hegel_trainer.py`
-
-### Mission
-Create the main training wrapper that preserves existing functionality while adding training capabilities. Critical that grad=False mode produces identical results to current system.
-
-### Implementation Requirements
-- Wrap existing agents without modifying their classes
-- Ensure grad=False behaves exactly like current system
-- Integrate with existing DebateSession and AgentLogger
-- Maintain exact API compatibility
-- Add comprehensive logging of all operations
-
-### Success Criteria
-- [ ] `grad=False` mode produces identical results to current system
-- [ ] No performance regression in inference mode
-- [ ] Proper integration with existing `BasicWorkerAgent` and `BasicReviewerAgent`
-- [ ] All existing tests still pass
-- [ ] Comprehensive logging of all operations
-
-### Critical Integration Points
-- Wrap existing `BasicWorkerAgent` from `src/agents/worker.py`
-- Integrate with `DebateSession` from `src/debate/session.py`
-- Use `AgentLogger` patterns for comprehensive logging
-
-### Build-With-Review Cycle
-1. **Analysis**: Study existing agent and debate patterns
-2. **Design**: Plan wrapper architecture for zero impact
-3. **Implementation**: Build wrapper with composition approach
-4. **Testing**: Validate identical behavior to existing system
-5. **Integration**: Test with all existing functionality
-6. **Review**: Performance analysis and compatibility verification
-
-### Confidence Scoring
-Report confidence (0.0-1.0) on:
-- Backward compatibility guarantee
-- Performance preservation
-- Integration completeness
-- API compatibility maintenance
-
----
-
-## Subagent 5: Agent Factory Engineer
-**Task**: T1.5 - Create Agent Factory with Profile Configuration  
-**Dependencies**: `[T1.4]` (Requires trainer wrapper)  
-**File**: `src/training/agent_factory.py`
-
-### Mission
-Build the configurable agent factory that can create agents with custom prompts while preserving all existing functionality and initialization patterns.
-
-### Implementation Requirements
-- Create agents with custom prompts from profiles
-- Preserve all existing agent functionality
-- Use composition or monkey patching (not inheritance)
-- Handle Gemini API configuration through existing patterns
-- Maintain agent logging with existing AgentLogger
-
-### Success Criteria
-- [ ] Agents created with custom prompts behave correctly
-- [ ] All existing agent functionality preserved
-- [ ] Dynamic prompt injection works reliably
-- [ ] Agents properly configured with temperature, max_tokens
-- [ ] Factory maintains agent lifecycle properly
-
-### Critical Integration Points
-- Don't modify existing agent classes
-- Preserve agent initialization patterns from existing code
-- Handle Gemini API configuration through existing `get_config()`
-- Maintain agent logging with existing `AgentLogger` patterns
-
-### Build-With-Review Cycle
-1. **Analysis**: Study existing agent initialization and configuration
-2. **Design**: Plan factory pattern for dynamic configuration
-3. **Implementation**: Build factory with proper lifecycle management
-4. **Testing**: Test agent creation and behavior preservation
-5. **Integration**: Validate with existing agent patterns
-6. **Review**: Verify no breaking changes to existing functionality
-
-### Confidence Scoring
-Report confidence (0.0-1.0) on:
-- Agent functionality preservation
-- Dynamic configuration reliability
-- Lifecycle management correctness
-- Integration completeness
-
----
-
-## Orchestrator Reporting Protocol
-
-### Task Completion Report Format
-Each subagent must submit a structured completion report in JSON format:
-
+### Input Format
+Each subagent receives:
 ```json
 {
-  "agent_id": "data_structures_architect",
-  "task_id": "T1.1",
-  "status": "completed" | "partial" | "failed",
-  "confidence_scores": {
-    "overall_completion": 0.85,
-    "backward_compatibility": 0.90,
-    "test_coverage": 0.80,
-    "integration_quality": 0.75
-  },
-  "deliverables": [
-    {
-      "file": "src/training/data_structures.py",
-      "status": "completed",
-      "lines_of_code": 245,
-      "test_coverage": 0.95
-    }
-  ],
-  "success_criteria_met": [
-    "All data structures properly typed with dataclasses",
-    "JSON serialization/deserialization implemented"
-  ],
-  "success_criteria_partial": [
-    "Integration with AgentLogger - basic implementation done, edge cases need review"
-  ],
-  "success_criteria_failed": [],
-  "issues_discovered": [
-    "AgentResponse datetime handling inconsistency - needs standardization",
-    "Potential UUID collision in concurrent scenarios - added uuid4() with timestamp"
-  ],
-  "persistent_issues": [
-    "Complex metadata serialization may impact performance - monitoring needed"
-  ],
-  "implementation_notes": [
-    "Used dataclass inheritance for backward compatibility",
-    "Added validation decorators for robust serialization",
-    "Comprehensive unit tests cover all edge cases"
-  ],
-  "review_recommendations": [
-    "Review datetime handling standardization across codebase",
-    "Performance test large metadata objects",
-    "Validate UUID generation strategy under load"
-  ],
-  "next_dependencies": [
-    "T1.3 can proceed with these data structures",
-    "Consider integration testing with existing AgentResponse usage"
-  ]
+    "task_id": "unique_identifier",
+    "description": "Clear task description",
+    "success_criteria": ["criterion1", "criterion2"],
+    "dependencies": ["completed_task_ids"],
+    "implementation_notes": ["specific guidance"],
+    "integration_points": ["existing code to integrate with"],
+    "confidence_target": 0.9
 }
 ```
 
-### Completion Scoring System
-Rate each aspect from 0.0 to 1.0:
-- **0.0-0.3**: Significant issues, needs major rework
-- **0.4-0.6**: Functional but has known issues needing attention
-- **0.7-0.8**: Good implementation with minor issues
-- **0.9-1.0**: Excellent implementation, ready for production
+### Output Format
+Each subagent returns:
+```json
+{
+    "task_id": "unique_identifier", 
+    "status": "completed|partial|failed",
+    "confidence_score": 0.95,
+    "completion_percentage": 100,
+    "implementation_summary": "What was completed",
+    "files_created": ["file1", "file2"],
+    "files_modified": ["file3", "file4"],  
+    "test_results": {
+        "tests_run": 15,
+        "tests_passed": 14,
+        "failures": ["test_name: reason"]
+    },
+    "integration_status": "All existing functionality preserved",
+    "issues_encountered": [
+        {
+            "issue": "Description",
+            "severity": "low|medium|high|critical",
+            "resolved": true,
+            "impact": "Description of impact"
+        }
+    ],
+    "follow_up_needed": ["Task requiring future attention"],
+    "performance_metrics": {
+        "execution_time": "45 minutes",
+        "code_coverage": "98%",
+        "backward_compatibility": "100%"
+    }
+}
+```
 
-### Uncertainty and Issue Documentation
-Subagents must be honest about:
-- **Partial implementations**: What works vs what needs more work
-- **Known issues**: Document all discovered problems
-- **Confidence levels**: Real assessment of implementation quality
-- **Review needs**: Specific areas requiring closer examination
+## Subagent Definitions
 
-### Communication Protocol
-1. **Progress Updates**: Every 30 minutes during active work
-2. **Blocking Issues**: Immediate escalation if unable to proceed
-3. **Completion Reports**: Full structured report upon task completion
-4. **Cross-Dependencies**: Notify when outputs are ready for dependent tasks
+### Subagent 1: Database Infrastructure Specialist
+**Focus**: Training layer database implementation and data persistence
+
+**Capabilities**: 
+- Database schema design and migration scripts
+- SQL optimization and indexing
+- Data persistence and retrieval systems  
+- Transaction management and error handling
+- Database testing and validation
+
+**Available Tools**: Read, Write, Edit, MultiEdit, Bash, Grep, Glob, Touch, Cat, Echo
+
+**Assignment**: Complete T1.3 (PromptProfileStore implementation)
+
+### Subagent 2: Agent Architecture Specialist  
+**Focus**: Training layer agent factory and configuration management
+
+**Capabilities**:
+- Agent class design and factory patterns
+- Configuration management and dependency injection
+- API integration and error handling
+- Agent lifecycle management
+- Testing and validation frameworks
+
+**Available Tools**: Read, Write, Edit, MultiEdit, Bash, Grep, Glob, Touch, Cat, Echo
+
+**Assignment**: Complete T1.5 (Agent Factory with Profile Configuration)
+
+### Subagent 3: Validation & Security Specialist
+**Focus**: Security controls, validation, and testing infrastructure
+
+**Capabilities**: 
+- Security implementation and audit
+- API cost controls and rate limiting
+- Validation framework design
+- Testing infrastructure and CI/CD
+- Error handling and monitoring
+
+**Available Tools**: Read, Write, Edit, MultiEdit, Bash, Grep, Glob, Touch, Cat, Echo
+
+**Assignment**: Implement Pre-Testing Security & Cost Controls for Phase 0.5 validation
+
+### Subagent 4: RAG Enhancement Specialist
+**Focus**: Retrieval system improvements and corpus management
+
+**Capabilities**:
+- Search and retrieval system optimization
+- Embedding and similarity search
+- Corpus processing and management
+- Performance optimization
+- Integration testing
+
+**Available Tools**: Read, Write, Edit, MultiEdit, Bash, Grep, Glob, Touch, Cat, Echo
+
+**Assignment**: Implement Phase 1a file-based retrieval enhancements
+
+### Subagent 5: Evaluation & Metrics Specialist
+**Focus**: Evaluation frameworks and performance measurement
+
+**Capabilities**:
+- Metrics design and statistical analysis
+- Benchmark creation and validation
+- Performance measurement and reporting
+- A/B testing frameworks
+- Research methodology and documentation
+
+**Available Tools**: Read, Write, Edit, MultiEdit, Bash, Grep, Glob, Touch, Cat, Echo
+
+**Assignment**: Implement comprehensive evaluation pipeline and baseline measurement
+
+## Task Allocation Strategy
+
+### Immediate Priority Tasks (Ready to Execute)
+
+**Subagent 1 - Database**: 
+- Task: T1.3 PromptProfileStore implementation
+- Dependencies: T1.1 ✅, T1.2 ✅ (both completed)  
+- Confidence Target: 95%
+- Estimated Duration: 2-3 hours
+
+**Subagent 2 - Agent Factory**:
+- Task: T1.5 Agent Factory with Profile Configuration  
+- Dependencies: T1.4 ✅ (completed)
+- Confidence Target: 90%
+- Estimated Duration: 1.5-2 hours
+
+**Subagent 3 - Security**:
+- Task: Pre-Testing Security & Cost Controls
+- Dependencies: None (independent security task)
+- Confidence Target: 98% 
+- Estimated Duration: 1-2 hours
+
+**Subagent 4 - RAG Enhancement**:
+- Task: Phase 1a File-Based Retrieval Validation
+- Dependencies: Phase 0.5 ✅ (completed)
+- Confidence Target: 90%
+- Estimated Duration: 2-3 hours
+
+**Subagent 5 - Evaluation**:
+- Task: Enhanced evaluation pipeline and baseline metrics
+- Dependencies: Phase 0.5 ✅ (completed)
+- Confidence Target: 95%
+- Estimated Duration: 2-2.5 hours
+
+### Build-with-Review Process
+
+Each subagent must follow this process:
+
+1. **Analysis Phase** (10-15 mins):
+   - Read and understand existing codebase patterns
+   - Identify integration points and dependencies
+   - Plan implementation approach
+   - Estimate complexity and potential issues
+
+2. **Implementation Phase** (60-90% of time):
+   - Write code following existing patterns and conventions
+   - Implement comprehensive error handling
+   - Add detailed logging and documentation
+   - Follow security best practices
+
+3. **Testing Phase** (15-20% of time):
+   - Write unit tests for new functionality
+   - Run integration tests with existing system
+   - Verify backward compatibility
+   - Test error conditions and edge cases
+
+4. **Review Phase** (10-15 mins):
+   - Self-review code for quality and security
+   - Verify all success criteria are met
+   - Document any issues or follow-up needed
+   - Prepare structured status report
+
+### Quality Standards
+
+**Code Quality**:
+- Follow existing codebase patterns and naming conventions
+- Add comprehensive docstrings and comments
+- Implement proper error handling with meaningful messages
+- Use type hints throughout
+
+**Testing Requirements**:
+- Minimum 90% code coverage for new code
+- All existing tests must continue to pass
+- Add integration tests for cross-component functionality
+- Test error conditions and edge cases
+
+**Security Requirements**:
+- No hardcoded secrets or API keys
+- Proper input validation and sanitization  
+- Follow principle of least privilege
+- Log security-relevant events appropriately
+
+**Performance Standards**:
+- No performance regression in existing functionality
+- Optimize for common use cases
+- Monitor memory usage and API costs
+- Add performance benchmarks where appropriate
+
+### Integration Requirements
+
+**Backward Compatibility**:
+- All existing APIs must continue to work unchanged
+- Existing configuration must remain valid
+- No breaking changes to data structures
+- Migration paths for any schema changes
+
+**Documentation**:
+- Update relevant README files
+- Add inline code documentation  
+- Document new configuration options
+- Provide usage examples
+
+**Monitoring**:
+- Add appropriate logging statements
+- Include performance metrics collection
+- Implement health checks where relevant
+- Add error reporting and alerting hooks
 
 ## Success Metrics
-- All Phase 1 Foundation Layer tasks completed with >0.7 overall confidence
-- Zero regression in existing functionality (all tests pass)
-- Clear documentation of implementation decisions and trade-offs
-- Honest assessment of areas needing further review or improvement
-- Structured handoff to enable Phase 2 work to begin immediately
+
+### Individual Task Success
+- **Completion**: All success criteria met with ≥90% confidence
+- **Testing**: All tests pass, ≥90% code coverage achieved
+- **Integration**: Zero impact on existing functionality
+- **Documentation**: Implementation properly documented
+- **Security**: No security vulnerabilities introduced
+
+### Overall Success  
+- **Parallelization Effectiveness**: 5 tasks completed simultaneously
+- **Quality Maintenance**: All existing tests continue to pass
+- **Progress Acceleration**: Significant advancement toward next phase
+- **Knowledge Transfer**: Clear documentation of what was completed
+- **Issue Transparency**: Honest reporting of remaining challenges
+
+## Risk Mitigation
+
+### Technical Risks
+- **Integration Conflicts**: Each subagent tests integration immediately
+- **Resource Conflicts**: Subagents work on independent components
+- **Quality Degradation**: Mandatory self-review and testing phases
+- **Security Issues**: Dedicated security specialist subagent
+
+### Coordination Risks  
+- **Communication Overhead**: Structured input/output format
+- **Dependency Confusion**: Clear dependency tracking in specifications
+- **Progress Uncertainty**: Regular structured status updates
+- **Scope Creep**: Clearly defined success criteria and boundaries
+
+This specification enables effective parallel development while maintaining code quality, security, and system integrity throughout the implementation process.

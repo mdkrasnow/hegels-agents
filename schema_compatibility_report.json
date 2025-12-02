@@ -1,0 +1,32 @@
+{
+  "timestamp": "2024-12-02T15:50:00Z",
+  "overall_status": "FAIL",
+  "test_results": {
+    "Model Compatibility": {
+      "status": "FAIL",
+      "error": null
+    },
+    "Required Indexes": {
+      "status": "PASS",
+      "error": null
+    },
+    "Database Constraints": {
+      "status": "PASS",
+      "error": null
+    },
+    "JSONB Features": {
+      "status": "PASS",
+      "error": null
+    },
+    "Database Functions": {
+      "status": "PASS",
+      "error": null
+    }
+  },
+  "summary": {
+    "total_tests": 5,
+    "passed": 4,
+    "failed": 1,
+    "errors": 0
+  }
+}

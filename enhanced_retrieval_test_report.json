@@ -1,0 +1,742 @@
+{
+  "timestamp": "2025-12-02 16:57:29",
+  "corpus_directory": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+  "test_results": {
+    "setup": {
+      "setup_time": 0.15461516380310059,
+      "enhanced_retriever_ready": true,
+      "baseline_retriever_ready": true,
+      "enhanced_stats": {
+        "status": "ready",
+        "ready": true,
+        "chunks": 153,
+        "files": 12,
+        "vocabulary_size": 3434,
+        "index_features": {
+          "phrase_index": true,
+          "positional_index": true,
+          "bm25_scoring": true,
+          "semantic_chunking": true
+        },
+        "cache": {
+          "enabled": true,
+          "size": 0,
+          "limit": 1000
+        }
+      },
+      "baseline_stats": {
+        "status": "loaded",
+        "indexed": true,
+        "files": {
+          "total": 12,
+          "by_extension": {
+            ".txt": 12
+          }
+        },
+        "chunks": {
+          "total": 106,
+          "avg_size": 768.0849056603773,
+          "min_size": 157,
+          "max_size": 950
+        },
+        "content": {
+          "total_length": 84616,
+          "avg_file_length": 7051.333333333333
+        },
+        "search": {
+          "method": "hybrid",
+          "vocabulary_size": 3363
+        },
+        "index_metadata": {
+          "created_at": "2025-12-02T16:57:26.624091",
+          "files_loaded": 12,
+          "total_chunks": 106,
+          "loading_time": 0.010823,
+          "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+          "chunk_size": 800,
+          "chunk_overlap": 150,
+          "indexed_at": "2025-12-02T16:57:26.634591",
+          "indexing_time": 0.010473,
+          "search_method": "hybrid"
+        }
+      }
+    },
+    "enhanced_features": {
+      "feature_tests": [
+        {
+          "query": "quantum mechanics uncertainty principle wave particle",
+          "description": "Complex physics query testing BM25 and phrase matching",
+          "query_time": 0.04286313056945801,
+          "num_results": 10,
+          "feature_analysis": {
+            "has_quality_scores": true,
+            "similarity_distribution": {
+              "min": 1.0,
+              "max": 1.0,
+              "avg": 1.0,
+              "std": 0.0
+            },
+            "content_diversity": 0.5,
+            "feature_evidence": [
+              "multi_score_combination",
+              "phrase_matching",
+              "multi_score_combination",
+              "phrase_matching",
+              "multi_score_combination",
+              "phrase_matching"
+            ]
+          },
+          "top_similarities": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "quality_scores": [
+            1.0,
+            0.9444444444444445,
+            0.8888888888888888
+          ]
+        },
+        {
+          "query": "machine learning neural networks deep learning",
+          "description": "Multi-term query testing positional indexing",
+          "query_time": 0.04160189628601074,
+          "num_results": 10,
+          "feature_analysis": {
+            "has_quality_scores": true,
+            "similarity_distribution": {
+              "min": 1.0,
+              "max": 1.0,
+              "avg": 1.0,
+              "std": 0.0
+            },
+            "content_diversity": 0.5,
+            "feature_evidence": [
+              "multi_score_combination",
+              "phrase_matching",
+              "multi_score_combination",
+              "phrase_matching",
+              "multi_score_combination",
+              "phrase_matching"
+            ]
+          },
+          "top_similarities": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "quality_scores": [
+            0.8888888888888888,
+            0.8888888888888888,
+            0.8333333333333334
+          ]
+        },
+        {
+          "query": "evolution natural selection species adaptation",
+          "description": "Biology query testing quality validation",
+          "query_time": 0.07393121719360352,
+          "num_results": 10,
+          "feature_analysis": {
+            "has_quality_scores": true,
+            "similarity_distribution": {
+              "min": 1.0,
+              "max": 1.0,
+              "avg": 1.0,
+              "std": 0.0
+            },
+            "content_diversity": 0.3,
+            "feature_evidence": [
+              "multi_score_combination",
+              "phrase_matching",
+              "multi_score_combination",
+              "phrase_matching",
+              "multi_score_combination",
+              "phrase_matching"
+            ]
+          },
+          "top_similarities": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "quality_scores": [
+            0.9333333333333332,
+            0.9333333333333332,
+            0.9333333333333332
+          ]
+        }
+      ],
+      "enhanced_features_working": true,
+      "avg_query_time": 0.05279874801635742
+    },
+    "quality_comparison": {
+      "comparison_results": [
+        {
+          "query": "quantum physics uncertainty principle Heisenberg",
+          "enhanced": {
+            "num_results": 10,
+            "avg_similarity": 1.0,
+            "top_similarity": 1.0,
+            "quality_score": 0.36000000000000004
+          },
+          "baseline": {
+            "num_results": 10,
+            "avg_similarity": 0.07731648621219656,
+            "top_similarity": 0.3482932435306475,
+            "quality_score": 0.3200000000000001
+          },
+          "improvements": {
+            "similarity_improvement": 0.9226835137878034,
+            "quality_improvement": 0.039999999999999925,
+            "result_count_change": 0
+          }
+        },
+        {
+          "query": "evolution natural selection Darwin species origin",
+          "enhanced": {
+            "num_results": 10,
+            "avg_similarity": 1.0,
+            "top_similarity": 1.0,
+            "quality_score": 0.4166666666666667
+          },
+          "baseline": {
+            "num_results": 10,
+            "avg_similarity": 0.08740333926074881,
+            "top_similarity": 0.23444402138485324,
+            "quality_score": 0.35
+          },
+          "improvements": {
+            "similarity_improvement": 0.9125966607392512,
+            "quality_improvement": 0.06666666666666671,
+            "result_count_change": 0
+          }
+        },
+        {
+          "query": "machine learning algorithms neural networks deep",
+          "enhanced": {
+            "num_results": 10,
+            "avg_similarity": 1.0,
+            "top_similarity": 1.0,
+            "quality_score": 0.29999999999999993
+          },
+          "baseline": {
+            "num_results": 10,
+            "avg_similarity": 0.050165098544201855,
+            "top_similarity": 0.15111602160861062,
+            "quality_score": 0.2666666666666666
+          },
+          "improvements": {
+            "similarity_improvement": 0.9498349014557982,
+            "quality_improvement": 0.033333333333333326,
+            "result_count_change": 0
+          }
+        },
+        {
+          "query": "philosophy ethics moral virtue consequentialism",
+          "enhanced": {
+            "num_results": 10,
+            "avg_similarity": 1.0,
+            "top_similarity": 1.0,
+            "quality_score": 0.4600000000000001
+          },
+          "baseline": {
+            "num_results": 10,
+            "avg_similarity": 0.10902990028841546,
+            "top_similarity": 0.20791777879156337,
+            "quality_score": 0.4
+          },
+          "improvements": {
+            "similarity_improvement": 0.8909700997115846,
+            "quality_improvement": 0.06000000000000005,
+            "result_count_change": 0
+          }
+        },
+        {
+          "query": "mathematics calculus derivative integral limit",
+          "enhanced": {
+            "num_results": 10,
+            "avg_similarity": 1.0,
+            "top_similarity": 1.0,
+            "quality_score": 0.3200000000000001
+          },
+          "baseline": {
+            "num_results": 8,
+            "avg_similarity": 0.07759914078474076,
+            "top_similarity": 0.17800123831674716,
+            "quality_score": 0.3
+          },
+          "improvements": {
+            "similarity_improvement": 0.9224008592152593,
+            "quality_improvement": 0.02000000000000013,
+            "result_count_change": 2
+          }
+        }
+      ],
+      "overall_improvements": {
+        "avg_similarity_improvement": 0.9196972069819394,
+        "avg_quality_improvement": 0.044000000000000025,
+        "queries_tested": 5
+      },
+      "quality_better": true
+    },
+    "performance_comparison": {
+      "enhanced_performance": {
+        "avg_time": 0.05291337966918945,
+        "max_time": 0.09339308738708496,
+        "min_time": 0.035661935806274414,
+        "total_time": 0.26456689834594727
+      },
+      "baseline_performance": {
+        "avg_time": 0.0013784408569335938,
+        "max_time": 0.0015878677368164062,
+        "min_time": 0.0010471343994140625,
+        "total_time": 0.006892204284667969
+      },
+      "performance_overhead": 0.051534938812255855,
+      "acceptable_overhead": true
+    },
+    "validation": {
+      "validation_successful": true,
+      "validation_report": {
+        "timestamp": "2025-12-02T16:57:29.432125",
+        "validation_summary": {
+          "total_tests": 3,
+          "passed_tests": 3,
+          "avg_score": 1.0,
+          "all_passed": true
+        },
+        "validation_details": [
+          {
+            "test_name": "corpus_structure",
+            "passed": true,
+            "score": 1.0,
+            "details": {
+              "checks": {
+                "has_chunks": true,
+                "has_files": true,
+                "has_vocabulary": true,
+                "status_ready": true
+              },
+              "stats": {
+                "status": "ready",
+                "ready": true,
+                "chunks": 153,
+                "files": 12,
+                "vocabulary_size": 3434,
+                "index_features": {
+                  "phrase_index": true,
+                  "positional_index": true,
+                  "bm25_scoring": true,
+                  "semantic_chunking": true
+                },
+                "performance": {
+                  "queries": 13,
+                  "avg_retrieval_time": 0.05251033489520733,
+                  "avg_embedding_time": 0.0,
+                  "avg_results_per_query": 9.692307692307692,
+                  "avg_similarity_score": 1.0,
+                  "cache_hit_rate": 0.0,
+                  "total_retrieval_time": 0.6826343536376953,
+                  "total_embedding_time": 0.0
+                },
+                "cache": {
+                  "enabled": true,
+                  "size": 13,
+                  "limit": 1000
+                }
+              },
+              "passed_checks": 4,
+              "total_checks": 4
+            },
+            "timestamp": "2025-12-02T16:57:27.335498"
+          },
+          {
+            "test_name": "retrieval_functionality",
+            "passed": true,
+            "score": 1.0,
+            "details": {
+              "test_queries": [
+                "quantum mechanics",
+                "evolution biology",
+                "machine learning",
+                "philosophy ethics",
+                "mathematics calculus"
+              ],
+              "results_summary": [
+                {
+                  "query": "quantum mechanics",
+                  "num_results": 5,
+                  "avg_similarity": 1.0,
+                  "max_similarity": 1.0,
+                  "has_results": true
+                },
+                {
+                  "query": "evolution biology",
+                  "num_results": 5,
+                  "avg_similarity": 1.0,
+                  "max_similarity": 1.0,
+                  "has_results": true
+                },
+                {
+                  "query": "machine learning",
+                  "num_results": 5,
+                  "avg_similarity": 1.0,
+                  "max_similarity": 1.0,
+                  "has_results": true
+                },
+                {
+                  "query": "philosophy ethics",
+                  "num_results": 5,
+                  "avg_similarity": 1.0,
+                  "max_similarity": 1.0,
+                  "has_results": true
+                },
+                {
+                  "query": "mathematics calculus",
+                  "num_results": 5,
+                  "avg_similarity": 1.0,
+                  "max_similarity": 1.0,
+                  "has_results": true
+                }
+              ],
+              "queries_with_results": 5
+            },
+            "timestamp": "2025-12-02T16:57:27.335517"
+          },
+          {
+            "test_name": "performance_thresholds",
+            "passed": true,
+            "score": 1.0,
+            "details": {
+              "avg_time": 0.05472354888916016,
+              "max_time": 0.08256411552429199,
+              "avg_results": 10.0,
+              "thresholds": {
+                "avg_time_under_1s": true,
+                "max_time_under_2s": true,
+                "avg_results_above_3": true
+              },
+              "timings": [
+                0.042844295501708984,
+                0.04188871383666992,
+                0.08256411552429199,
+                0.0655827522277832,
+                0.04073786735534668
+              ],
+              "result_counts": [
+                10,
+                10,
+                10,
+                10,
+                10
+              ]
+            },
+            "timestamp": "2025-12-02T16:57:27.550114"
+          }
+        ],
+        "quality_metrics": {
+          "precision_at_k": [
+            1.0,
+            0.9444444444444443,
+            0.9333333333333332,
+            0.8000000000000002
+          ],
+          "recall_at_k": [
+            0.3333333333333333,
+            0.9444444444444443,
+            1.0,
+            1.0
+          ],
+          "f1_at_k": [
+            0.5,
+            0.9444444444444443,
+            0.9583333333333334,
+            0.8819659442724458
+          ],
+          "ndcg_at_k": [
+            1.0,
+            0.9960166355966013,
+            0.9871435425951663,
+            0.9829627986883617
+          ],
+          "mean_reciprocal_rank": 1.0,
+          "average_precision": 0.9481880406483582
+        },
+        "quality_report": {
+          "timestamp": "2025-12-02T16:57:28.190903",
+          "overall_assessment": {
+            "mrr": {
+              "score": 1.0,
+              "level": "Excellent"
+            },
+            "map": {
+              "score": 0.9481880406483582,
+              "level": "Excellent"
+            }
+          },
+          "precision_analysis": [
+            {
+              "k": 1,
+              "score": 1.0,
+              "level": "Excellent"
+            },
+            {
+              "k": 3,
+              "score": 0.9444444444444443,
+              "level": "Excellent"
+            },
+            {
+              "k": 5,
+              "score": 0.9333333333333332,
+              "level": "Excellent"
+            },
+            {
+              "k": 10,
+              "score": 0.8000000000000002,
+              "level": "Excellent"
+            }
+          ],
+          "recall_analysis": [
+            {
+              "k": 1,
+              "score": 0.3333333333333333,
+              "level": "Poor"
+            },
+            {
+              "k": 3,
+              "score": 0.9444444444444443,
+              "level": "Excellent"
+            },
+            {
+              "k": 5,
+              "score": 1.0,
+              "level": "Excellent"
+            },
+            {
+              "k": 10,
+              "score": 1.0,
+              "level": "Excellent"
+            }
+          ],
+          "f1_analysis": [
+            {
+              "k": 1,
+              "score": 0.5,
+              "level": "Fair"
+            },
+            {
+              "k": 3,
+              "score": 0.9444444444444443,
+              "level": "Excellent"
+            },
+            {
+              "k": 5,
+              "score": 0.9583333333333334,
+              "level": "Excellent"
+            },
+            {
+              "k": 10,
+              "score": 0.8819659442724458,
+              "level": "Excellent"
+            }
+          ],
+          "ndcg_analysis": [
+            {
+              "k": 1,
+              "score": 1.0,
+              "level": "Excellent"
+            },
+            {
+              "k": 3,
+              "score": 0.9960166355966013,
+              "level": "Excellent"
+            },
+            {
+              "k": 5,
+              "score": 0.9871435425951663,
+              "level": "Excellent"
+            },
+            {
+              "k": 10,
+              "score": 0.9829627986883617,
+              "level": "Excellent"
+            }
+          ],
+          "system_quality": {
+            "overall_score": 0.9016525720099604,
+            "overall_level": "Excellent",
+            "strengths": [
+              "High ranking quality (good MRR)",
+              "Good precision - relevant results",
+              "Good recall - finds relevant documents"
+            ],
+            "weaknesses": [],
+            "recommendations": []
+          }
+        },
+        "performance_benchmarks": {
+          "timestamp": "2025-12-02T16:57:29.432111",
+          "retriever_type": "EnhancedFileCorpusRetriever",
+          "results": {
+            "single_term": {
+              "query_type": "single_term",
+              "queries_tested": 4,
+              "timings": [
+                0.03360104560852051,
+                0.046997785568237305,
+                0.03640294075012207,
+                0.039769887924194336
+              ],
+              "result_counts": [
+                6,
+                10,
+                10,
+                10
+              ],
+              "avg_similarities": [
+                1.0,
+                0.9783868976737026,
+                1.0,
+                1.0
+              ],
+              "avg_time": 0.039192914962768555,
+              "max_time": 0.046997785568237305,
+              "min_time": 0.03360104560852051,
+              "avg_results": 9.0,
+              "avg_similarity": 0.9945967244184256
+            },
+            "phrase": {
+              "query_type": "phrase",
+              "queries_tested": 3,
+              "timings": [
+                0.036232948303222656,
+                0.037197113037109375,
+                0.04573225975036621
+              ],
+              "result_counts": [
+                8,
+                9,
+                10
+              ],
+              "avg_similarities": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "avg_time": 0.039720773696899414,
+              "max_time": 0.04573225975036621,
+              "min_time": 0.036232948303222656,
+              "avg_results": 9.0,
+              "avg_similarity": 1.0
+            },
+            "complex": {
+              "query_type": "complex",
+              "queries_tested": 3,
+              "timings": [
+                0.1008000373840332,
+                0.13337016105651855,
+                0.05743694305419922
+              ],
+              "result_counts": [
+                10,
+                10,
+                10
+              ],
+              "avg_similarities": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "avg_time": 0.09720238049825032,
+              "max_time": 0.13337016105651855,
+              "min_time": 0.05743694305419922,
+              "avg_results": 10.0,
+              "avg_similarity": 1.0
+            },
+            "scalability": {
+              "test_query": "artificial intelligence machine learning neural networks",
+              "k_values": [
+                1,
+                5,
+                10,
+                20,
+                50,
+                100
+              ],
+              "timings": [
+                0.04877805709838867,
+                0.04794788360595703,
+                0.04783296585083008,
+                0.04806113243103027,
+                0.04816174507141113,
+                0.09282302856445312
+              ],
+              "actual_results": [
+                1,
+                5,
+                10,
+                16,
+                16,
+                16
+              ]
+            },
+            "memory": {
+              "baseline_rss_mb": 57.1875,
+              "baseline_vms_mb": 401699.0625,
+              "max_rss_mb": 57.328125,
+              "max_vms_mb": 401699.0625,
+              "memory_increase_mb": 0.140625,
+              "queries_tested": 25
+            }
+          }
+        },
+        "overall_assessment": {
+          "validation_status": "PASS",
+          "quality_level": "Excellent",
+          "performance_acceptable": "True",
+          "ready_for_production": "True"
+        }
+      },
+      "production_ready": "True"
+    },
+    "integration": {
+      "compatibility_tests": [
+        {
+          "test": "retrieve_interface",
+          "passed": true,
+          "details": "Returned 5 RetrievalResult objects"
+        },
+        {
+          "test": "interface_compliance",
+          "passed": true,
+          "details": "Stats: <class 'dict'>, Ready: True, Valid query: True"
+        },
+        {
+          "test": "result_format",
+          "passed": true,
+          "details": "Fields present: True, Valid similarity: True"
+        }
+      ],
+      "compatibility_score": 1.0,
+      "fully_compatible": true
+    }
+  },
+  "assessment": {
+    "overall_score": 1.0,
+    "status": "PASS",
+    "criteria": {
+      "setup_successful": true,
+      "enhanced_features_working": true,
+      "quality_improvements": true,
+      "performance_acceptable": true,
+      "validation_passed": true,
+      "integration_compatible": true
+    }
+  }
+}

@@ -17,6 +17,7 @@ from typing import Dict, Any, Optional, Union
 from dataclasses import dataclass
 from pathlib import Path
 import yaml
+from dotenv import load_dotenv
 
 
 # Setup logging
@@ -53,6 +54,31 @@ class APIConfig:
             raise ConfigurationError("Gemini API key cannot be empty")
         if len(self.gemini_api_key) < 10:  # Basic length validation
             raise ConfigurationError("Gemini API key appears to be invalid")
+
+
+@dataclass
+class SecurityConfig:
+    """Security configuration container."""
+    enable_rate_limiting: bool = True
+    enable_cost_monitoring: bool = True
+    enable_input_validation: bool = True
+    enable_security_logging: bool = True
+    
+    # Rate limiting settings
+    max_requests_per_minute: int = 60
+    max_requests_per_hour: int = 1000
+    max_daily_cost: float = 100.0
+    
+    # Security logging
+    security_log_path: str = "logs/security_events.log"
+    log_sensitive_data: bool = False
+    
+    def validate(self) -> None:
+        """Validate security configuration."""
+        if self.max_requests_per_minute <= 0:
+            raise ConfigurationError("Max requests per minute must be positive")
+        if self.max_daily_cost < 0:
+            raise ConfigurationError("Max daily cost cannot be negative")
 
 
 @dataclass
@@ -96,6 +122,7 @@ class ConfigManager:
         self.database: Optional[DatabaseConfig] = None
         self.api: Optional[APIConfig] = None
         self.app: Optional[AppConfig] = None
+        self.security: Optional[SecurityConfig] = None
     
     def load_configuration(self, validate: bool = True) -> None:
         """
@@ -130,6 +157,9 @@ class ConfigManager:
     
     def _load_from_environment(self) -> None:
         """Load configuration from environment variables."""
+        # Load environment variables from .env file
+        load_dotenv()
+        
         # Required environment variables
         required_vars = {
             'GEMINI_API_KEY': 'Gemini API key for AI model access',
@@ -154,7 +184,14 @@ class ConfigManager:
         optional_vars = {
             'ENVIRONMENT': 'development',
             'DEBUG': 'false',
-            'LOG_LEVEL': 'INFO'
+            'LOG_LEVEL': 'INFO',
+            'ENABLE_RATE_LIMITING': 'true',
+            'ENABLE_COST_MONITORING': 'true',
+            'ENABLE_INPUT_VALIDATION': 'true',
+            'ENABLE_SECURITY_LOGGING': 'true',
+            'MAX_REQUESTS_PER_MINUTE': '60',
+            'MAX_DAILY_COST': '100.0',
+            'SECURITY_LOG_PATH': 'logs/security_events.log'
         }
         
         for var_name, default_value in optional_vars.items():
@@ -194,16 +231,28 @@ class ConfigManager:
             debug=self._config_cache.get('debug', 'false').lower() == 'true',
             log_level=self._config_cache.get('log_level', 'INFO').upper()
         )
+        
+        # Security configuration
+        self.security = SecurityConfig(
+            enable_rate_limiting=self._config_cache.get('enable_rate_limiting', 'true').lower() == 'true',
+            enable_cost_monitoring=self._config_cache.get('enable_cost_monitoring', 'true').lower() == 'true',
+            enable_input_validation=self._config_cache.get('enable_input_validation', 'true').lower() == 'true',
+            enable_security_logging=self._config_cache.get('enable_security_logging', 'true').lower() == 'true',
+            max_requests_per_minute=int(self._config_cache.get('max_requests_per_minute', '60')),
+            max_daily_cost=float(self._config_cache.get('max_daily_cost', '100.0')),
+            security_log_path=self._config_cache.get('security_log_path', 'logs/security_events.log')
+        )
     
     def validate_configuration(self) -> None:
         """Validate all configuration objects."""
-        if not self.database or not self.api or not self.app:
+        if not self.database or not self.api or not self.app or not self.security:
             raise ConfigurationError("Configuration objects must be initialized before validation")
         
         try:
             self.database.validate()
             self.api.validate()
             self.app.validate()
+            self.security.validate()
             logger.info("Configuration validation successful")
         except Exception as e:
             raise ConfigurationError(f"Configuration validation failed: {e}")

@@ -99,6 +99,16 @@ Your final synthesis should be more comprehensive, accurate, and well-reasoned t
                     temperature=0.6,  # Slightly lower temperature for more focused analysis
                 )
             )
+            
+            # Check for None response or None text
+            if response is None:
+                self.logger.log_error(None, "Gemini API returned None response")
+                return "I apologize, but I received an empty response from the AI service. Unable to provide evaluation. Score: 5/10"
+            
+            if response.text is None:
+                self.logger.log_error(None, "Gemini API returned response with None text content")  
+                return "I apologize, but the AI service response contained no text content. Unable to provide evaluation. Score: 5/10"
+            
             return response.text
         except Exception as e:
             self.logger.log_error(e, "Gemini API call failed")
