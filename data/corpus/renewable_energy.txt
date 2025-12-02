@@ -1,0 +1,55 @@
+Renewable Energy: Technologies and Transition
+
+Renewable energy comes from sources that are naturally replenished on a human timescale, including sunlight, wind, rain, tides, waves, and geothermal heat. The transition to renewable energy is crucial for addressing climate change and building a sustainable energy future.
+
+Solar Energy
+
+Solar power harnesses energy from the sun using two main technologies.
+
+Photovoltaic (PV) systems convert sunlight directly into electricity using semiconductor materials. When photons from sunlight hit a solar cell, they knock electrons loose from atoms, generating an electric current. Solar panel efficiency has improved dramatically while costs have plummeted, making solar one of the cheapest sources of new electricity generation.
+
+Concentrated solar power (CSP) uses mirrors or lenses to concentrate sunlight onto receivers that collect the solar energy and convert it to heat, which can then generate electricity through a steam turbine.
+
+Solar energy is now the fastest-growing source of new electricity generation globally. Challenges include intermittency (no generation at night), seasonal variation, and land use requirements.
+
+Wind Energy
+
+Wind turbines convert the kinetic energy of wind into electricity. Modern utility-scale wind turbines can have rotor diameters exceeding 150 meters and generate several megawatts of power.
+
+Onshore wind is now cost-competitive with fossil fuels in many regions. Offshore wind, while more expensive, offers stronger and more consistent winds, higher capacity factors, and less visual impact.
+
+Wind energy faces challenges including intermittency, visual and noise concerns, impacts on birds and bats, and the need for transmission infrastructure from windy areas to population centers.
+
+Hydroelectric Power
+
+Hydroelectric power generates electricity by using flowing water to spin turbines. It is the largest source of renewable electricity globally.
+
+Conventional hydroelectric uses dams to create reservoirs, controlling water flow through turbines. Run-of-river systems generate power from the natural flow of rivers without large reservoirs. Pumped-storage hydroelectric stores energy by pumping water uphill when electricity is abundant and releasing it through turbines when needed.
+
+While hydroelectric provides reliable, dispatchable power, large dams have environmental impacts including ecosystem disruption, methane emissions from reservoirs, and displacement of communities.
+
+Geothermal Energy
+
+Geothermal energy harnesses heat from the Earth's interior. This can be used directly for heating or to generate electricity using steam from underground reservoirs.
+
+Geothermal power plants have high capacity factors and provide baseload power, but are geographically limited to areas with accessible geothermal resources. Enhanced geothermal systems (EGS) could expand geothermal potential by creating artificial reservoirs.
+
+Energy Storage
+
+Because wind and solar are intermittent, energy storage is essential for a high-renewable energy system. Storage technologies include battery storage, particularly lithium-ion batteries, which is growing rapidly for grid and vehicle applications. Pumped hydro storage remains the largest form of grid storage globally. Compressed air energy storage stores energy by compressing air in underground caverns. Hydrogen can be produced using excess renewable electricity and stored for later use.
+
+Grid Integration
+
+Integrating high levels of variable renewable energy requires grid modernization, including smart grids that use digital technology to manage electricity flow, transmission expansion to connect renewable resources to demand centers, demand response programs that shift electricity use to match supply, and interconnection between regions to balance supply and demand.
+
+Economic Transition
+
+The renewable energy transition creates both opportunities and challenges. Clean energy jobs are growing rapidly, with solar and wind employment now exceeding fossil fuel employment in some countries. However, communities dependent on fossil fuel industries face economic disruption requiring just transition policies.
+
+Renewable energy costs have fallen dramatically. Solar PV costs have dropped by over 90% since 2010, and onshore wind costs have fallen by over 70%. This trend is expected to continue.
+
+The Path Forward
+
+Achieving climate goals requires rapid acceleration of renewable energy deployment. This will require continued technology innovation and cost reduction, supportive policies and regulatory frameworks, infrastructure investment in transmission and storage, international cooperation on technology transfer and financing, and addressing social and environmental impacts thoughtfully.
+
+The renewable energy transition represents one of the largest economic and industrial transformations in human history, offering the opportunity to build a cleaner, more sustainable, and more equitable energy system.

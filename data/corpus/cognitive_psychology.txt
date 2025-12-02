@@ -1,0 +1,63 @@
+Cognitive Psychology: Understanding the Mind
+
+Cognitive psychology is the scientific study of mental processes including attention, memory, perception, problem-solving, creativity, and language. It seeks to understand how people acquire, process, and store information.
+
+Historical Background
+
+Cognitive psychology emerged in the 1950s and 1960s as a reaction against behaviorism, which focused only on observable behavior and rejected the study of mental processes. The cognitive revolution was influenced by developments in information theory, computer science, and linguistics.
+
+Key figures in the cognitive revolution include Ulric Neisser, who coined the term "cognitive psychology," Noam Chomsky, whose critique of behaviorist approaches to language was highly influential, and Herbert Simon and Allen Newell, who pioneered computational approaches to cognition.
+
+Memory Systems
+
+Memory is not a single system but comprises multiple interrelated systems.
+
+Sensory memory briefly holds information from the senses for a very short time (less than a second for visual information). It acts as a buffer for incoming sensory information.
+
+Short-term memory (or working memory) holds a limited amount of information (about 7 plus or minus 2 items) for a short period (about 15-30 seconds without rehearsal). Working memory is actively involved in manipulating information during cognitive tasks.
+
+Long-term memory stores information for extended periods, potentially a lifetime. It includes explicit memory (conscious recall of facts and events) and implicit memory (unconscious influences on behavior and performance).
+
+The process of forming long-term memories involves encoding (creating a memory trace), consolidation (stabilizing the memory), storage (maintaining the memory over time), and retrieval (accessing the stored memory).
+
+Attention
+
+Attention is the cognitive process of selectively concentrating on relevant information while ignoring irrelevant information. It is essential for perception, memory, and action.
+
+Selective attention allows us to focus on specific stimuli while filtering out distractions. The cocktail party effect, our ability to follow a single conversation in a noisy room, demonstrates selective attention.
+
+Divided attention refers to our ability to process multiple sources of information simultaneously. This ability is limited, and dividing attention typically impairs performance on individual tasks.
+
+Attention can be captured automatically by certain stimuli (bottom-up attention) or directed voluntarily based on goals (top-down attention).
+
+Perception
+
+Perception is the process of organizing and interpreting sensory information to understand the environment. It involves both bottom-up processing (building perceptions from sensory input) and top-down processing (using knowledge and expectations to interpret input).
+
+Gestalt principles describe how we organize visual elements into groups or wholes. These include principles like proximity (grouping nearby elements), similarity (grouping similar elements), and closure (perceiving complete shapes even when incomplete).
+
+Perception is an active, constructive process influenced by expectations, context, and prior knowledge. This can lead to perceptual illusions when interpretation mechanisms are misapplied.
+
+Problem Solving and Decision Making
+
+Cognitive psychology studies how people solve problems and make decisions.
+
+Problem-solving strategies include algorithms (systematic procedures that guarantee a solution), heuristics (mental shortcuts that usually work but can lead to errors), and insight (sudden realization of a solution).
+
+Decision-making research has identified systematic biases in human judgment. Kahneman and Tversky's work on heuristics and biases showed that people often rely on mental shortcuts that can lead to predictable errors. Their work earned Kahneman the Nobel Prize in Economics.
+
+Language and Cognition
+
+Language is a uniquely human cognitive ability involving the comprehension and production of complex meaningful expressions.
+
+Psycholinguistics studies how people acquire, produce, and understand language. Key topics include language acquisition in children, sentence processing, speech production, and reading.
+
+The relationship between language and thought remains debated. While language influences thought in some ways, the extent of this influence (linguistic relativity) is still being investigated.
+
+Applications
+
+Cognitive psychology has applications in education, where understanding memory and learning improves teaching methods; in human-computer interaction, where cognitive principles inform interface design; in clinical psychology, where cognitive approaches treat depression, anxiety, and other disorders; in law, where research on memory informs understanding of eyewitness testimony; and in artificial intelligence, where cognitive models inspire computational systems.
+
+Current Directions
+
+Modern cognitive psychology increasingly integrates with neuroscience, using brain imaging to understand the neural basis of cognition. Computational modeling provides precise theories of cognitive processes. The field continues to explore how cognition develops across the lifespan, varies across cultures, and is affected by individual differences.

@@ -140,11 +140,13 @@ tmp/
 temp/
 *.tmp
 
-# Corpus data (can be large)
-corpus/
-corpus_data/
-sample_corpus/
-test_corpus/
+# Corpus data (can be large) - only top-level, not src/corpus/
+/corpus/
+/corpus_data/
+/sample_corpus/
+/test_corpus/
+# Allow the corpus module in src
+!src/corpus/
 
 # Embeddings cache (can be large)
 embeddings/

@@ -1,0 +1,2 @@
+# This file ensures the data directory is tracked by git
+# The corpus cache will be stored in data/.corpus_cache (git-ignored)
