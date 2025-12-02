@@ -51,7 +51,7 @@ Focus on being helpful, accurate, and thorough in your analysis."""
         # Configure Gemini API
         config = get_config()
         self.client = genai.Client(api_key=config.get_gemini_api_key())
-        self.model_name = 'gemini-1.5-flash'
+        self.model_name = 'gemini-2.5-flash'
         
         # Simple text corpus for basic retrieval (can be extended)
         self.knowledge_base: List[str] = []

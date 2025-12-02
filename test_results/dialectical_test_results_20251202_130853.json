@@ -1,0 +1,56 @@
+{
+  "timestamp": "2025-12-02T13:08:53.221521",
+  "summary_statistics": {
+    "num_tests": 2,
+    "improvement_scores": {
+      "mean": -0.05,
+      "median": -0.05,
+      "stdev": 0.07071067811865475,
+      "min": -0.1,
+      "max": 0.0
+    },
+    "quality_scores": {
+      "single_agent": {
+        "mean": 1.5,
+        "median": 1.5,
+        "stdev": 0.7071067811865476
+      },
+      "dialectical": {
+        "mean": 1.0,
+        "median": 1.0,
+        "stdev": 0.0
+      }
+    },
+    "performance": {
+      "single_agent_time": {
+        "mean": 11.369006395339966,
+        "median": 11.369006395339966
+      },
+      "dialectical_time": {
+        "mean": 31.94971799850464,
+        "median": 31.94971799850464
+      },
+      "time_overhead_ratio": 2.810247165627463
+    },
+    "improvement_analysis": {
+      "positive_improvements": 0,
+      "negative_improvements": 1,
+      "neutral_improvements": 1,
+      "positive_percentage": 0.0,
+      "mean_positive_improvement": 0.0,
+      "mean_negative_improvement": -0.1
+    },
+    "conflicts_and_synthesis": {
+      "conflicts_identified_count": 2,
+      "mean_synthesis_effectiveness": 0.8333333333333334
+    }
+  },
+  "hypothesis_validation": {
+    "hypothesis_supported": false,
+    "mean_improvement": -0.05,
+    "positive_improvement_rate": 0.0,
+    "effect_size": -0.7071067811865476,
+    "statistical_significance": {
+      "t_statistic": -1.0,
+      "p_value": 0.49999999999999956,
+      "significant_at_05": 

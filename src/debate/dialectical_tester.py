@@ -174,72 +174,38 @@ class DialecticalTester:
         Returns:
             Quality score (1-10)
         """
-        try:
-            # Use reviewer to evaluate quality
-            evaluation_prompt = f"""
-            {self.quality_evaluation_prompt}
-            
-            Response to evaluate:
-            {response.content}
-            
-            Reasoning provided: {response.reasoning or 'None'}
-            """
-            
-            evaluation = self.reviewer._make_gemini_call(evaluation_prompt)
-            
-            # Extract numeric score
+        evaluation_prompt = f"""
+        {self.quality_evaluation_prompt}
+        
+        Response to evaluate:
+        {response.content}
+        
+        Reasoning provided: {response.reasoning or 'None'}
+        """
+        
+        # Try evaluation with one retry
+        for attempt in range(2):
             try:
-                # Try to extract just the number
-                score_str = ''.join(filter(str.isdigit, evaluation.strip()))
-                if score_str:
-                    score = float(score_str[0])  # Take first digit as score
-                    return max(1.0, min(10.0, score))  # Clamp to 1-10
-                else:
-                    return 5.0  # Default if no number found
-            except (ValueError, IndexError):
-                return 5.0  # Default if parsing fails
+                evaluation = self.reviewer._make_gemini_call(evaluation_prompt)
                 
-        except Exception as e:
-            print(f"Error evaluating quality (using heuristic): {e}")
-            # Fallback: Use heuristic quality evaluation
-            return self._heuristic_quality_evaluation(response)
-    
-    def _heuristic_quality_evaluation(self, response: AgentResponse) -> float:
-        """
-        Fallback heuristic quality evaluation when API calls fail.
-        
-        Args:
-            response: Response to evaluate
-            
-        Returns:
-            Quality score (1-10) based on heuristics
-        """
-        score = 5.0  # Base score
-        
-        # Length factor (comprehensive responses tend to be better)
-        content_length = len(response.content)
-        if content_length > 500:
-            score += 1.0
-        elif content_length > 200:
-            score += 0.5
-        
-        # Reasoning factor
-        if response.reasoning and len(response.reasoning) > 50:
-            score += 1.0
-        
-        # Confidence factor (when available)
-        if response.confidence:
-            if response.confidence > 0.8:
-                score += 0.5
-            elif response.confidence < 0.3:
-                score -= 0.5
-        
-        # Structure indicators
-        if any(indicator in response.content.lower() for indicator in 
-               ['however', 'therefore', 'because', 'analysis', 'evidence']):
-            score += 0.5
-        
-        return max(1.0, min(10.0, score))
+                # Extract numeric score
+                try:
+                    # Try to extract just the number
+                    score_str = ''.join(filter(str.isdigit, evaluation.strip()))
+                    if score_str:
+                        score = float(score_str[0])  # Take first digit as score
+                        return max(1.0, min(10.0, score))  # Clamp to 1-10
+                    else:
+                        return 5.0  # Default if no number found
+                except (ValueError, IndexError):
+                    return 5.0  # Default if parsing fails
+                    
+            except Exception as e:
+                if attempt == 0:
+                    print(f"AI quality evaluation attempt {attempt + 1} failed: {e}. Retrying...")
+                    continue
+                else:
+                    raise RuntimeError(f"AI quality evaluation failed after 2 attempts: {e}. Test cannot proceed without reliable quality assessment.")
     
     def calculate_improvement_score(self, single_score: float, dialectical_score: float) -> float:
         """
@@ -353,6 +319,7 @@ class DialecticalTester:
     def _calculate_summary_statistics(self, results: List[DialecticalTestResult]) -> Dict[str, Any]:
         """Calculate summary statistics from test results."""
         if not results:
+            print("Warning: No test results provided for statistics calculation")
             return {}
         
         improvement_scores = [r.improvement_score for r in results]
@@ -394,13 +361,13 @@ class DialecticalTester:
                     'mean': statistics.mean(dialectical_times),
                     'median': statistics.median(dialectical_times)
                 },
-                'time_overhead_ratio': statistics.mean(dialectical_times) / statistics.mean(single_times)
+                'time_overhead_ratio': statistics.mean(dialectical_times) / statistics.mean(single_times) if single_times and statistics.mean(single_times) > 0 else 1.0
             },
             'improvement_analysis': {
                 'positive_improvements': len(positive_improvements),
                 'negative_improvements': len(negative_improvements),
                 'neutral_improvements': len(improvement_scores) - len(positive_improvements) - len(negative_improvements),
-                'positive_percentage': len(positive_improvements) / len(results) * 100,
+                'positive_percentage': len(positive_improvements) / len(results) * 100 if results else 0.0,
                 'mean_positive_improvement': statistics.mean(positive_improvements) if positive_improvements else 0.0,
                 'mean_negative_improvement': statistics.mean(negative_improvements) if negative_improvements else 0.0
             },

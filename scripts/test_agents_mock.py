@@ -215,7 +215,7 @@ def test_mock_reviewer_synthesis():
         # Validate synthesis
         assert synthesis.content, "Synthesis should have content"
         assert synthesis.metadata['num_responses_synthesized'] == 2
-        assert 'gemini-1.5-flash' in synthesis.sources
+        assert 'gemini-2.5-flash' in synthesis.sources
         
         # Verify API was called
         mock_models.generate_content.assert_called_once()

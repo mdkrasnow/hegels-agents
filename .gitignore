@@ -106,7 +106,7 @@ dmypy.json
 # =============================================================================
 
 # Environment variables (contains secrets)
-.env*
+.env
 .envrc
 
 # API keys and secrets

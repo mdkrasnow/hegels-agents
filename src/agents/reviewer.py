@@ -76,7 +76,7 @@ Your final synthesis should be more comprehensive, accurate, and well-reasoned t
         # Configure Gemini API
         config = get_config()
         self.client = genai.Client(api_key=config.get_gemini_api_key())
-        self.model_name = 'gemini-1.5-flash'
+        self.model_name = 'gemini-2.5-flash'
         
         self.logger.log_debug("BasicReviewerAgent initialized")
     

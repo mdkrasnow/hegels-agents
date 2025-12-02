@@ -39,6 +39,17 @@ def setup_test_environment():
     """
     print("Setting up dialectical test environment...")
     
+    # Load configuration first
+    from config.settings import load_config
+    try:
+        config = load_config()
+        print(f"✅ Configuration loaded successfully")
+        print(f"✅ API key configured: {bool(config.get_gemini_api_key())}")
+        print(f"✅ Database configured: {bool(config.get_database_url())}")
+    except Exception as e:
+        print(f"❌ Configuration loading failed: {e}")
+        raise
+    
     # Check corpus availability
     corpus_dir = Path(__file__).parent.parent / "corpus_data"
     if not corpus_dir.exists():
@@ -102,10 +113,46 @@ def run_validation_test(num_questions: int = None,
     
     # Save results if output directory specified
     if output_dir:
-        save_test_results(test_suite, output_dir, verbose)
+        try:
+            save_test_results(test_suite, output_dir, verbose)
+        except Exception as save_error:
+            print(f"Warning: Failed to save results: {save_error}")
+            print("Test results are still available in memory for summary display")
     
     return test_suite
 
+
+def make_json_serializable(obj):
+    """
+    Convert objects to JSON serializable format.
+    
+    Args:
+        obj: Object to convert
+        
+    Returns:
+        JSON serializable version of the object
+    """
+    # Handle numpy boolean types
+    if hasattr(obj, '__class__') and 'bool_' in str(obj.__class__):
+        return bool(obj)
+    # Handle numpy numeric types
+    elif hasattr(obj, '__class__') and any(x in str(obj.__class__) for x in ['int_', 'float_', 'number']):
+        return float(obj) if 'float' in str(obj.__class__) else int(obj)
+    # Handle regular Python types
+    elif isinstance(obj, dict):
+        return {k: make_json_serializable(v) for k, v in obj.items()}
+    elif isinstance(obj, (list, tuple)):
+        return [make_json_serializable(item) for item in obj]
+    # Handle basic JSON serializable types
+    elif isinstance(obj, (str, int, float, bool)) or obj is None:
+        return obj
+    # For anything else, try to convert to string as a fallback
+    else:
+        try:
+            json.dumps(obj)  # Test if it's already serializable
+            return obj
+        except (TypeError, ValueError):
+            return str(obj)
 
 def save_test_results(test_suite: DialecticalTestSuite, 
                      output_dir: str, 
@@ -127,7 +174,7 @@ def save_test_results(test_suite: DialecticalTestSuite,
     results_file = output_path / f"dialectical_test_results_{timestamp}.json"
     
     # Convert test suite to serializable format
-    serializable_results = {
+    raw_results = {
         'timestamp': test_suite.timestamp.isoformat(),
         'summary_statistics': test_suite.summary_statistics,
         'hypothesis_validation': test_suite.hypothesis_validation,
@@ -162,6 +209,9 @@ def save_test_results(test_suite: DialecticalTestSuite,
             for result in test_suite.test_results
         ]
     }
+    
+    # Ensure all values are JSON serializable
+    serializable_results = make_json_serializable(raw_results)
     
     with open(results_file, 'w') as f:
         json.dump(serializable_results, f, indent=2)
