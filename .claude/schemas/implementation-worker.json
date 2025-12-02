@@ -1,0 +1,490 @@
+{
+    "TaskAssignment": {
+        "description": "Written by Orchestrator, read by Worker. Placed at .claude/work/parallel/task-{id}-assignment.json",
+        "schema": {
+            "task_id": "string (unique identifier from todo list)",
+            "task_description": "string (full description from todo)",
+            "affected_files": [
+                "array of file paths expected to be modified"
+            ],
+            "dependencies_met": "boolean (whether prerequisites are satisfied)",
+            "context": {
+                "related_todos": [
+                    "array of other relevant todo items"
+                ],
+                "architectural_notes": "string (key context from plan)",
+                "constraints": [
+                    "array of specific requirements"
+                ]
+            },
+            "output_path": "string (where worker should write results)"
+        },
+        "example": {
+            "task_id": "auth-error-handling",
+            "task_description": "Add comprehensive error handling to authentication flow",
+            "affected_files": [
+                "src/auth/authService.ts",
+                "src/auth/middleware.ts",
+                "src/types/errors.ts"
+            ],
+            "dependencies_met": true,
+            "context": {
+                "related_todos": [
+                    "Implement token refresh",
+                    "Add session management"
+                ],
+                "architectural_notes": "Follow existing error handling patterns in api/ directory. Use centralized error types.",
+                "constraints": [
+                    "Must not break existing authentication flow",
+                    "Should log errors without exposing sensitive data",
+                    "Need to handle network failures gracefully"
+                ]
+            },
+            "output_path": ".claude/work/parallel/task-auth-error-handling-result.json"
+        }
+    },
+    "TaskResult": {
+        "description": "Written by Worker, read by Orchestrator. Placed at .claude/work/parallel/task-{id}-result.json",
+        "schema": {
+            "task_id": "string",
+            "status": "enum: 'completed' | 'partial' | 'blocked' | 'failed'",
+            "confidence": "number (0.0 to 1.0)",
+            "confidence_reasoning": "string (explain why this confidence level)",
+            "work_completed": [
+                {
+                    "description": "string (what was accomplished)",
+                    "files_modified": [
+                        "array of file paths"
+                    ],
+                    "rationale": "string (why this work was necessary)",
+                    "verification": "string (how we know it works)",
+                    "confidence_this_part": "number (0.0 to 1.0)",
+                    "caveats": [
+                        "array of known limitations (optional)"
+                    ]
+                }
+            ],
+            "work_remaining": [
+                {
+                    "description": "string (what still needs work)",
+                    "why_incomplete": "string (reason it wasn't finished)",
+                    "estimated_effort": "string (time estimate)",
+                    "blocking_factor": "string (what's preventing completion - optional)"
+                }
+            ],
+            "issues_encountered": [
+                {
+                    "severity": "enum: 'critical' | 'high' | 'medium' | 'low'",
+                    "description": "string (issue detail)",
+                    "persistent": "boolean (still a problem?)",
+                    "impact": "string (effect on system)",
+                    "workaround": "string (if any - optional)",
+                    "location": "string (file:line - optional)"
+                }
+            ],
+            "potential_future_issues": [
+                {
+                    "concern": "string (what might break)",
+                    "likelihood": "enum: 'high' | 'medium' | 'low'",
+                    "mitigation": "string (how to address)",
+                    "context": "string (additional info - optional)"
+                }
+            ],
+            "review_notes": {
+                "needs_close_review": [
+                    "array of areas for human review"
+                ],
+                "functional_areas": [
+                    "array of what's working well"
+                ],
+                "fragile_areas": [
+                    "array of what's risky"
+                ]
+            },
+            "git_changes": {
+                "files_added": [
+                    "array of file paths"
+                ],
+                "files_modified": [
+                    "array of file paths"
+                ],
+                "files_deleted": [
+                    "array of file paths"
+                ],
+                "lines_added": "number (optional)",
+                "lines_removed": "number (optional)"
+            },
+            "testing_performed": {
+                "manual_tests": [
+                    "array of test descriptions"
+                ],
+                "automated_tests": [
+                    "array of test descriptions"
+                ],
+                "edge_cases_tested": [
+                    "array of scenarios covered"
+                ],
+                "edge_cases_not_tested": [
+                    "array of scenarios missed"
+                ]
+            },
+            "architectural_notes": {
+                "patterns_followed": [
+                    "array of existing patterns used"
+                ],
+                "patterns_introduced": [
+                    "array of new patterns added"
+                ],
+                "tradeoffs_made": [
+                    {
+                        "decision": "string (what was decided)",
+                        "rationale": "string (why)",
+                        "downside": "string (what was sacrificed)"
+                    }
+                ]
+            },
+            "metadata": {
+                "start_time": "string (ISO-8601 timestamp)",
+                "end_time": "string (ISO-8601 timestamp)",
+                "duration_minutes": "number",
+                "approach_changes": [
+                    "array of strategy pivots - optional"
+                ]
+            }
+        },
+        "example_completed": {
+            "task_id": "auth-error-handling",
+            "status": "completed",
+            "confidence": 0.88,
+            "confidence_reasoning": "Implemented comprehensive error handling with multiple test scenarios. Main uncertainty is around less common edge cases like malformed tokens.",
+            "work_completed": [
+                {
+                    "description": "Added try-catch blocks to all authentication methods",
+                    "files_modified": [
+                        "src/auth/authService.ts"
+                    ],
+                    "rationale": "Original code threw unhandled exceptions on network failures",
+                    "verification": "Tested with network offline, invalid credentials, expired tokens",
+                    "confidence_this_part": 0.92,
+                    "caveats": [
+                        "Did not test every possible HTTP error code"
+                    ]
+                },
+                {
+                    "description": "Created typed error classes for authentication failures",
+                    "files_modified": [
+                        "src/types/errors.ts"
+                    ],
+                    "rationale": "Enables type-safe error handling and better error messages",
+                    "verification": "All error types tested, TypeScript compilation succeeds",
+                    "confidence_this_part": 0.95
+                }
+            ],
+            "work_remaining": [],
+            "issues_encountered": [
+                {
+                    "severity": "low",
+                    "description": "ESLint warning about unused error parameter in catch block",
+                    "persistent": false,
+                    "impact": "Code quality only, no runtime effect",
+                    "workaround": "Added underscore prefix to satisfy linter"
+                }
+            ],
+            "potential_future_issues": [
+                {
+                    "concern": "Error messages might be too technical for end users",
+                    "likelihood": "medium",
+                    "mitigation": "Should review with UX team and potentially add user-friendly message mapping",
+                    "context": "Currently exposing technical error types directly"
+                }
+            ],
+            "review_notes": {
+                "needs_close_review": [
+                    "Error message content for security implications",
+                    "Integration with existing error boundaries"
+                ],
+                "functional_areas": [
+                    "Network failure handling",
+                    "Invalid credential handling",
+                    "Token expiration handling"
+                ],
+                "fragile_areas": [
+                    "Assumes specific error object structure from fetch",
+                    "Log redaction logic might miss new sensitive fields"
+                ]
+            },
+            "git_changes": {
+                "files_added": [],
+                "files_modified": [
+                    "src/auth/authService.ts",
+                    "src/auth/middleware.ts",
+                    "src/types/errors.ts"
+                ],
+                "files_deleted": [],
+                "lines_added": 87,
+                "lines_removed": 15
+            },
+            "testing_performed": {
+                "manual_tests": [
+                    "Network offline scenario",
+                    "Invalid username/password",
+                    "Expired JWT token",
+                    "Malformed request body"
+                ],
+                "automated_tests": [
+                    "Ran existing auth test suite - all 23 tests passed"
+                ],
+                "edge_cases_tested": [
+                    "Network timeout",
+                    "500 server error",
+                    "401 unauthorized"
+                ],
+                "edge_cases_not_tested": [
+                    "429 rate limiting",
+                    "503 service unavailable",
+                    "Partial response body",
+                    "Corrupted JWT token structure"
+                ]
+            },
+            "architectural_notes": {
+                "patterns_followed": [
+                    "Existing error handling in api/ directory",
+                    "Centralized error type definitions"
+                ],
+                "patterns_introduced": [
+                    "AuthenticationError class hierarchy",
+                    "Error redaction utility function"
+                ],
+                "tradeoffs_made": [
+                    {
+                        "decision": "Used class-based errors instead of discriminated unions",
+                        "rationale": "Matches existing codebase patterns, easier integration",
+                        "downside": "Less type-safe than Result type approach, instanceof checks needed"
+                    }
+                ]
+            },
+            "metadata": {
+                "start_time": "2024-12-02T14:30:00Z",
+                "end_time": "2024-12-02T16:15:00Z",
+                "duration_minutes": 105,
+                "approach_changes": [
+                    "Initially planned custom Error subclasses, switched to extending standard Error for better stack traces"
+                ]
+            }
+        },
+        "example_partial": {
+            "task_id": "user-profile-refactor",
+            "status": "partial",
+            "confidence": 0.62,
+            "confidence_reasoning": "Completed basic refactoring but encountered unexpected complexity with avatar handling. Core functionality works but several edge cases remain unclear.",
+            "work_completed": [
+                {
+                    "description": "Extracted user profile logic into separate service",
+                    "files_modified": [
+                        "src/services/userProfileService.ts",
+                        "src/components/UserProfile.tsx"
+                    ],
+                    "rationale": "Separation of concerns, makes testing easier",
+                    "verification": "Basic profile display and edit work in development",
+                    "confidence_this_part": 0.75,
+                    "caveats": [
+                        "Only tested happy path scenarios"
+                    ]
+                }
+            ],
+            "work_remaining": [
+                {
+                    "description": "Avatar upload and caching logic",
+                    "why_incomplete": "Existing avatar system is more complex than expected - uses CDN with complex caching rules",
+                    "estimated_effort": "4-6 hours",
+                    "blocking_factor": "Need to understand CDN invalidation strategy"
+                },
+                {
+                    "description": "Profile validation rules",
+                    "why_incomplete": "Found inconsistent validation between backend and frontend",
+                    "estimated_effort": "2-3 hours"
+                }
+            ],
+            "issues_encountered": [
+                {
+                    "severity": "high",
+                    "description": "TypeScript errors in avatar component after refactor",
+                    "persistent": true,
+                    "impact": "Compilation fails, blocking deployment",
+                    "location": "src/components/Avatar.tsx:67-82"
+                },
+                {
+                    "severity": "medium",
+                    "description": "Race condition when rapid profile updates",
+                    "persistent": true,
+                    "impact": "Occasional stale data displayed",
+                    "workaround": "None yet - needs proper solution"
+                }
+            ],
+            "potential_future_issues": [
+                {
+                    "concern": "Service layer might not handle offline mode correctly",
+                    "likelihood": "high",
+                    "mitigation": "Need to add offline storage and sync logic"
+                }
+            ],
+            "review_notes": {
+                "needs_close_review": [
+                    "Avatar handling - incomplete and has TypeScript errors",
+                    "State management - might have race conditions",
+                    "Validation consistency between frontend/backend"
+                ],
+                "functional_areas": [
+                    "Basic profile display",
+                    "Simple profile edit (name, email)"
+                ],
+                "fragile_areas": [
+                    "Avatar component tightly coupled to old system",
+                    "Validation logic duplicated in multiple places",
+                    "Cache invalidation not well understood"
+                ]
+            },
+            "git_changes": {
+                "files_added": [
+                    "src/services/userProfileService.ts"
+                ],
+                "files_modified": [
+                    "src/components/UserProfile.tsx",
+                    "src/components/Avatar.tsx",
+                    "src/hooks/useUserProfile.ts"
+                ],
+                "files_deleted": [],
+                "lines_added": 234,
+                "lines_removed": 156
+            },
+            "testing_performed": {
+                "manual_tests": [
+                    "Basic profile display",
+                    "Edit name and email",
+                    "Cancel edit"
+                ],
+                "automated_tests": [],
+                "edge_cases_tested": [],
+                "edge_cases_not_tested": [
+                    "Concurrent edits",
+                    "Network failures during save",
+                    "Invalid data scenarios",
+                    "Avatar upload failures"
+                ]
+            },
+            "metadata": {
+                "start_time": "2024-12-02T14:30:00Z",
+                "end_time": "2024-12-02T17:45:00Z",
+                "duration_minutes": 195,
+                "approach_changes": [
+                    "Started with full service extraction, had to pare back scope due to avatar complexity",
+                    "Attempted to fix TypeScript errors, gave up after 45min - needs deeper understanding"
+                ]
+            }
+        },
+        "example_blocked": {
+            "task_id": "payment-integration",
+            "status": "blocked",
+            "confidence": 0.0,
+            "confidence_reasoning": "Cannot proceed - multiple blocking factors prevent implementation.",
+            "work_completed": [],
+            "work_remaining": [
+                {
+                    "description": "Entire payment integration task",
+                    "why_incomplete": "Missing API credentials and unclear requirements",
+                    "estimated_effort": "Unknown until requirements clarified",
+                    "blocking_factor": "Need Stripe API keys and product decision on payment flow"
+                }
+            ],
+            "issues_encountered": [
+                {
+                    "severity": "critical",
+                    "description": "No access to Stripe API credentials",
+                    "persistent": true,
+                    "impact": "Cannot test or implement any payment functionality"
+                },
+                {
+                    "severity": "high",
+                    "description": "Ambiguous requirements - unclear if we support subscriptions or one-time payments",
+                    "persistent": true,
+                    "impact": "Cannot determine correct implementation approach"
+                }
+            ],
+            "potential_future_issues": [],
+            "review_notes": {
+                "needs_close_review": [],
+                "functional_areas": [],
+                "fragile_areas": []
+            },
+            "git_changes": {
+                "files_added": [],
+                "files_modified": [],
+                "files_deleted": []
+            },
+            "metadata": {
+                "start_time": "2024-12-02T14:30:00Z",
+                "end_time": "2024-12-02T14:45:00Z",
+                "duration_minutes": 15
+            }
+        }
+    },
+    "ConfidenceScoring": {
+        "0.9_to_1.0": {
+            "meaning": "Very High Confidence",
+            "characteristics": [
+                "Thoroughly tested",
+                "Edge cases handled",
+                "No known issues",
+                "Easy to verify correctness"
+            ]
+        },
+        "0.7_to_0.9": {
+            "meaning": "High Confidence",
+            "characteristics": [
+                "Core functionality solid",
+                "Minor uncertainties",
+                "Main scenarios tested",
+                "Would benefit from review"
+            ]
+        },
+        "0.5_to_0.7": {
+            "meaning": "Medium Confidence",
+            "characteristics": [
+                "Works in happy path",
+                "Untested edge cases",
+                "Some assumptions made",
+                "Needs testing"
+            ]
+        },
+        "0.3_to_0.5": {
+            "meaning": "Low Confidence",
+            "characteristics": [
+                "Implemented but unsure if correct",
+                "Limited testing",
+                "Many unknowns",
+                "Needs significant review"
+            ]
+        },
+        "0.0_to_0.3": {
+            "meaning": "Very Low Confidence",
+            "characteristics": [
+                "Might not work",
+                "Highly uncertain",
+                "No validation",
+                "Experimental approach"
+            ]
+        }
+    },
+    "StatusValues": {
+        "completed": "Task fully done - all requirements met, high confidence (typically >0.7), no significant work remaining",
+        "partial": "Progress made - some requirements met, work remains, or confidence is moderate/low (<0.7)",
+        "blocked": "Cannot proceed - dependencies missing, requirements unclear, access/credentials unavailable",
+        "failed": "Attempted but unsuccessful - approach doesn't work, fundamental issues discovered, needs different strategy"
+    },
+    "SeverityLevels": {
+        "critical": "Blocks deployment or breaks core functionality (compilation errors, security vulnerabilities, data loss risks)",
+        "high": "Significant impact on functionality or quality (type errors, race conditions, missing error handling)",
+        "medium": "Notable but manageable (code quality issues, minor bugs, inconsistent patterns)",
+        "low": "Minor impact (linting warnings, style issues, small optimization opportunities)"
+    }
+}

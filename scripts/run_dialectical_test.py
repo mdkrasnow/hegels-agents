@@ -220,8 +220,7 @@ def save_test_results(test_suite: DialecticalTestSuite,
     
     # Save human-readable report
     from debate.dialectical_tester import DialecticalTester
-    tester = DialecticalTester("dummy")  # Just for report generation
-    report = tester.generate_detailed_report(test_suite)
+    report = DialecticalTester.generate_detailed_report(test_suite)
     
     report_file = output_path / f"dialectical_test_report_{timestamp}.md"
     with open(report_file, 'w') as f:

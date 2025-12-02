@@ -17,6 +17,7 @@ from agents.reviewer import BasicReviewerAgent
 from agents.utils import AgentResponse
 from corpus.file_retriever import FileCorpusRetriever
 from .session import DebateSession
+from eval.blinded_evaluator import BlindedDialecticalComparison
 
 
 @dataclass
@@ -45,6 +46,7 @@ class DialecticalTestResult:
     # Metadata
     timestamp: datetime
     test_metadata: Dict[str, Any]
+    evaluation_metadata: Dict[str, Any]  # Blinded evaluation metadata
 
 
 @dataclass
@@ -92,7 +94,10 @@ class DialecticalTester:
         self.corpus_retriever.load_corpus()
         self.corpus_retriever.build_search_index()
         
-        # Test configuration
+        # Initialize blinded evaluator for fair comparison
+        self.blinded_evaluator = BlindedDialecticalComparison()
+        
+        # Test configuration (kept for backwards compatibility, but no longer used)
         self.quality_evaluation_prompt = """
         Please evaluate the quality of this response on a scale from 1-10 based on:
         1. Accuracy and factual correctness
@@ -166,7 +171,10 @@ class DialecticalTester:
     
     def evaluate_response_quality(self, response: AgentResponse) -> float:
         """
-        Evaluate response quality using reviewer agent.
+        DEPRECATED: Use blinded evaluation instead for fair comparison.
+        
+        This method is kept for backwards compatibility but should not be used
+        for new dialectical tests as it introduces evaluator bias.
         
         Args:
             response: Response to evaluate
@@ -174,38 +182,15 @@ class DialecticalTester:
         Returns:
             Quality score (1-10)
         """
-        evaluation_prompt = f"""
-        {self.quality_evaluation_prompt}
+        import warnings
+        warnings.warn(
+            "evaluate_response_quality is deprecated and biased. Use blinded evaluation instead.",
+            DeprecationWarning,
+            stacklevel=2
+        )
         
-        Response to evaluate:
-        {response.content}
-        
-        Reasoning provided: {response.reasoning or 'None'}
-        """
-        
-        # Try evaluation with one retry
-        for attempt in range(2):
-            try:
-                evaluation = self.reviewer._make_gemini_call(evaluation_prompt)
-                
-                # Extract numeric score
-                try:
-                    # Try to extract just the number
-                    score_str = ''.join(filter(str.isdigit, evaluation.strip()))
-                    if score_str:
-                        score = float(score_str[0])  # Take first digit as score
-                        return max(1.0, min(10.0, score))  # Clamp to 1-10
-                    else:
-                        return 5.0  # Default if no number found
-                except (ValueError, IndexError):
-                    return 5.0  # Default if parsing fails
-                    
-            except Exception as e:
-                if attempt == 0:
-                    print(f"AI quality evaluation attempt {attempt + 1} failed: {e}. Retrying...")
-                    continue
-                else:
-                    raise RuntimeError(f"AI quality evaluation failed after 2 attempts: {e}. Test cannot proceed without reliable quality assessment.")
+        # Simple fallback for backwards compatibility
+        return 5.0  # Neutral score
     
     def calculate_improvement_score(self, single_score: float, dialectical_score: float) -> float:
         """
@@ -244,13 +229,18 @@ class DialecticalTester:
         dialectical_response, debate_session, dialectical_time = self.run_dialectical_test(question)
         print(f"  Dialectical response time: {dialectical_time:.2f}s")
         
-        # Evaluate quality
-        single_quality = self.evaluate_response_quality(single_response)
-        dialectical_quality = self.evaluate_response_quality(dialectical_response)
-        print(f"  Quality scores - Single: {single_quality}, Dialectical: {dialectical_quality}")
+        # Evaluate quality using blinded evaluation for fairness
+        print("  Performing blinded evaluation...")
+        blinded_comparison = self.blinded_evaluator.compare_approaches(
+            question, single_response, dialectical_response
+        )
         
-        # Calculate metrics
-        improvement_score = self.calculate_improvement_score(single_quality, dialectical_quality)
+        single_quality = blinded_comparison["scores"]["single_agent"]
+        dialectical_quality = blinded_comparison["scores"]["dialectical"]
+        improvement_score = blinded_comparison["improvement"]["improvement_score"]
+        
+        print(f"  Quality scores (blinded) - Single: {single_quality}, Dialectical: {dialectical_quality}")
+        print(f"  Evaluation fairness: Independent evaluators, anonymized responses")
         
         # Create result
         result = DialecticalTestResult(
@@ -271,7 +261,8 @@ class DialecticalTester:
                 'worker_1_id': self.worker_1.agent_id,
                 'worker_2_id': self.worker_2.agent_id,
                 'reviewer_id': self.reviewer.agent_id
-            }
+            },
+            evaluation_metadata=blinded_comparison["evaluation_metadata"]
         )
         
         return result
@@ -434,7 +425,8 @@ class DialecticalTester:
             }
         }
     
-    def generate_detailed_report(self, test_suite: DialecticalTestSuite) -> str:
+    @staticmethod
+    def generate_detailed_report(test_suite: DialecticalTestSuite) -> str:
         """
         Generate a detailed analysis report of the test results.
         

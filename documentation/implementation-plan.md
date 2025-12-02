@@ -1,3 +1,5 @@
+The goal of Hegel's agents is to move from Generative AI (predicting the next word) to Reasoning AI (verifying the truth). It assumes that truth is not a static retrieval, but a process of negotiation and verification between multiple intelligent actors.
+
 Here's a concrete, research-grade implementation plan that uses **progressive enhancement architecture**:
 
 * Uses **Gemini via the Google GenAI SDK (Python)**
