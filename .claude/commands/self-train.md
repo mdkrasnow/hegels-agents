@@ -1,165 +1,361 @@
 ---
-description: Run a full self-training cycle to improve Claude Code's behavior, commands, and agents based on recent work
-argument-hint: [optional focus notes or scope]
-allowed-tools: Read, Write, Grep, Glob, Bash(git *), Bash(ls *), Bash(cat *), Bash(mkdir *)
+description: Analyze Claude's own thinking patterns and orchestration decisions to improve efficiency and strategic reasoning
+argument-hint: [mode: analyze|propose|apply|full] [scope: light|aggressive]
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash(git *), Bash(ls *), Bash(cat *)
 model: claude-sonnet-4-20250514
 ---
 
-# Self-Train Orchestrator
+# Self-Train: Meta-Cognitive Improvement System
 
-You are the SELF-TRAIN ORCHESTRATOR for this project. Your job is to help Claude Code improve itself by analyzing recent work, identifying patterns, and proposing systematic improvements.
+You are running a meta-improvement cycle to analyze and enhance Claude's own thinking, orchestration, and decision-making strategies.
 
-## Goal
+**User Request:** `$ARGUMENTS`
 
-Improve Claude Code's behavior, commands, and agents for this repo by:
-1. **Collecting** recent context (diffs, logs, config)
-2. **Analyzing** performance and proposing changes (TRAINING_PLAN)
-3. **Applying** safe edits to CLAUDE.md, commands, and agents
-4. **Logging** what was done for future reflection
+## Overview
 
-## User Focus (Optional)
+This command focuses on improving **how Claude thinks**, not just what code it produces:
+- When to use inline reasoning vs subagents vs commands
+- How to plan efficiently before acting
+- When to gather context vs when to act directly
+- How to avoid unnecessary tool calls or overly complex workflows
 
-The user provided: "$ARGUMENTS"
+This is about **meta-cognition**: Claude analyzing and improving its own processes.
 
-If the user specified a focus area, prioritize that in your analysis. Otherwise, perform a general improvement cycle.
+## Modes
 
-## High-Level Process
+Parse `$ARGUMENTS` to determine mode and scope:
 
-### Phase 1: Collection
+**Modes:**
+- `analyze` - Gather data and report on thinking patterns (read-only, safe)
+- `propose` - Generate improvement proposals without applying them (dry-run)
+- `apply` - Apply previously generated proposals (requires proposal file)
+- `full` - Complete cycle: analyze → propose → review → apply (default if no mode specified)
 
-Run the collection phase to gather context:
-1. Use `/st-collect` command to gather all relevant data
-2. The collector will produce `.claude/logs/collected-context.json` with:
-   - Recent git activity (diffs, commits)
-   - Prior self-training runs
-   - Command usage patterns
-   - Current configuration (CLAUDE.md, key commands)
-   - Any error patterns or failures
+**Scope:**
+- `light` - Only modify CLAUDE.md meta-reasoning section (default)
+- `aggressive` - Can also modify/add/remove subagents and commands
 
-### Phase 2: Analysis
+**Default:** `full light` if no arguments provided.
 
-Run the analysis phase to generate improvement proposals:
-1. Use `/st-analyze` command with the collected context
-2. The analyzer will produce `.claude/logs/training-plan.json` with:
-   - Proposed CLAUDE.md edits
-   - Command changes (create/modify/delete)
-   - Subagent changes
-   - Priority ratings for each change
+## Workflow
 
-### Phase 3: Review & Approval
+### Phase 1: Context Gathering
 
-**CRITICAL: ALWAYS SHOW THE PLAN TO THE USER BEFORE APPLYING**
+**Collect evidence about recent Claude behavior:**
 
-1. Read `.claude/logs/training-plan.json`
-2. Present a clear summary to the user:
-   - What will be changed and why
-   - Priority levels (high/medium/low)
-   - Expected impact
-3. Ask for explicit approval before proceeding
-4. User can:
-   - Approve all changes
-   - Approve only high-priority changes
-   - Approve specific changes
-   - Reject and refine
+1. **Git history** (last 20-50 commits):
+   ```bash
+   git log --oneline -50 --no-merges
+   git log -20 --format="%h %s" --grep="subagent\|command\|agent" -i
+   ```
 
-### Phase 4: Application
+2. **Current configuration:**
+   ```bash
+   ls -la .claude/commands/
+   ls -la .claude/agents/
+   cat CLAUDE.md
+   ```
 
-After user approval:
-1. Use `/st-apply` command with the approved training plan
-2. The applier will:
-   - Backup existing files
-   - Make the approved changes
-   - Log the training cycle
-   - Validate the changes
+3. **Recent interactions** (if available):
+   - Check for `.claude/logs/` directory
+   - Look for session transcripts or interaction logs
+   - Parse any available metadata about subagent invocations
 
-### Phase 5: Summary
+4. **Workspace state:**
+   ```bash
+   git status
+   git diff --stat
+   ```
+
+**What to look for:**
+- Patterns of subagent usage (over/under-utilized?)
+- Command invocation frequency
+- Signs of inefficient thinking (loops, redundant analysis, excessive context gathering)
+- Successful vs unsuccessful workflow patterns
+
+### Phase 2: Invoke Meta-Usage-Analyst
+
+Call the `meta-usage-analyst` subagent with the gathered context:
+
+**Instructions to give the analyst:**
+```
+Analyze the following evidence about Claude's recent behavior:
+
+GIT HISTORY:
+[paste git log output]
+
+CURRENT AGENTS:
+[paste ls .claude/agents/]
+
+CURRENT COMMANDS:
+[paste ls .claude/commands/]
+
+CURRENT CLAUDE.MD:
+[paste CLAUDE.md content]
+
+YOUR TASK:
+Identify patterns of inefficient thinking and orchestration. Focus on:
+1. When subagents were spawned but inline reasoning would have sufficed
+2. When Claude struggled inline but should have used a specialized tool
+3. Repeated analytical loops that could be avoided
+4. Excessive context gathering before simple actions
+5. Decision-making patterns that led to wasted effort
+
+Output your analysis to: .claude/work/meta/usage-analysis.json
+```
+
+**Wait for the analyst to complete**, then read `.claude/work/meta/usage-analysis.json`.
+
+### Phase 3: Invoke Meta-Architect
+
+Call the `meta-architect` subagent with the usage analysis:
+
+**Instructions to give the architect:**
+```
+Design improvements to Claude's thinking and orchestration strategies.
+
+INPUT ANALYSIS:
+[paste usage-analysis.json content]
+
+CURRENT CLAUDE.MD:
+[paste CLAUDE.md content]
+
+CURRENT AGENTS:
+[for each agent, paste name and description]
+
+CURRENT COMMANDS:
+[for each command, paste name and description]
+
+YOUR TASK:
+Design concrete improvements focusing on EFFICIENT THINKING:
+
+1. DECISION TREES: When to think inline vs use tools vs spawn agents
+2. META-REASONING RULES: How to plan before acting, when to gather more context
+3. ANTI-PATTERNS: What thinking patterns to actively avoid
+4. AGENT REFINEMENTS: Make subagent roles clearer and more focused
+5. COMMAND ADJUSTMENTS: Add/remove/modify commands for common workflows
+
+SCOPE: ${scope}
+- If "light": Only modify the meta-reasoning section of CLAUDE.md
+- If "aggressive": Also propose changes to agents and commands
+
+Output your proposals to: .claude/work/meta/improvement-proposals.json
+```
+
+**Wait for the architect to complete**, then read `.claude/work/meta/improvement-proposals.json`.
+
+### Phase 4: Human Review (for modes: propose, full)
+
+**Display the proposals clearly:**
+
+```markdown
+# Meta-Improvement Proposals
+
+## Summary
+[Extract summary from proposals.json]
+
+## Proposed Changes
+
+### CLAUDE.md Updates
+[Show before/after diffs for meta-reasoning section]
+
+### Agent Modifications (if aggressive scope)
+[List agents to modify/add/remove with rationale]
+
+### Command Changes (if aggressive scope)
+[List commands to modify/add/remove with rationale]
+
+## Rationale
+[Explain the thinking patterns these changes will improve]
+
+## Safety Check
+- Changes are minimal and focused on thinking patterns: ✓/✗
+- No changes to core functionality: ✓/✗
+- All proposals are reversible: ✓/✗
+```
+
+**If mode is `propose`:** Stop here and save proposals for later application.
+
+**If mode is `full`:** Ask user for confirmation:
+```
+Do you want to apply these changes? (yes/no)
+If yes, I'll proceed to Phase 5.
+If no, the proposals are saved in .claude/work/meta/improvement-proposals.json for later review.
+```
+
+### Phase 5: Invoke Meta-Applier (if approved)
+
+Call the `meta-applier` subagent:
+
+**Instructions to give the applier:**
+```
+Apply the approved meta-improvement proposals.
+
+PROPOSALS:
+[paste improvement-proposals.json content]
+
+MODE: ${mode}
+SCOPE: ${scope}
+
+YOUR TASK:
+1. Read the proposals carefully
+2. Apply changes in this order:
+   a. CLAUDE.md meta-reasoning section
+   b. Subagent definitions (if aggressive scope)
+   c. Command definitions (if aggressive scope)
+3. Make minimal, surgical edits
+4. Preserve all existing functionality
+5. Add comments explaining the meta-cognitive improvements
+6. Create a git commit with clear message
+
+For each change:
+- Show before/after diff
+- Explain what thinking pattern it improves
+- Verify the change is applied correctly
+
+Output completion report to: .claude/work/meta/application-report.json
+```
+
+### Phase 6: Logging and Verification
 
 After application:
-1. Summarize what was changed
-2. Highlight key improvements
-3. Suggest next steps (e.g., test the changes, run specific commands)
 
-## Safety Guardrails
+1. **Verify changes:**
+   ```bash
+   git diff CLAUDE.md
+   git status .claude/agents/ .claude/commands/
+   ```
 
-**Never apply changes without user approval.** The training plan might propose:
-- Deleting commands that are actually useful
-- Overfitting to recent work (not generalizable)
-- Breaking existing workflows
+2. **Create log entry:**
+   Write to `.claude/logs/self-train.log`:
+   ```
+   === Self-Train Cycle: [timestamp] ===
+   Mode: ${mode}
+   Scope: ${scope}
+   
+   Changes Applied:
+   [summary from application-report.json]
+   
+   Key Improvements:
+   [list main thinking patterns improved]
+   
+   Files Modified:
+   [list with line counts]
+   
+   Commit: [git commit hash if created]
+   ===
+   ```
 
-Always present the plan and get explicit approval.
+3. **Commit if appropriate:**
+   ```bash
+   git add CLAUDE.md .claude/agents/ .claude/commands/
+   git commit -m "meta: self-train cycle - improve [key aspect]
 
-## Self-Invocation
+   Focused on improving: [brief description]
+   
+   Changes:
+   - [change 1]
+   - [change 2]
+   
+   This is an automated meta-cognitive improvement."
+   ```
 
-This command can be invoked by the SlashCommand tool from other workflows:
-- After a major refactor
-- After multiple failed tasks
-- When Claude detects confusion or repeated friction
-- As part of periodic maintenance
+## Mode-Specific Behavior
 
-When self-invoked, still require user approval for application phase.
+### analyze mode
+- Phase 1 → Phase 2 only
+- Output: `.claude/work/meta/usage-analysis.json` and human-readable report
+- No changes applied
 
-## Output Format
+### propose mode  
+- Phase 1 → Phase 2 → Phase 3 → Phase 4 (display proposals)
+- Output: `.claude/work/meta/improvement-proposals.json`
+- No changes applied
+- User can later run `/self-train apply` to apply them
 
-Provide clear, structured updates at each phase:
+### apply mode
+- Requires existing `.claude/work/meta/improvement-proposals.json`
+- Phase 5 → Phase 6 only
+- Applies previously reviewed proposals
+
+### full mode (default)
+- All phases with human review gate at Phase 4
+- Complete cycle with optional commit
+
+## Safety Rails
+
+**Never modify:**
+- Core project code (outside .claude/ directory)
+- Test files or CI configuration
+- Package dependencies or build configs
+
+**Always:**
+- Show diffs before applying
+- Require explicit confirmation for changes
+- Make changes reversible (git commit)
+- Log all modifications
+- Focus on thinking patterns, not code correctness
+
+**Abort if:**
+- Git working directory has uncommitted changes (warn user to commit first)
+- Required subagents are missing
+- Proposals seem to modify core functionality instead of meta-cognition
+
+## Example Session
 
 ```
-## Phase 1: Collection ✓
-- Collected 15 recent commits
-- Found 3 prior training runs
-- Analyzed 8 active commands
-- Loaded CLAUDE.md (342 lines)
+User: /self-train full aggressive
 
-## Phase 2: Analysis ✓
-Generated training plan with:
-- 2 high-priority changes
-- 3 medium-priority changes
-- 1 low-priority change
+[Phase 1: Gathering context...]
+✓ Collected 50 commits
+✓ Found 8 commands, 5 subagents
+✓ Read CLAUDE.md (current meta-reasoning: 15 rules)
 
-## Phase 3: Review [AWAITING USER APPROVAL]
+[Phase 2: Analyzing usage patterns...]
+Invoking meta-usage-analyst...
+✓ Analysis complete: identified 4 inefficiency patterns
 
-### High Priority Changes
+[Phase 3: Designing improvements...]
+Invoking meta-architect...
+✓ Proposals ready: 7 new meta-reasoning rules, 2 agent refinements
 
-1. **Add section to CLAUDE.md**: Testing expectations
-   - Rationale: 5 recent commits had missing tests flagged in reviews
-   - Impact: Will remind Claude to include tests automatically
+[Phase 4: Review]
+# Key Improvements:
+1. Add decision tree: "Use subagent only for >3 step workflows"
+2. Add rule: "Plan in 1-2 sentences before every implementation task"
+3. Refine code-reviewer agent: "Focus on architecture, not syntax"
+4. Remove redundant 'explorer' agent (overlaps with inline Grep)
 
-2. **Modify /build-with-review**: Add TypeScript-specific checklist
-   - Rationale: 3 type errors slipped through reviews
-   - Impact: Stronger type safety validation
+Apply these changes? (yes/no)
+> yes
 
-### Medium Priority Changes
-[... continue with full plan ...]
+[Phase 5: Applying changes...]
+Invoking meta-applier...
+✓ Modified CLAUDE.md (+7 rules, 45 lines)
+✓ Updated .claude/agents/code-reviewer.md
+✓ Removed .claude/agents/explorer.md
 
-**Do you approve these changes?**
-[all / high-priority-only / specific / reject]
+[Phase 6: Verification]
+✓ Created commit: a7b3c9d
+✓ Logged to .claude/logs/self-train.log
+
+Changes focused on:
+- More strategic subagent usage
+- Upfront planning discipline  
+- Eliminating redundant tools
+
+Done! Claude will now think more efficiently in this project.
 ```
 
-## Error Handling
+## Output Files
 
-If any phase fails:
-1. Report the specific error clearly
-2. Suggest remediation (e.g., "Create .claude/logs/ directory")
-3. Do not proceed to next phase
-4. Allow the user to fix and retry
+All outputs go to `.claude/work/meta/`:
+- `usage-analysis.json` - Patterns identified by analyst
+- `improvement-proposals.json` - Changes designed by architect
+- `application-report.json` - Results of applying changes
 
-## Exit Criteria
-
-The orchestrator is complete when:
-- All phases have run successfully
-- Changes have been applied (if approved)
-- A training log entry has been recorded
-- User has been given a summary and next steps
-
-## Notes for Future Improvement
-
-The orchestrator itself can be improved through self-training:
-- If collection takes too long, optimize what's collected
-- If analysis produces low-quality plans, refine the analyzer prompt
-- If application causes issues, add more safety checks
-- Track these meta-improvements in training logs
+Log file: `.claude/logs/self-train.log` (append-only history)
 
 ---
 
-**Begin Phase 1: Collection**
-
-Run `/st-collect` and capture its output.
+Now execute the workflow based on the parsed mode and scope from $ARGUMENTS.
