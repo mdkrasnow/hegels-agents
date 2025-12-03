@@ -1027,30 +1027,39 @@ class ConfigurableAgentFactory:
         Args:
             agent: Agent to restore to defaults
         """
-        if isinstance(agent, BasicWorkerAgent):
-            if hasattr(agent, '_original_system_prompt'):
+        # Use duck typing instead of isinstance for better mock compatibility
+        try:
+            # Check if agent has worker-style attributes
+            if hasattr(agent, 'SYSTEM_PROMPT') and hasattr(agent, '_original_system_prompt'):
                 agent.SYSTEM_PROMPT = agent._original_system_prompt
                 delattr(agent, '_original_system_prompt')
-        
-        elif isinstance(agent, BasicReviewerAgent):
-            if hasattr(agent, '_original_critique_prompt'):
+            
+            # Check if agent has reviewer-style attributes  
+            if hasattr(agent, 'CRITIQUE_PROMPT') and hasattr(agent, '_original_critique_prompt'):
                 agent.CRITIQUE_PROMPT = agent._original_critique_prompt
                 delattr(agent, '_original_critique_prompt')
             
-            if hasattr(agent, '_original_synthesis_prompt'):
+            if hasattr(agent, 'SYNTHESIS_PROMPT') and hasattr(agent, '_original_synthesis_prompt'):
                 agent.SYNTHESIS_PROMPT = agent._original_synthesis_prompt
                 delattr(agent, '_original_synthesis_prompt')
-        
-        # Restore original API call method
-        if hasattr(agent, '_original_make_gemini_call'):
-            agent._make_gemini_call = agent._original_make_gemini_call
-            delattr(agent, '_original_make_gemini_call')
-        
-        # Remove configuration metadata
-        if hasattr(agent, '_applied_profile_config'):
-            delattr(agent, '_applied_profile_config')
-        
-        agent.logger.log_debug(f"Restored agent '{agent.agent_id}' to default configuration")
+            
+            # Restore original API call method
+            if hasattr(agent, '_original_make_gemini_call'):
+                agent._make_gemini_call = agent._original_make_gemini_call
+                delattr(agent, '_original_make_gemini_call')
+            
+            # Remove configuration metadata
+            if hasattr(agent, '_applied_profile_config'):
+                delattr(agent, '_applied_profile_config')
+            
+            # Log restoration (check if logger exists)
+            if hasattr(agent, 'logger') and hasattr(agent.logger, 'log_debug'):
+                agent.logger.log_debug(f"Restored agent '{agent.agent_id}' to default configuration")
+                
+        except Exception as e:
+            # If restoration fails, at least try to log the issue
+            if hasattr(agent, 'logger') and hasattr(agent.logger, 'log_error'):
+                agent.logger.log_error(e, f"Failed to restore agent '{getattr(agent, 'agent_id', 'unknown')}' to defaults")
     
     @staticmethod
     def get_agent_profile_info(agent: Union[BasicWorkerAgent, BasicReviewerAgent]) -> Optional[Dict[str, Any]]:

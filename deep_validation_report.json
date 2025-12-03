@@ -1,0 +1,647 @@
+{
+  "timestamp": "2025-12-02 17:35:25",
+  "overall_assessment": {
+    "all_claims_validated": true,
+    "overall_score": 1.0,
+    "grade": "Fair"
+  },
+  "setup_results": {
+    "enhanced_ready": true,
+    "baseline_ready": true,
+    "enhanced_chunks": 153,
+    "baseline_chunks": 106
+  },
+  "improvement_validation": {
+    "claim_validated": "True",
+    "actual_improvement_percent": 1942.13709196495,
+    "median_improvement_percent": 1887.4416384387468,
+    "std_improvement": 1006.6931171417817,
+    "overall_similarity_improvement_percent": 1676.46857302518,
+    "queries_tested": 50,
+    "significant_improvements_count": 48,
+    "very_high_improvements_count": 48,
+    "enhanced_avg_similarity": 0.959007595858072,
+    "baseline_avg_similarity": 0.05398393252884631,
+    "confidence_interval": {
+      "lower": 0.8517741504184682,
+      "upper": 0.9582731762399834,
+      "margin_error": 0.053249512910757635
+    },
+    "detailed_results": [
+      {
+        "query": "quantum mechanics uncertainty principle",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.09515306065520189,
+        "improvement_percent": 950.9383440892307
+      },
+      {
+        "query": "relativity theory Einstein spacetime",
+        "enhanced_similarity": 0.9646604225700479,
+        "baseline_similarity": 0.03137495858704827,
+        "improvement_percent": 2974.618950949832
+      },
+      {
+        "query": "thermodynamics entropy laws",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.059396801462305436,
+        "improvement_percent": 1583.5923406323873
+      },
+      {
+        "query": "electromagnetic waves radiation",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.04077901883901403,
+        "improvement_percent": 2352.2414429532123
+      },
+      {
+        "query": "particle physics standard model",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.0417895062940061,
+        "improvement_percent": 2292.9452359752586
+      },
+      {
+        "query": "evolution natural selection adaptation",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.07465864704665542,
+        "improvement_percent": 1239.4295765567294
+      },
+      {
+        "query": "DNA genetics inheritance",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.04476168876161112,
+        "improvement_percent": 2134.0533337018064
+      },
+      {
+        "query": "photosynthesis chloroplast energy",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.0445639760748931,
+        "improvement_percent": 2143.9649422650823
+      },
+      {
+        "query": "cellular respiration mitochondria",
+        "enhanced_similarity": 0.0,
+        "baseline_similarity": 0.0,
+        "improvement_percent": 0.0
+      },
+      {
+        "query": "ecosystem biodiversity ecology",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.0792346633749862,
+        "improvement_percent": 1162.0738921643385
+      },
+      {
+        "query": "machine learning neural networks",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.045461971868019216,
+        "improvement_percent": 2099.6406203037186
+      },
+      {
+        "query": "algorithms data structures complexity",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.0722960609083058,
+        "improvement_percent": 1283.2012248472504
+      },
+      {
+        "query": "artificial intelligence reasoning",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.07793637865097888,
+        "improvement_percent": 1183.0978514902295
+      },
+      {
+        "query": "programming languages syntax",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.08131475110172763,
+        "improvement_percent": 1129.7891667269137
+      },
+      {
+        "query": "database management systems",
+        "enhanced_similarity": 0.9860263734857989,
+        "baseline_similarity": 0.027484015124991223,
+        "improvement_percent": 3487.6358275949456
+      },
+      {
+        "query": "calculus derivatives integrals",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.0698311741955482,
+        "improvement_percent": 1332.0251829071362
+      },
+      {
+        "query": "linear algebra matrices vectors",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.05263914149806298,
+        "improvement_percent": 1799.7270311424022
+      },
+      {
+        "query": "probability statistics distribution",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.043459901793034765,
+        "improvement_percent": 2200.97160541736
+      },
+      {
+        "query": "geometry topology manifolds",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.08207716420048763,
+        "improvement_percent": 1118.3656803216636
+      },
+      {
+        "query": "number theory prime numbers",
+        "enhanced_similarity": 0.9996929968477579,
+        "baseline_similarity": 0.03583605928674759,
+        "improvement_percent": 2689.628705680401
+      },
+      {
+        "query": "ethics moral philosophy virtue",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.12110123862938704,
+        "improvement_percent": 725.7553855913534
+      },
+      {
+        "query": "metaphysics reality existence",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.0405527044345191,
+        "improvement_percent": 2365.926783291879
+      },
+      {
+        "query": "epistemology knowledge truth",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.02548912513843204,
+        "improvement_percent": 3823.2417533711982
+      },
+      {
+        "query": "logic reasoning argumentation",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.017901488849469138,
+        "improvement_percent": 5486.1275473165715
+      },
+      {
+        "query": "political philosophy justice",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.046076070713820146,
+        "improvement_percent": 2070.3239545121587
+      },
+      {
+        "query": "chemical bonding molecular structure",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.046187936636874954,
+        "improvement_percent": 2065.0674890759947
+      },
+      {
+        "query": "organic chemistry reactions",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.0890040785650215,
+        "improvement_percent": 1023.5440174457342
+      },
+      {
+        "query": "periodic table elements",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.0296262631254819,
+        "improvement_percent": 3275.3835094372334
+      },
+      {
+        "query": "chemical equilibrium",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.03413385396677528,
+        "improvement_percent": 2829.642814354821
+      },
+      {
+        "query": "physical chemistry thermodynamics",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.05094573088594673,
+        "improvement_percent": 1862.8730074335786
+      },
+      {
+        "query": "World War II Nazi Germany",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.0767639827747409,
+        "improvement_percent": 1202.694263447009
+      },
+      {
+        "query": "American Revolution independence",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.06228904670267989,
+        "improvement_percent": 1505.4186938728292
+      },
+      {
+        "query": "Renaissance art science",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.03237710379977672,
+        "improvement_percent": 2988.602384524882
+      },
+      {
+        "query": "Industrial Revolution technology",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.034740497719244964,
+        "improvement_percent": 2778.48495459533
+      },
+      {
+        "query": "Cold War nuclear deterrence",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.04970153558293629,
+        "improvement_percent": 1912.0102694439154
+      },
+      {
+        "query": "Shakespeare tragedy comedy",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.04562818010618388,
+        "improvement_percent": 2091.6280633434085
+      },
+      {
+        "query": "poetry meter rhythm",
+        "enhanced_similarity": 0.0,
+        "baseline_similarity": 0.002282773770136139,
+        "improvement_percent": -100.0
+      },
+      {
+        "query": "narrative structure plot",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.03466759794189027,
+        "improvement_percent": 2784.537895230576
+      },
+      {
+        "query": "literary criticism analysis",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.027968460133834194,
+        "improvement_percent": 3475.456050189454
+      },
+      {
+        "query": "romantic literature nature",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.034119175659240567,
+        "improvement_percent": 2830.903167143688
+      },
+      {
+        "query": "market economics supply demand",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.06282859871139934,
+        "improvement_percent": 1491.6318691006622
+      },
+      {
+        "query": "macroeconomics inflation unemployment",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.10864023167421268,
+        "improvement_percent": 820.4693184001783
+      },
+      {
+        "query": "behavioral economics psychology",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.038233482215812915,
+        "improvement_percent": 2515.508559632091
+      },
+      {
+        "query": "international trade globalization",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.056742989302498825,
+        "improvement_percent": 1662.3322498378886
+      },
+      {
+        "query": "monetary policy central banking",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.09532139307860124,
+        "improvement_percent": 949.0824438281218
+      },
+      {
+        "query": "cognitive psychology memory",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.08234036768669627,
+        "improvement_percent": 1114.4711374194774
+      },
+      {
+        "query": "behavioral psychology conditioning",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.05942320512246725,
+        "improvement_percent": 1582.8442658706592
+      },
+      {
+        "query": "social psychology groups",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.05155284382340858,
+        "improvement_percent": 1839.7572002534816
+      },
+      {
+        "query": "developmental psychology stages",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.046985451094828344,
+        "improvement_percent": 2028.3183979265218
+      },
+      {
+        "query": "abnormal psychology disorders",
+        "enhanced_similarity": 1.0,
+        "baseline_similarity": 0.09552227887237306,
+        "improvement_percent": 946.8761966369082
+      }
+    ]
+  },
+  "performance_validation": {
+    "claim_validated": true,
+    "avg_response_time_ms": 26.25343076472157,
+    "median_response_time_ms": 0.00377050309907645,
+    "max_response_time_ms": 361.6694169904804,
+    "min_response_time_ms": 0.0022500025806948543,
+    "std_response_time_ms": 61.38013918009179,
+    "tests_performed": 68,
+    "under_50ms_count": 54,
+    "under_50ms_percent": 79.41176470588235,
+    "percentiles": {
+      "p50": 0.00377050309907645,
+      "p75": 9.649926752899773,
+      "p90": 96.51036259747346,
+      "p95": 106.09011700144038,
+      "p99": 278.3732582448281
+    },
+    "scenario_results": {
+      "single_word": {
+        "times_ms": [
+          50.63383300148416,
+          55.59345798974391,
+          41.89599999517668,
+          45.04100000485778,
+          38.49070800060872,
+          0.014291988918557763,
+          0.005584006430581212,
+          0.0035829871194437146,
+          0.003207998815923929,
+          0.0030420051189139485,
+          0.0026249908842146397,
+          0.00316700607072562,
+          0.002791013685055077,
+          0.0026670022634789348,
+          0.003000008291564882,
+          0.0024579931050539017,
+          0.0029170041671022773,
+          0.002540997229516506,
+          0.0025420013116672635,
+          0.002291999408043921
+        ],
+        "avg_time_ms": 11.585585399734555,
+        "median_time_ms": 0.003104505594819784,
+        "max_time_ms": 55.59345798974391,
+        "min_time_ms": 0.002291999408043921,
+        "std_time_ms": 20.819276588095494,
+        "under_50ms_count": 18,
+        "under_50ms_percent": 90.0,
+        "description": "Single word queries"
+      },
+      "short_phrase": {
+        "times_ms": [
+          107.59616699942853,
+          53.1857080059126,
+          94.54062499571592,
+          0.03633300366345793,
+          0.006749993190169334,
+          0.0041660096030682325,
+          0.006041998858563602,
+          0.0037500140024349093,
+          0.0034580007195472717,
+          0.0034170079743489623,
+          0.003374996595084667,
+          0.0036249984987080097
+        ],
+        "avg_time_ms": 21.282784668680204,
+        "median_time_ms": 0.005104004230815917,
+        "max_time_ms": 107.59616699942853,
+        "min_time_ms": 0.003374996595084667,
+        "std_time_ms": 40.34859788747567,
+        "under_50ms_count": 9,
+        "under_50ms_percent": 75.0,
+        "description": "Short phrase queries"
+      },
+      "medium_query": {
+        "times_ms": [
+          103.29316700517666,
+          237.34679199696984,
+          65.95766700047534,
+          0.01462499494664371,
+          0.006166999810375273,
+          0.005291993147693574,
+          0.0040000013541430235,
+          0.0038330035749822855,
+          0.0037909921957179904,
+          0.0038750004023313522,
+          0.005084002623334527,
+          0.003749999450519681
+        ],
+        "avg_time_ms": 33.88733691584397,
+        "median_time_ms": 0.005187997885514051,
+        "max_time_ms": 237.34679199696984,
+        "min_time_ms": 0.003749999450519681,
+        "std_time_ms": 72.3458693916051,
+        "under_50ms_count": 9,
+        "under_50ms_percent": 75.0,
+        "description": "Medium length queries"
+      },
+      "complex_query": {
+        "times_ms": [
+          63.3934999932535,
+          361.6694169904804,
+          88.48320900870021,
+          0.0118750031106174,
+          0.003915993147529662,
+          0.0029999937396496534,
+          0.0026670022634789348,
+          0.0027500063879415393,
+          0.0026670022634789348,
+          0.002541986759752035,
+          0.0026249908842146397,
+          0.0026670022634789348
+        ],
+        "avg_time_ms": 42.79840291443785,
+        "median_time_ms": 0.0028750000637955964,
+        "max_time_ms": 361.6694169904804,
+        "min_time_ms": 0.002541986759752035,
+        "std_time_ms": 104.73878417168518,
+        "under_50ms_count": 9,
+        "under_50ms_percent": 75.0,
+        "description": "Complex queries"
+      },
+      "very_long": {
+        "times_ms": [
+          101.1064170015743,
+          173.74666601244826,
+          103.01624999556225,
+          0.010207993909716606,
+          0.003125009243376553,
+          0.0025000044843181968,
+          0.0023750035325065255,
+          0.002540997229516506,
+          0.0023329921532422304,
+          0.0023750035325065255,
+          0.0022500025806948543,
+          0.0022500025806948543
+        ],
+        "avg_time_ms": 31.49160750156928,
+        "median_time_ms": 0.0025205008569173515,
+        "max_time_ms": 173.74666601244826,
+        "min_time_ms": 0.0022500025806948543,
+        "std_time_ms": 59.636858119192446,
+        "under_50ms_count": 9,
+        "under_50ms_percent": 75.0,
+        "description": "Very long queries"
+      }
+    },
+    "performance_grade": "Fair"
+  },
+  "stress_test_results": {
+    "stress_test_passed": true,
+    "duration_seconds": 30,
+    "concurrent_queries": 20,
+    "total_queries": 43750,
+    "total_errors": 0,
+    "queries_per_second": 1458.3333333333333,
+    "error_rate_percent": 0.0,
+    "avg_response_time_ms": 0.8900712889579258,
+    "median_response_time_ms": 0.0041660096030682325,
+    "max_response_time_ms": 1417.0837920100894,
+    "min_response_time_ms": 0.0020000006770715117,
+    "under_50ms_percent": 99.91771428571428,
+    "thread_performance": [
+      {
+        "thread_id": 0,
+        "queries": 2174,
+        "errors": 0
+      },
+      {
+        "thread_id": 1,
+        "queries": 2182,
+        "errors": 0
+      },
+      {
+        "thread_id": 2,
+        "queries": 2163,
+        "errors": 0
+      },
+      {
+        "thread_id": 3,
+        "queries": 2175,
+        "errors": 0
+      },
+      {
+        "thread_id": 4,
+        "queries": 2171,
+        "errors": 0
+      },
+      {
+        "thread_id": 5,
+        "queries": 2183,
+        "errors": 0
+      },
+      {
+        "thread_id": 6,
+        "queries": 2214,
+        "errors": 0
+      },
+      {
+        "thread_id": 7,
+        "queries": 2176,
+        "errors": 0
+      },
+      {
+        "thread_id": 8,
+        "queries": 2173,
+        "errors": 0
+      },
+      {
+        "thread_id": 9,
+        "queries": 2176,
+        "errors": 0
+      },
+      {
+        "thread_id": 10,
+        "queries": 2214,
+        "errors": 0
+      },
+      {
+        "thread_id": 11,
+        "queries": 2211,
+        "errors": 0
+      },
+      {
+        "thread_id": 12,
+        "queries": 2224,
+        "errors": 0
+      },
+      {
+        "thread_id": 13,
+        "queries": 2177,
+        "errors": 0
+      },
+      {
+        "thread_id": 14,
+        "queries": 2193,
+        "errors": 0
+      },
+      {
+        "thread_id": 15,
+        "queries": 2220,
+        "errors": 0
+      },
+      {
+        "thread_id": 16,
+        "queries": 2168,
+        "errors": 0
+      },
+      {
+        "thread_id": 17,
+        "queries": 2190,
+        "errors": 0
+      },
+      {
+        "thread_id": 18,
+        "queries": 2184,
+        "errors": 0
+      },
+      {
+        "thread_id": 19,
+        "queries": 2182,
+        "errors": 0
+      }
+    ]
+  },
+  "edge_case_results": {
+    "edge_cases_passed": true,
+    "passed_tests": 6,
+    "total_tests": 6,
+    "pass_rate": 100.0,
+    "test_details": [
+      {
+        "test": "empty_query",
+        "passed": true,
+        "description": "Empty query handling",
+        "result_count": 0
+      },
+      {
+        "test": "very_long_query",
+        "passed": true,
+        "description": "Very long query (600+ chars)",
+        "response_time_ms": 47.2707500011893,
+        "result_count": 5
+      },
+      {
+        "test": "special_characters",
+        "passed": true,
+        "description": "Query with special characters",
+        "result_count": 5
+      },
+      {
+        "test": "high_k_value",
+        "passed": true,
+        "description": "Very high k value (1000)",
+        "result_count": 9
+      },
+      {
+        "test": "zero_threshold",
+        "passed": true,
+        "description": "Zero similarity threshold",
+        "result_count": 5
+      },
+      {
+        "test": "high_threshold",
+        "passed": true,
+        "description": "Very high similarity threshold (0.99)",
+        "result_count": 5
+      }
+    ]
+  },
+  "production_readiness": {
+    "ready": true,
+    "reasons": []
+  }
+}

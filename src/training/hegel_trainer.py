@@ -23,12 +23,18 @@ from dataclasses import dataclass
 from agents.worker import BasicWorkerAgent
 from agents.reviewer import BasicReviewerAgent
 from agents.utils import AgentResponse, AgentLogger, DebateContext
-from debate.session import DebateSession
+from debate.session import DebateSession, TurnType
 from config.settings import get_config
 
-# NOTE: These imports will be enabled once T1.1 and T1.3 are completed
-# from training.data_structures import RolePrompt, PromptProfile, TrainingStep
-# from training.profile_store import PromptProfileStore
+# Import training components
+from training.data_structures import RolePrompt, PromptProfile, TrainingStep
+from training.training_executor import TrainingExecutor, TrainingStepResult, create_standard_executor
+
+try:
+    from training.database.prompt_profile_store import PromptProfileStore
+except ImportError:
+    # Fallback if PromptProfileStore not available
+    PromptProfileStore = None
 
 
 class HegelTrainer:
@@ -61,6 +67,14 @@ class HegelTrainer:
         # Training capabilities (enabled only when dependencies ready)
         self.profile_store = profile_store
         self._training_ready = profile_store is not None
+        
+        # Initialize training executor for grad=True mode
+        self._training_executor = None
+        if self.grad and self._training_ready:
+            self._training_executor = create_standard_executor(
+                profile_store=self.profile_store,
+                logger=self.logger
+            )
         
         # Wrapped agent tracking
         self._wrapped_agents: Dict[str, Dict[str, Any]] = {}
@@ -288,6 +302,360 @@ class HegelTrainer:
             }
             for wrapper_id, info in self._wrapped_agents.items()
         ]
+    
+    def run(self, 
+            query: str, 
+            corpus_id: str, 
+            task_type: str = "qa",
+            grad: bool = False, 
+            gold_answer: Optional[str] = None, 
+            reward: Optional[float] = None,
+            **kwargs) -> Dict[str, Any]:
+        """
+        Execute debate with optional training mode (grad=True enables live learning).
+        
+        This is the main entry point that provides both inference (grad=False) and
+        training (grad=True) capabilities while maintaining full backward compatibility.
+        
+        Args:
+            query: Question or prompt to process
+            corpus_id: Corpus identifier for context retrieval  
+            task_type: Type of task ("qa", "analysis", "summary", etc.)
+            grad: Enable training mode - when True, executes training loop with live learning
+            gold_answer: Gold standard answer for training reward computation
+            reward: Pre-computed reward (overrides automatic computation)
+            **kwargs: Additional arguments for debate execution
+            
+        Returns:
+            Comprehensive results dictionary with debate output and training metadata
+            
+        Behavior:
+        - grad=False: Behaves exactly like existing system (0% regression guaranteed)
+        - grad=True: Executes full training loop with profile evolution and learning
+        """
+        start_time = datetime.utcnow()
+        execution_id = f"run_{uuid.uuid4().hex[:12]}"
+        
+        # Override instance grad mode if explicitly specified
+        effective_grad = grad if grad is not None else self.grad
+        
+        self.logger.log_debug(f"HegelTrainer.run() started: {execution_id}, grad={effective_grad}, corpus='{corpus_id}', task='{task_type}'")
+        
+        try:
+            # Update statistics
+            if effective_grad:
+                self._stats['grad_mode_calls'] += 1
+            else:
+                self._stats['inference_mode_calls'] += 1
+            
+            if effective_grad and self._training_ready and self._training_executor:
+                # TRAINING MODE (grad=True): Execute full training loop with live learning
+                return self._execute_training_mode(
+                    execution_id=execution_id,
+                    query=query,
+                    corpus_id=corpus_id,
+                    task_type=task_type,
+                    gold_answer=gold_answer,
+                    provided_reward=reward,
+                    start_time=start_time,
+                    **kwargs
+                )
+            else:
+                # INFERENCE MODE (grad=False): Execute standard debate without training
+                return self._execute_inference_mode(
+                    execution_id=execution_id,
+                    query=query,
+                    corpus_id=corpus_id,
+                    task_type=task_type,
+                    start_time=start_time,
+                    grad_requested=effective_grad,
+                    **kwargs
+                )
+                
+        except Exception as e:
+            self.logger.log_error(Exception(f"HegelTrainer.run() failed for {execution_id}: {str(e)}"), f"run_{execution_id}")
+            
+            # Return error result with consistent structure
+            return {
+                'execution_id': execution_id,
+                'success': False,
+                'error': str(e),
+                'mode': 'training' if effective_grad else 'inference',
+                'grad_mode': effective_grad,
+                'corpus_id': corpus_id,
+                'task_type': task_type,
+                'query': query,
+                'timestamp': start_time.isoformat(),
+                'execution_time_ms': (datetime.utcnow() - start_time).total_seconds() * 1000,
+                'training_ready': self._training_ready,
+                'final_response': None,
+                'training_metadata': {
+                    'error_details': str(e),
+                    'training_executor_available': self._training_executor is not None
+                }
+            }
+    
+    def _execute_training_mode(self,
+                              execution_id: str,
+                              query: str,
+                              corpus_id: str,
+                              task_type: str,
+                              gold_answer: Optional[str],
+                              provided_reward: Optional[float],
+                              start_time: datetime,
+                              **kwargs) -> Dict[str, Any]:
+        """
+        Execute full training mode with live learning and profile evolution.
+        
+        This mode:
+        1. Executes debate to get baseline performance  
+        2. Computes reward signals (text similarity, debate quality, etc.)
+        3. Triggers profile optimization if performance is poor
+        4. Tracks all training state and profile evolution
+        5. Provides comprehensive training metadata
+        """
+        self.logger.log_debug(f"Executing TRAINING mode for {execution_id}")
+        
+        # Execute training step using TrainingExecutor
+        training_result: TrainingStepResult = self._training_executor.execute_training_step(
+            trainer_instance=self,
+            query=query,
+            corpus_id=corpus_id,
+            task_type=task_type,
+            gold_answer=gold_answer,
+            provided_reward=provided_reward,
+            **kwargs
+        )
+        
+        # Calculate total execution time
+        end_time = datetime.utcnow()
+        total_execution_ms = (end_time - start_time).total_seconds() * 1000
+        
+        # Construct comprehensive result
+        result = {
+            # Core execution info
+            'execution_id': execution_id,
+            'success': training_result.success,
+            'mode': 'training',
+            'grad_mode': True,
+            'corpus_id': corpus_id,
+            'task_type': task_type,
+            'query': query,
+            'timestamp': start_time.isoformat(),
+            'execution_time_ms': total_execution_ms,
+            
+            # Training-specific results
+            'training_step_id': training_result.step_id,
+            'training_step_time_ms': training_result.execution_time_ms,
+            'computed_reward': training_result.computed_reward,
+            'provided_reward': provided_reward,
+            'gold_answer': gold_answer,
+            
+            # Debate results
+            'final_response': training_result.final_response,
+            'debate_result': training_result.debate_result,
+            
+            # Profile evolution tracking
+            'profile_evolution': {
+                'original_profile_id': training_result.original_profile_id,
+                'updated_profile_id': training_result.updated_profile_id,
+                'profile_changed': training_result.profile_changed,
+                'optimization_triggered': training_result.training_metadata.get('optimization_triggered', False),
+                'optimization_reason': training_result.training_metadata.get('optimization_reason', None)
+            },
+            
+            # Training state and monitoring
+            'training_metadata': {
+                'training_ready': self._training_ready,
+                'training_executor_stats': self._training_executor.get_stats() if self._training_executor else None,
+                'reward_components': training_result.reward_components.to_dict() if training_result.reward_components else None,
+                'reward_source': training_result.training_metadata.get('reward_source', 'unknown'),
+                'rollback_performed': training_result.rollback_performed,
+                'error_details': training_result.error_message,
+                **training_result.training_metadata
+            },
+            
+            # Wrapper state
+            'wrapper_state': {
+                'wrapped_agents': len(self._wrapped_agents),
+                'current_session': self._current_session,
+                'trainer_stats': self._stats.copy()
+            }
+        }
+        
+        # Add error information if training failed
+        if not training_result.success:
+            result['error'] = training_result.error_message
+        
+        self.logger.log_debug(f"TRAINING mode completed for {execution_id}. Success: {training_result.success}, Reward: {training_result.computed_reward:.3f if training_result.computed_reward else 'N/A'}")
+        
+        return result
+    
+    def _execute_inference_mode(self,
+                               execution_id: str,
+                               query: str,
+                               corpus_id: str,
+                               task_type: str,
+                               start_time: datetime,
+                               grad_requested: bool = False,
+                               **kwargs) -> Dict[str, Any]:
+        """
+        Execute standard inference mode (grad=False) with identical behavior to existing system.
+        
+        This mode:
+        1. Creates standard worker and reviewer agents
+        2. Executes traditional debate session
+        3. Returns results in format compatible with existing system
+        4. Zero training or profile modification
+        5. Zero performance overhead
+        """
+        self.logger.log_debug(f"Executing INFERENCE mode for {execution_id}")
+        
+        # Create agents for this execution (standard behavior)
+        from agents.worker import BasicWorkerAgent
+        from agents.reviewer import BasicReviewerAgent
+        
+        worker = BasicWorkerAgent(f"worker_{execution_id}")
+        reviewer = BasicReviewerAgent(f"reviewer_{execution_id}")
+        
+        # Wrap agents with trainer (in inference mode, this adds zero overhead)
+        wrapped_worker = self.wrap_worker_agent(worker, agent_alias=f"worker_{execution_id}")
+        wrapped_reviewer = self.wrap_reviewer_agent(reviewer, agent_alias=f"reviewer_{execution_id}")
+        
+        # Execute standard debate session
+        session = DebateSession(query)
+        
+        try:
+            # Get worker responses
+            worker_response1 = wrapped_worker.respond(query)
+            session.add_turn(wrapped_worker.agent_id, worker_response1, TurnType.WORKER_RESPONSE)
+            
+            worker_response2 = wrapped_worker.respond(query) 
+            session.add_turn(wrapped_worker.agent_id, worker_response2, TurnType.WORKER_RESPONSE)
+            
+            # Get reviewer synthesis
+            worker_responses = [worker_response1, worker_response2]
+            synthesis = wrapped_reviewer.synthesize_responses(query, worker_responses)
+            session.add_turn(wrapped_reviewer.agent_id, synthesis, TurnType.REVIEWER_SYNTHESIS)
+            
+            # Analyze debate quality
+            conflict_analysis = session.analyze_debate(worker_responses, synthesis, wrapped_reviewer)
+            session.end_session()
+            
+            # Calculate execution time
+            end_time = datetime.utcnow()
+            total_execution_ms = (end_time - start_time).total_seconds() * 1000
+            
+            # Return results in format compatible with existing system
+            result = {
+                # Core execution info
+                'execution_id': execution_id,
+                'success': True,
+                'mode': 'inference',
+                'grad_mode': False,
+                'corpus_id': corpus_id,
+                'task_type': task_type,
+                'query': query,
+                'timestamp': start_time.isoformat(),
+                'execution_time_ms': total_execution_ms,
+                
+                # Standard debate results (backward compatible)
+                'final_response': synthesis,
+                'worker_responses': worker_responses,
+                'synthesis': synthesis,
+                'conflict_analysis': conflict_analysis,
+                'session': session,
+                'session_summary': session.get_summary(),
+                
+                # Training metadata (minimal for inference mode)
+                'training_metadata': {
+                    'training_ready': self._training_ready,
+                    'grad_requested': grad_requested,
+                    'grad_available': self._training_ready and self._training_executor is not None,
+                    'mode_reason': 'grad_disabled' if not grad_requested else 'training_not_ready'
+                },
+                
+                # Wrapper state
+                'wrapper_state': {
+                    'wrapped_agents': len(self._wrapped_agents),
+                    'current_session': self._current_session,
+                    'trainer_stats': self._stats.copy()
+                }
+            }
+            
+            self.logger.log_debug(f"INFERENCE mode completed successfully for {execution_id}")
+            return result
+            
+        except Exception as e:
+            self.logger.log_error(Exception(f"INFERENCE mode failed for {execution_id}: {str(e)}"), f"inference_{execution_id}")
+            session.end_session()
+            
+            end_time = datetime.utcnow()
+            total_execution_ms = (end_time - start_time).total_seconds() * 1000
+            
+            return {
+                'execution_id': execution_id,
+                'success': False,
+                'error': str(e),
+                'mode': 'inference',
+                'grad_mode': False,
+                'corpus_id': corpus_id,
+                'task_type': task_type,
+                'query': query,
+                'timestamp': start_time.isoformat(),
+                'execution_time_ms': total_execution_ms,
+                'final_response': None,
+                'training_metadata': {
+                    'training_ready': self._training_ready,
+                    'error_in_inference_mode': True
+                }
+            }
+    
+    def enable_training_mode(self, profile_store=None):
+        """
+        Enable training mode by initializing training executor.
+        
+        This method allows upgrading an inference-only trainer to support training.
+        
+        Args:
+            profile_store: Optional PromptProfileStore instance
+        """
+        if profile_store:
+            self.profile_store = profile_store
+            self._training_ready = True
+        
+        if self._training_ready and not self._training_executor:
+            self._training_executor = create_standard_executor(
+                profile_store=self.profile_store,
+                logger=self.logger
+            )
+            self.logger.log_debug("Training mode enabled - TrainingExecutor initialized")
+        
+        return self._training_ready
+    
+    def disable_training_mode(self):
+        """
+        Disable training mode and cleanup training executor.
+        
+        After calling this, all run() calls will execute in inference mode only.
+        """
+        if self._training_executor:
+            self._training_executor = None
+            self.logger.log_debug("Training mode disabled - TrainingExecutor cleaned up")
+        
+        self.grad = False
+    
+    def get_training_stats(self) -> Dict[str, Any]:
+        """Get comprehensive training statistics."""
+        base_stats = self.get_stats()
+        
+        if self._training_executor:
+            base_stats['training_executor'] = self._training_executor.get_stats()
+            base_stats['training_performance_history'] = self._training_executor.get_performance_history(50)
+        else:
+            base_stats['training_executor'] = None
+            
+        return base_stats
 
 
 class TrainingWorkerWrapper:

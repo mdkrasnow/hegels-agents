@@ -1,0 +1,272 @@
+{
+  "test_suite": "training_foundation_integration",
+  "start_time": "2025-12-02T22:39:10.930656",
+  "tests": {
+    "end_to_end_workflow": {
+      "test_name": "end_to_end_workflow",
+      "status": "completed",
+      "steps": {
+        "1_profile_creation": {
+          "status": "completed",
+          "profile_id": "79550fe0-7732-446c-97af-3a8a1593e2ed",
+          "roles": [
+            "worker",
+            "reviewer"
+          ]
+        },
+        "2_profile_storage": {
+          "status": "completed",
+          "stored_profile_id": "79550fe0-7732-446c-97af-3a8a1593e2ed"
+        },
+        "3_agent_creation": {
+          "status": "completed",
+          "worker_agent_id": "integration_test_worker",
+          "reviewer_agent_id": "integration_test_reviewer",
+          "worker_prompt_applied": true,
+          "reviewer_prompt_applied": true
+        },
+        "4_debate_execution": {
+          "status": "completed",
+          "session_id": "integration_test_session",
+          "question": "What is the nature of reality according to Hegel?",
+          "worker_response_length": 74,
+          "critique_provided": true,
+          "synthesis_provided": true
+        },
+        "5_training_step": {
+          "status": "completed",
+          "step_id": "05575abd-fb7e-4f27-aa07-62d7b60d6ddd",
+          "average_score": 0.7999999999999999,
+          "total_responses": 3
+        }
+      },
+      "errors": [],
+      "performance": {
+        "duration_ms": 9.435667001525871,
+        "memory_delta_mb": 0.515625,
+        "cpu_usage_percent": 0
+      }
+    },
+    "backward_compatibility": {
+      "test_name": "backward_compatibility",
+      "status": "completed",
+      "compatibility_checks": {
+        "agent_response": {
+          "status": "completed",
+          "serialization_works": true,
+          "deserialization_works": true,
+          "content_preserved": true
+        },
+        "debate_session": {
+          "status": "completed",
+          "session_creation": true,
+          "enhanced_response_handling": true
+        },
+        "agent_behavior": {
+          "status": "completed",
+          "agent_creation": true,
+          "process_method_works": true,
+          "profile_config_applied": true,
+          "original_interface_preserved": true
+        },
+        "data_structures": {
+          "status": "completed",
+          "validation_function_works": true,
+          "all_structures_valid": true,
+          "validation_errors": {}
+        }
+      },
+      "errors": [],
+      "performance": {
+        "duration_ms": 0.9560000034980476,
+        "memory_delta_mb": 0.0625,
+        "cpu_usage_percent": 0
+      }
+    },
+    "performance_benchmarks": {
+      "test_name": "performance_benchmarks",
+      "status": "completed",
+      "benchmarks": {
+        "profile_creation": {
+          "duration_ms": 0.22537499899044633,
+          "memory_delta_mb": 0.0,
+          "validation_success": true
+        },
+        "agent_factory": {
+          "duration_ms": 10.446333006257191,
+          "memory_delta_mb": 0.453125,
+          "agents_created": 10,
+          "avg_creation_time_ms": 1.0446333006257191
+        },
+        "serialization": {
+          "duration_ms": 1.3142079988028854,
+          "memory_delta_mb": 0.046875,
+          "cycles_completed": 10,
+          "avg_cycle_time_ms": 0.13142079988028854
+        },
+        "cache_performance": {
+          "duration_ms": 10.7351659971755,
+          "memory_delta_mb": 0.859375,
+          "operations_completed": 40,
+          "cache_hit_rate": 1.0,
+          "cache_size": 20
+        }
+      },
+      "regressions": [],
+      "errors": [],
+      "baseline_comparison": {}
+    },
+    "error_conditions": {
+      "test_name": "error_conditions",
+      "status": "completed",
+      "error_scenarios": {
+        "invalid_profile": {
+          "status": "completed",
+          "validation_caught_errors": true,
+          "exception_type": "ValueError",
+          "graceful_handling": true
+        },
+        "database_errors": {
+          "status": "completed",
+          "connection_failure_handled": true,
+          "graceful_degradation": true
+        },
+        "missing_roles": {
+          "status": "completed",
+          "missing_role_detected": true,
+          "error_type": "ValueError"
+        },
+        "invalid_config": {
+          "status": "completed",
+          "validation_caught_errors": true,
+          "parameter_validation_works": true
+        }
+      },
+      "recovery_tests": {
+        "cache_failure": {
+          "status": "completed",
+          "graceful_recovery": true,
+          "fallback_behavior": true
+        },
+        "factory_fallback": {
+          "status": "completed",
+          "error_propagation": true,
+          "clean_failure": true
+        }
+      },
+      "errors": []
+    },
+    "rollback_procedures": {
+      "test_name": "rollback_procedures",
+      "status": "completed",
+      "rollback_tests": {
+        "agent_restoration": {
+          "status": "completed",
+          "profile_initially_applied": true,
+          "original_prompt_stored": true,
+          "profile_config_removed": true,
+          "original_method_restored": true,
+          "restoration_successful": true
+        },
+        "cache_clearing": {
+          "status": "completed",
+          "initial_cache_size": 5,
+          "final_cache_size": 0,
+          "cache_cleared": true,
+          "clearing_successful": true
+        },
+        "profile_cleanup": {
+          "status": "completed",
+          "deletion_operation_works": true,
+          "cleanup_procedure_available": true
+        },
+        "system_state": {
+          "status": "completed",
+          "post_rollback_functionality": true,
+          "new_profile_creation": true,
+          "new_agent_creation": true,
+          "system_consistency": true
+        }
+      },
+      "errors": []
+    },
+    "concurrent_operations": {
+      "test_name": "concurrent_operations",
+      "status": "completed",
+      "concurrency_tests": {
+        "cache_thread_safety": {
+          "status": "completed",
+          "operations_completed": 40,
+          "errors_encountered": 0,
+          "final_cache_size": 40,
+          "thread_safety_maintained": true
+        },
+        "agent_creation": {
+          "status": "completed",
+          "agents_created": 9,
+          "errors_encountered": 0,
+          "expected_agents": 9,
+          "all_agents_created": true,
+          "concurrent_creation_safe": true
+        },
+        "serialization_load": {
+          "status": "completed",
+          "serializations_completed": 15,
+          "errors_encountered": 0,
+          "expected_serializations": 15,
+          "serialization_thread_safe": true
+        }
+      },
+      "errors": []
+    }
+  },
+  "summary": {
+    "total_tests": 6,
+    "passed_tests": 6,
+    "warning_tests": 0,
+    "failed_tests": 0,
+    "success_rate": 1.0,
+    "test_statuses": {
+      "end_to_end_workflow": "completed",
+      "backward_compatibility": "completed",
+      "performance_benchmarks": "completed",
+      "error_conditions": "completed",
+      "rollback_procedures": "completed",
+      "concurrent_operations": "completed"
+    }
+  },
+  "recommendations": [
+    {
+      "priority": "low",
+      "category": "deployment_ready",
+      "description": "All integration tests passed. Training foundation layer is ready for deployment.",
+      "action_items": [
+        "Proceed with deployment",
+        "Monitor in production",
+        "Set up alerting"
+      ]
+    }
+  ],
+  "performance_summary": {
+    "total_test_duration_ms": 10.391667005023919,
+    "total_memory_delta_mb": 0.578125,
+    "performance_tests": [
+      {
+        "duration_ms": 9.435667001525871,
+        "memory_delta_mb": 0.515625,
+        "cpu_usage_percent": 0,
+        "test_name": "end_to_end_workflow"
+      },
+      {
+        "duration_ms": 0.9560000034980476,
+        "memory_delta_mb": 0.0625,
+        "cpu_usage_percent": 0,
+        "test_name": "backward_compatibility"
+      }
+    ]
+  },
+  "errors": [],
+  "end_time": "2025-12-02T22:39:11.058235",
+  "total_duration_seconds": 0.127579,
+  "overall_status": "passed"
+}

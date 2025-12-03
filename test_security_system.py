@@ -360,9 +360,9 @@ class TestApiSecurityWrapper(unittest.TestCase):
         mock_api = Mock(return_value="API response")
         
         result = self.wrapper.secure_api_call(
+            "test input",
             endpoint="test",
-            api_function=mock_api,
-            "test input"
+            api_function=mock_api
         )
         
         self.assertEqual(result, "API response")
@@ -375,9 +375,9 @@ class TestApiSecurityWrapper(unittest.TestCase):
         # This should trigger SQL injection detection
         with self.assertRaises(ValidationError):
             self.wrapper.secure_api_call(
+                "'; DROP TABLE users; --",
                 endpoint="test",
-                api_function=mock_api,
-                "'; DROP TABLE users; --"
+                api_function=mock_api
             )
     
     def test_secure_api_call_cost_exceeded(self):
@@ -386,9 +386,9 @@ class TestApiSecurityWrapper(unittest.TestCase):
         
         with self.assertRaises(CostExceededError):
             self.wrapper.secure_api_call(
+                "test input",
                 endpoint="test",
                 api_function=mock_api,
-                "test input",
                 estimated_output_tokens=100000  # Very expensive
             )
     

@@ -84,6 +84,8 @@ class CostMonitor:
     - Cost prediction and alerting
     - Detailed usage analytics
     - Support for multiple API providers
+    - Emergency stop mechanisms for training
+    - Training-specific cost controls
     """
     
     def __init__(self, config: CostConfig):
@@ -107,6 +109,15 @@ class CostMonitor:
         
         # Cost estimation cache
         self._estimation_cache: Dict[str, float] = {}
+        
+        # Emergency stop mechanisms
+        self._emergency_stop = False
+        self._training_session_costs: Dict[str, float] = {}
+        self._max_training_session_cost = 100.0  # Default max per training session
+        
+        # Training-specific tracking
+        self._training_mode = False
+        self._training_session_id: Optional[str] = None
         
         logger.info(f"CostMonitor initialized with daily budget: ${config.daily_budget}")
     
@@ -179,7 +190,25 @@ class CostMonitor:
             CostExceededError: If request would exceed budget
         """
         with self._lock:
+            # Check emergency stop first
+            if self._emergency_stop:
+                raise CostExceededError(
+                    "EMERGENCY STOP ACTIVE: All operations are blocked",
+                    self.daily_spend,
+                    0.0
+                )
+            
             self._reset_periods_if_needed()
+            
+            # Check training session budget if in training mode
+            if self._training_mode and self._training_session_id:
+                current_session_cost = self._training_session_costs.get(self._training_session_id, 0.0)
+                if current_session_cost + estimated_cost > self._max_training_session_cost:
+                    raise CostExceededError(
+                        f"Request would exceed training session budget: ${current_session_cost:.4f} + ${estimated_cost:.4f} > ${self._max_training_session_cost}",
+                        current_session_cost,
+                        self._max_training_session_cost
+                    )
             
             # Check daily budget
             if self.daily_spend + estimated_cost > self.config.daily_budget:
@@ -257,6 +286,10 @@ class CostMonitor:
             self.weekly_spend += cost_to_add
             self.monthly_spend += cost_to_add
             
+            # Track training session cost if in training mode
+            if self._training_mode and self._training_session_id:
+                self._training_session_costs[self._training_session_id] += cost_to_add
+            
             logger.debug(f"Recorded usage: ${cost_to_add:.6f} for {provider}:{model}. "
                         f"Daily total: ${self.daily_spend:.4f}")
             
@@ -298,14 +331,37 @@ class CostMonitor:
         ]
         
         for period, spend, budget in budgets:
+            if budget <= 0:  # Skip if budget is 0 or negative
+                continue
+                
             percentage = spend / budget
             
+            # Only trigger alerts for threshold crossings
             if percentage >= self.config.critical_threshold:
-                self._create_alert("critical", f"Critical: {period} spending at {percentage:.1%} of budget", 
-                                 spend, budget, period)
+                # Check if we already have a recent critical alert for this period
+                recent_critical = any(
+                    alert.severity == "critical" and 
+                    alert.budget_type == period and
+                    time.time() - alert.timestamp < 3600  # Within last hour
+                    for alert in self.alerts[-5:]  # Check last 5 alerts
+                )
+                
+                if not recent_critical:
+                    self._create_alert("critical", f"Critical: {period} spending at {percentage:.1%} of budget", 
+                                     spend, budget, period)
+                                     
             elif percentage >= self.config.warning_threshold:
-                self._create_alert("warning", f"Warning: {period} spending at {percentage:.1%} of budget", 
-                                 spend, budget, period)
+                # Check if we already have a recent warning alert for this period  
+                recent_warning = any(
+                    alert.severity in ["warning", "critical"] and
+                    alert.budget_type == period and
+                    time.time() - alert.timestamp < 3600  # Within last hour
+                    for alert in self.alerts[-5:]  # Check last 5 alerts
+                )
+                
+                if not recent_warning:
+                    self._create_alert("warning", f"Warning: {period} spending at {percentage:.1%} of budget", 
+                                     spend, budget, period)
     
     def _create_alert(self, severity: str, message: str, current_spend: float, 
                      budget: float, budget_type: str) -> None:
@@ -412,6 +468,97 @@ class CostMonitor:
             "avg_cost_per_hour": avg_cost_per_hour,
             "hours_of_data": hours_of_data,
         }
+    
+    # Emergency stop and training-specific methods
+    
+    def emergency_stop(self, reason: str = "Manual emergency stop") -> None:
+        """
+        Trigger emergency stop for all operations.
+        
+        Args:
+            reason: Reason for emergency stop
+        """
+        with self._lock:
+            self._emergency_stop = True
+            
+            self._create_alert(
+                "critical", 
+                f"EMERGENCY STOP ACTIVATED: {reason}",
+                self.daily_spend,
+                self.config.daily_budget,
+                "emergency"
+            )
+            
+            logger.critical(f"EMERGENCY STOP ACTIVATED: {reason}")
+    
+    def reset_emergency_stop(self) -> None:
+        """Reset emergency stop flag."""
+        with self._lock:
+            self._emergency_stop = False
+            logger.info("Emergency stop reset - operations can resume")
+    
+    def is_emergency_stopped(self) -> bool:
+        """Check if emergency stop is active."""
+        return self._emergency_stop
+    
+    def start_training_session(self, session_id: str, max_cost: Optional[float] = None) -> None:
+        """
+        Start tracking costs for a training session.
+        
+        Args:
+            session_id: Training session identifier
+            max_cost: Maximum allowed cost for this session
+        """
+        with self._lock:
+            self._training_mode = True
+            self._training_session_id = session_id
+            self._training_session_costs[session_id] = 0.0
+            
+            if max_cost is not None:
+                self._max_training_session_cost = max_cost
+                
+            logger.info(f"Started training session '{session_id}' with max cost ${max_cost or self._max_training_session_cost}")
+    
+    def end_training_session(self, session_id: Optional[str] = None) -> Dict[str, Any]:
+        """
+        End training session and return cost summary.
+        
+        Args:
+            session_id: Session to end (current if None)
+            
+        Returns:
+            Training session cost summary
+        """
+        session_id = session_id or self._training_session_id
+        
+        with self._lock:
+            if session_id not in self._training_session_costs:
+                raise ValueError(f"Training session '{session_id}' not found")
+            
+            session_cost = self._training_session_costs[session_id]
+            
+            # Reset training mode if ending current session
+            if session_id == self._training_session_id:
+                self._training_mode = False
+                self._training_session_id = None
+            
+            summary = {
+                "session_id": session_id,
+                "total_cost": session_cost,
+                "max_allowed_cost": self._max_training_session_cost,
+                "cost_utilization": session_cost / self._max_training_session_cost,
+                "budget_remaining": self._max_training_session_cost - session_cost
+            }
+            
+            logger.info(f"Ended training session '{session_id}' - Total cost: ${session_cost:.4f}")
+            return summary
+    
+    def get_training_session_cost(self, session_id: Optional[str] = None) -> float:
+        """Get current cost for training session."""
+        session_id = session_id or self._training_session_id
+        
+        with self._lock:
+            return self._training_session_costs.get(session_id, 0.0)
 
 
 # Global cost monitor instance

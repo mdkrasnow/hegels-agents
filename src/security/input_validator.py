@@ -81,6 +81,14 @@ class InputValidator:
             r"(\b(UNION\s+(ALL\s+)?SELECT))",
             r"(\b(EXEC|EXECUTE)\s*\()",
             r"(\b(SCRIPT|JAVASCRIPT|VBSCRIPT)\b)",
+            # Enhanced patterns for better detection
+            r"(\b(sp_configure|xp_cmdshell|sp_executesql)\b)",
+            r"(\b(WAITFOR\s+DELAY)\b)",
+            r"(\b(CAST|CONVERT)\s*\()",
+            r"(\b(CHAR|CHR)\s*\()",
+            r"('\s*(OR|AND)\s*')",
+            r"(--[^\r\n]*)",
+            r"(/\*.*\*/)",
         ]
         return [re.compile(pattern, re.IGNORECASE | re.DOTALL) for pattern in patterns]
     
@@ -95,6 +103,20 @@ class InputValidator:
             r"<\s*object[^>]*>",
             r"<\s*embed[^>]*>",
             r"<\s*meta[^>]*>",
+            # Enhanced XSS patterns
+            r"<\s*link[^>]*>",
+            r"<\s*style[^>]*>.*?</\s*style\s*>",
+            r"expression\s*\(",
+            r"alert\s*\(",
+            r"confirm\s*\(",
+            r"prompt\s*\(",
+            r"eval\s*\(",
+            r"String\.fromCharCode",
+            r"document\.(cookie|write|location)",
+            r"window\.(location|open)",
+            r"&#[xX]?[0-9a-fA-F]+;",
+            r"javascript\s*&#58;",
+            r"'\s*(alert|prompt|confirm)\s*\(",
         ]
         return [re.compile(pattern, re.IGNORECASE | re.DOTALL) for pattern in patterns]
     
@@ -107,6 +129,19 @@ class InputValidator:
             r"%2e%2e%5c",
             r"\.\.%2f",
             r"\.\.%5c",
+            # Enhanced path traversal patterns
+            r"\.\.\\\\\.",
+            r"\.\.%5c",
+            r"%2e%2e\\",
+            r"\.\.%2f",
+            r"\.\.\./",
+            r"\.\.\.\./",
+            r"\.\.\\\\\.\.\\\\\.",
+            r"\.\.\.\.\.\.",
+            r"/etc/passwd",
+            r"/etc/shadow", 
+            r"windows\\system32",
+            r"boot\.ini",
         ]
         return [re.compile(pattern, re.IGNORECASE) for pattern in patterns]
     

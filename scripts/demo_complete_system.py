@@ -314,8 +314,8 @@ class DialecticalSystemDemo:
         improvement = ((synthesis_quality - single_quality) / single_quality) * 100
         
         print("QUALITY SCORES:")
-        print(f"🎯 Single Agent:     {single_quality:.1f}/10")
-        print(f"🎯 Dialectical:      {synthesis_quality:.1f}/10")
+        print(f"🎯 Single Agent:     {single_quality:.1f}/100")
+        print(f"🎯 Dialectical:      {synthesis_quality:.1f}/100")
         print(f"📈 Improvement:      {improvement:+.1f}%")
         print()
         

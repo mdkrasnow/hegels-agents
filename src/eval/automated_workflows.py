@@ -182,7 +182,7 @@ class WorkflowScheduler:
         """
         if workflow.trigger.trigger_type == TriggerType.SCHEDULED:
             self._schedules[workflow.workflow_id] = workflow
-            self.logger.log_info(f"Added scheduled workflow '{workflow.name}'")
+            self.logger.log_debug(f"Added scheduled workflow '{workflow.name}'")
         else:
             raise ValueError("Workflow must have SCHEDULED trigger type")
     
@@ -206,14 +206,14 @@ class WorkflowScheduler:
         self._running = True
         self._scheduler_thread = threading.Thread(target=self._scheduler_loop, daemon=True)
         self._scheduler_thread.start()
-        self.logger.log_info("Workflow scheduler started")
+        self.logger.log_debug("Workflow scheduler started")
     
     def stop_scheduler(self) -> None:
         """Stop the scheduler thread."""
         self._running = False
         if self._scheduler_thread:
             self._scheduler_thread.join(timeout=5)
-        self.logger.log_info("Workflow scheduler stopped")
+        self.logger.log_debug("Workflow scheduler stopped")
     
     def _scheduler_loop(self) -> None:
         """Main scheduler loop."""
@@ -224,13 +224,13 @@ class WorkflowScheduler:
                 for workflow_id, workflow in list(self._schedules.items()):
                     if self._should_execute_workflow(workflow, current_time):
                         # Trigger workflow execution (this would integrate with WorkflowOrchestrator)
-                        self.logger.log_info(f"Triggering scheduled workflow: {workflow.name}")
+                        self.logger.log_debug(f"Triggering scheduled workflow: {workflow.name}")
                         # TODO: Integrate with workflow executor
                 
                 time.sleep(60)  # Check every minute
                 
             except Exception as e:
-                self.logger.log_error(f"Scheduler loop error: {e}")
+                self.logger.log_error(e, "Scheduler loop error")
                 time.sleep(60)
     
     def _should_execute_workflow(self, workflow: WorkflowDefinition, current_time: datetime) -> bool:
@@ -312,7 +312,7 @@ class WorkflowOrchestrator:
         if workflow.trigger.trigger_type == TriggerType.SCHEDULED:
             self.scheduler.add_scheduled_workflow(workflow)
         
-        self.logger.log_info(f"Registered workflow '{workflow.name}' ({workflow.workflow_id})")
+        self.logger.log_debug(f"Registered workflow '{workflow.name}' ({workflow.workflow_id})")
         return workflow.workflow_id
     
     def execute_workflow(self, workflow_id: str, manual_trigger: bool = False) -> WorkflowExecution:
@@ -348,7 +348,7 @@ class WorkflowOrchestrator:
             execution.status = WorkflowStatus.FAILED
             execution.error_message = str(e)
             execution.completed_at = datetime.now()
-            self.logger.log_error(f"Workflow execution failed: {e}")
+            self.logger.log_error(e, "Workflow execution failed")
         
         finally:
             # Move to history
@@ -386,7 +386,7 @@ class WorkflowOrchestrator:
     
     def _execute_workflow_step(self, step: WorkflowStep, execution: WorkflowExecution) -> None:
         """Execute a single workflow step."""
-        self.logger.log_info(f"Executing step: {step.name}")
+        self.logger.log_debug(f"Executing step: {step.name}")
         
         try:
             if step.step_type == "evaluation":
@@ -410,7 +410,7 @@ class WorkflowOrchestrator:
             step.retry_count += 1
             
             if step.retry_count <= step.max_retries:
-                self.logger.log_warning(f"Step {step.name} failed, retrying ({step.retry_count}/{step.max_retries})")
+                self.logger.log_debug(f"Step {step.name} failed, retrying ({step.retry_count}/{step.max_retries})")
                 time.sleep(2 ** step.retry_count)  # Exponential backoff
                 self._execute_workflow_step(step, execution)  # Retry
             else:
@@ -518,13 +518,13 @@ class WorkflowOrchestrator:
         message = config.get('message', 'Workflow step completed')
         
         if notification_type == 'log':
-            self.logger.log_info(f"Notification: {message}")
+            self.logger.log_debug(f"Notification: {message}")
         elif notification_type == 'email':
             # Would integrate with email service
-            self.logger.log_info(f"Email notification: {message}")
+            self.logger.log_debug(f"Email notification: {message}")
         elif notification_type == 'webhook':
             # Would send webhook
-            self.logger.log_info(f"Webhook notification: {message}")
+            self.logger.log_debug(f"Webhook notification: {message}")
         
         return {
             'notification_type': notification_type,
@@ -557,12 +557,12 @@ class WorkflowOrchestrator:
     def start(self) -> None:
         """Start the workflow orchestrator."""
         self.scheduler.start_scheduler()
-        self.logger.log_info("Workflow orchestrator started")
+        self.logger.log_debug("Workflow orchestrator started")
     
     def stop(self) -> None:
         """Stop the workflow orchestrator."""
         self.scheduler.stop_scheduler()
-        self.logger.log_info("Workflow orchestrator stopped")
+        self.logger.log_debug("Workflow orchestrator stopped")
 
 
 class ContinuousMonitoringService:
@@ -613,7 +613,7 @@ class ContinuousMonitoringService:
             'breach_count': 0
         }
         
-        self.logger.log_info(f"Added threshold for {metric_name}: {operator} {threshold_value}")
+        self.logger.log_debug(f"Added threshold for {metric_name}: {operator} {threshold_value}")
     
     def start_monitoring(self) -> None:
         """Start continuous monitoring."""
@@ -624,7 +624,7 @@ class ContinuousMonitoringService:
         self.monitoring_thread = threading.Thread(target=self._monitoring_loop, daemon=True)
         self.monitoring_thread.start()
         
-        self.logger.log_info("Continuous monitoring started")
+        self.logger.log_debug("Continuous monitoring started")
     
     def stop_monitoring(self) -> None:
         """Stop continuous monitoring."""
@@ -632,7 +632,7 @@ class ContinuousMonitoringService:
         if self.monitoring_thread:
             self.monitoring_thread.join(timeout=5)
         
-        self.logger.log_info("Continuous monitoring stopped")
+        self.logger.log_debug("Continuous monitoring stopped")
     
     def _monitoring_loop(self) -> None:
         """Main monitoring loop."""
@@ -646,7 +646,7 @@ class ContinuousMonitoringService:
                 time.sleep(self.check_interval)
                 
             except Exception as e:
-                self.logger.log_error(f"Monitoring loop error: {e}")
+                self.logger.log_error(e, "Monitoring loop error")
                 time.sleep(60)
     
     def _check_metric_threshold(self, 
@@ -687,7 +687,7 @@ class ContinuousMonitoringService:
                 }
                 
                 self.alert_history.append(alert)
-                self.logger.log_warning(f"Threshold breach: {metric_name} = {current_value}")
+                self.logger.log_debug(f"Threshold breach: {metric_name} = {current_value}")
                 
                 # Trigger alert workflow if configured
                 alert_workflow_id = threshold_config.get('alert_workflow_id')
@@ -697,7 +697,7 @@ class ContinuousMonitoringService:
             threshold_config['last_checked'] = current_time
             
         except Exception as e:
-            self.logger.log_error(f"Error checking threshold for {metric_name}: {e}")
+            self.logger.log_error(e, f"Error checking threshold for {metric_name}")
     
     def _get_current_metric_value(self, metric_name: str) -> Optional[float]:
         """Get current value of a metric."""

@@ -20,6 +20,15 @@ from pathlib import Path
 logger = logging.getLogger(__name__)
 
 
+class SecurityEventEncoder(json.JSONEncoder):
+    """Custom JSON encoder for security events."""
+    
+    def default(self, obj):
+        if isinstance(obj, SecurityEventType):
+            return obj.value
+        return super().default(obj)
+
+
 class SecurityEventType(Enum):
     """Types of security events."""
     AUTHENTICATION_SUCCESS = "auth_success"
@@ -295,7 +304,7 @@ class SecurityLogger:
                 log_data['timestamp_iso'] = datetime.fromtimestamp(
                     event.timestamp, timezone.utc
                 ).isoformat()
-                log_line = json.dumps(log_data)
+                log_line = json.dumps(log_data, cls=SecurityEventEncoder)
             else:
                 # CSV format
                 log_line = f"{event.timestamp},{event.event_type.value},{event.severity},{event.message}"

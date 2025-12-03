@@ -283,7 +283,7 @@ class ABTestingFramework:
             ABTestResult with statistical analysis
         """
         test_id = str(uuid.uuid4())
-        self.logger.log_info(f"Starting A/B test '{name}' with {len(questions)} questions")
+        self.logger.log_debug(f"Starting A/B test '{name}' with {len(questions)} questions")
         
         # Run evaluations for both approaches
         results_a = self._run_evaluation_batch(
@@ -319,7 +319,7 @@ class ABTestingFramework:
                             evaluator_factory,
                             approach_label: str) -> List[Dict[str, Any]]:
         """Run evaluation batch for one approach."""
-        self.logger.log_info(f"Running evaluation batch for approach {approach_label}")
+        self.logger.log_debug(f"Running evaluation batch for approach {approach_label}")
         
         evaluator = evaluator_factory(config)
         results = []
@@ -331,7 +331,7 @@ class ABTestingFramework:
                 result['approach'] = approach_label
                 results.append(result)
             except Exception as e:
-                self.logger.log_error(f"Evaluation failed for question {i}: {e}")
+                self.logger.log_error(RuntimeError(f"Evaluation failed for question {i}: {e}"), "evaluation")
                 results.append({
                     'question_index': i,
                     'approach': approach_label,
@@ -515,7 +515,7 @@ class AutomatedEvaluationPipeline:
         )
         
         self.active_batches[batch.batch_id] = batch
-        self.logger.log_info(f"Created evaluation batch '{name}' with {len(questions)} questions")
+        self.logger.log_debug(f"Created evaluation batch '{name}' with {len(questions)} questions")
         
         return batch
     
@@ -536,7 +536,7 @@ class AutomatedEvaluationPipeline:
         batch = self.active_batches[batch_id]
         batch.status = "running"
         
-        self.logger.log_info(f"Starting evaluation batch '{batch.name}'")
+        self.logger.log_debug(f"Starting evaluation batch '{batch.name}'")
         
         try:
             if parallel and len(batch.questions) > 1:
@@ -558,13 +558,13 @@ class AutomatedEvaluationPipeline:
             
             self.completed_evaluations.append(batch_results)
             
-            self.logger.log_info(f"Completed evaluation batch '{batch.name}'")
+            self.logger.log_debug(f"Completed evaluation batch '{batch.name}'")
             return batch_results
             
         except Exception as e:
             batch.status = "failed"
             batch.metadata['error'] = str(e)
-            self.logger.log_error(f"Evaluation batch '{batch.name}' failed: {e}")
+            self.logger.log_error(e, f"Evaluation batch '{batch.name}' failed")
             raise
     
     def _run_batch_sequential(self, batch: EvaluationBatch) -> List[Dict[str, Any]]:
@@ -582,7 +582,7 @@ class AutomatedEvaluationPipeline:
                     result['config_id'] = config.get('id', f'config_{len(question_results)}')
                     question_results.append(result)
                 except Exception as e:
-                    self.logger.log_error(f"Evaluation failed for question {i}: {e}")
+                    self.logger.log_error(RuntimeError(f"Evaluation failed for question {i}: {e}"), "evaluation")
                     question_results.append({
                         'question_index': i,
                         'config_id': config.get('id', f'config_{len(question_results)}'),
@@ -620,7 +620,7 @@ class AutomatedEvaluationPipeline:
                     result.update(info)
                     results.append(result)
                 except Exception as e:
-                    self.logger.log_error(f"Parallel evaluation failed: {e}")
+                    self.logger.log_error(e, "Parallel evaluation failed")
                     error_result = info.copy()
                     error_result.update({'error': str(e), 'success': False})
                     results.append(error_result)
@@ -790,7 +790,7 @@ class AutomatedEvaluationPipeline:
         )
         
         self.baseline_metrics[metric_type] = baseline
-        self.logger.log_info(f"Updated baseline for {metric_type}: {baseline.baseline_value:.3f}")
+        self.logger.log_debug(f"Updated baseline for {metric_type}: {baseline.baseline_value:.3f}")
         
         return baseline
     
@@ -836,7 +836,7 @@ class AutomatedEvaluationPipeline:
             with open(output_dir / f"evaluation_results_{timestamp}.json", 'w') as f:
                 json.dump(self.completed_evaluations, f, indent=2, default=str)
         
-        self.logger.log_info(f"Results exported to {output_dir}")
+        self.logger.log_debug(f"Results exported to {output_dir}")
 
 
 # Factory function for easy initialization

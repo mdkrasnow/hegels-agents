@@ -541,7 +541,7 @@ class PerformanceBenchmarkSuite:
             'metrics_available': self._extract_available_metrics(data)
         }
         
-        self.logger.log_info(f"Registered benchmark '{name}' with {len(data)} data points")
+        self.logger.log_debug(f"Registered benchmark '{name}' with {len(data)} data points")
     
     def _extract_available_metrics(self, data: List[Dict[str, Any]]) -> List[str]:
         """Extract available numeric metrics from data."""
@@ -583,7 +583,7 @@ class PerformanceBenchmarkSuite:
         
         for benchmark_name in benchmarks_to_use:
             if benchmark_name not in self.benchmarks:
-                self.logger.log_warning(f"Benchmark '{benchmark_name}' not found")
+                self.logger.log_debug(f"Benchmark '{benchmark_name}' not found")
                 continue
             
             benchmark_data = self.benchmarks[benchmark_name]['data']
@@ -603,7 +603,7 @@ class PerformanceBenchmarkSuite:
                     )
                     benchmark_results['metric_comparisons'][metric] = comparison.to_dict()
                 except Exception as e:
-                    self.logger.log_warning(f"Failed to compare metric '{metric}': {e}")
+                    self.logger.log_debug(f"Failed to compare metric '{metric}': {e}")
             
             results['benchmarks_compared'].append(benchmark_results)
         
@@ -702,7 +702,7 @@ class EvaluationReportGenerator:
                 report.append(metric_analysis)
                 report.append("")
             except Exception as e:
-                self.logger.log_warning(f"Failed to analyze metric '{metric}': {e}")
+                self.logger.log_debug(f"Failed to analyze metric '{metric}': {e}")
         
         # Correlations
         if len(available_metrics) > 1:

@@ -59,7 +59,7 @@ def debug_response():
     # Also try to evaluate with a better prompt (Chain of Thought)
     print("\n--- Testing Better Evaluation Prompt ---")
     better_prompt = """
-    Please evaluate the quality of this response on a scale from 1-10 based on:
+    Please evaluate the quality of this response on a scale from 1-100 based on:
     1. Accuracy and factual correctness
     2. Comprehensiveness and depth of analysis  
     3. Clarity and organization of reasoning

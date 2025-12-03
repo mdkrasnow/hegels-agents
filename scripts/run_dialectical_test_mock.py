@@ -132,28 +132,28 @@ class MockDialecticalTester:
     
     def _mock_quality_score(self, response: AgentResponse) -> float:
         """Generate mock quality scores with realistic variation."""
-        base_score = 6.0
+        base_score = 60.0
         
         # Length bonus
         if len(response.content) > 300:
-            base_score += 1.0
+            base_score += 10.0
         elif len(response.content) > 150:
-            base_score += 0.5
+            base_score += 5.0
             
         # Confidence factor
         if response.confidence:
-            base_score += (response.confidence - 0.5) * 2
+            base_score += (response.confidence - 0.5) * 20
         
         # Synthesis bonus (dialectical responses tend to be higher quality)
         if response.metadata and response.metadata.get("agent_type") == "synthesis":
-            base_score += 0.8
+            base_score += 8.0
             
         # Add some realistic variation
         import random
         random.seed(hash(response.content) % 1000)  # Deterministic but varied
-        variation = random.uniform(-0.5, 0.5)
+        variation = random.uniform(-5.0, 5.0)
         
-        return max(1.0, min(10.0, base_score + variation))
+        return max(1.0, min(100.0, base_score + variation))
 
 
 def run_mock_validation_test(num_questions: int = 10):
@@ -202,8 +202,8 @@ def run_mock_validation_test(num_questions: int = 10):
     print(f"\nKey Metrics:")
     print(f"  Average Improvement: {avg_improvement:.1%}")
     print(f"  Tests Showing Improvement: {positive_rate:.1f}%")
-    print(f"  Single Agent Quality: {sum(single_qualities)/len(single_qualities):.2f}/10") 
-    print(f"  Dialectical Quality: {sum(dialectical_qualities)/len(dialectical_qualities):.2f}/10")
+    print(f"  Single Agent Quality: {sum(single_qualities)/len(single_qualities):.2f}/100") 
+    print(f"  Dialectical Quality: {sum(dialectical_qualities)/len(dialectical_qualities):.2f}/100")
     
     print(f"\nIndividual Results:")
     for i, result in enumerate(results, 1):

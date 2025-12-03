@@ -99,14 +99,14 @@ class DialecticalTester:
         
         # Test configuration (kept for backwards compatibility, but no longer used)
         self.quality_evaluation_prompt = """
-        Please evaluate the quality of this response on a scale from 1-10 based on:
+        Please evaluate the quality of this response on a scale from 1-100 based on:
         1. Accuracy and factual correctness
         2. Comprehensiveness and depth of analysis  
         3. Clarity and organization of reasoning
         4. Use of evidence and supporting information
         5. Acknowledgment of limitations or uncertainties
         
-        Provide only a numeric score from 1-10, no explanation needed.
+        Provide only a numeric score from 1-100, no explanation needed.
         """
         
     def run_single_agent_test(self, question: str) -> Tuple[AgentResponse, float]:
@@ -180,7 +180,7 @@ class DialecticalTester:
             response: Response to evaluate
             
         Returns:
-            Quality score (1-10)
+            Quality score (1-100)
         """
         import warnings
         warnings.warn(
@@ -206,7 +206,7 @@ class DialecticalTester:
         if single_score == 0:
             return 0.0
         
-        improvement = (dialectical_score - single_score) / 10.0
+        improvement = (dialectical_score - single_score) / 100.0
         return max(-1.0, min(1.0, improvement))
     
     def run_comparison_test(self, question: str) -> DialecticalTestResult:
@@ -458,8 +458,8 @@ The core hypothesis that dialectical debate improves AI reasoning quality has be
 ## Detailed Results
 
 ### Quality Score Analysis
-- **Single Agent Average:** {stats['quality_scores']['single_agent']['mean']:.2f}/10
-- **Dialectical Average:** {stats['quality_scores']['dialectical']['mean']:.2f}/10
+- **Single Agent Average:** {stats['quality_scores']['single_agent']['mean']:.2f}/100
+- **Dialectical Average:** {stats['quality_scores']['dialectical']['mean']:.2f}/100
 - **Quality Improvement:** {(stats['quality_scores']['dialectical']['mean'] - stats['quality_scores']['single_agent']['mean']):.2f} points
 
 ### Performance Analysis  
@@ -474,7 +474,7 @@ The core hypothesis that dialectical debate improves AI reasoning quality has be
 
 ### Debate Analysis
 - **Conflicts Identified:** {stats['conflicts_and_synthesis']['conflicts_identified_count']}/{stats['num_tests']} debates
-- **Average Synthesis Effectiveness:** {stats['conflicts_and_synthesis']['mean_synthesis_effectiveness']:.2f}/10
+- **Average Synthesis Effectiveness:** {stats['conflicts_and_synthesis']['mean_synthesis_effectiveness']:.2f}/100
 
 ## Individual Test Results
 
@@ -485,8 +485,8 @@ The core hypothesis that dialectical debate improves AI reasoning quality has be
             report += f"""
 ### Test {i}: {improvement_indicator}
 **Question:** {result.question[:100]}{"..." if len(result.question) > 100 else ""}
-- Single Agent Quality: {result.single_agent_quality_score:.1f}/10
-- Dialectical Quality: {result.dialectical_quality_score:.1f}/10  
+- Single Agent Quality: {result.single_agent_quality_score:.1f}/100
+- Dialectical Quality: {result.dialectical_quality_score:.1f}/100  
 - Improvement: {result.improvement_score:.1%}
 - Conflict Identified: {result.conflict_identified}
 """

@@ -72,7 +72,7 @@ class BlindedEvaluator:
     # Standardized evaluation prompt - identical for all response types
     STANDARD_EVALUATION_PROMPT = """You are evaluating the quality of a response to a question. Please provide an objective assessment based solely on the response content.
 
-Evaluation Criteria (Rate 1-10):
+Evaluation Criteria (Rate 1-100):
 1. Accuracy and factual correctness
 2. Comprehensiveness and depth of analysis  
 3. Clarity and organization of reasoning
@@ -81,11 +81,11 @@ Evaluation Criteria (Rate 1-10):
 
 Important Instructions:
 - Focus only on the response quality, not its source or context
-- Provide only a numeric score from 1-10, no explanation needed
+- Provide only a numeric score from 1-100, no explanation needed
 - Be consistent in your evaluation standards
 - Rate based on content merit alone
 
-Provide your score as a single number between 1 and 10."""
+Provide your score as a single number between 1 and 100."""
     
     def __init__(self, base_evaluator_id: str = "blinded_evaluator"):
         """
@@ -147,7 +147,7 @@ Provide your score as a single number between 1 and 10."""
         
         Reasoning: {anonymized_response.reasoning}
         
-        Score (1-10):"""
+        Score (1-100):"""
         
         try:
             # Get evaluation from fresh evaluator
@@ -158,7 +158,7 @@ Provide your score as a single number between 1 and 10."""
             
             # Try multiple patterns to extract score
             patterns = [
-                r'(\d+(?:\.\d+)?)\s*/\s*10',  # X/10 format
+                r'(\d+(?:\.\d+)?)\s*/\s*100',  # X/100 format
                 r'Score:\s*(\d+(?:\.\d+)?)',   # Score: X format
                 r'(\d+(?:\.\d+)?)'             # First number found
             ]
@@ -173,7 +173,7 @@ Provide your score as a single number between 1 and 10."""
                         continue
             
             # Clamp score to valid range
-            score = max(1.0, min(10.0, score))
+            score = max(1.0, min(100.0, score))
             
             return BlindedEvaluationResult(
                 anonymous_id=anonymized_response.anonymous_id,
@@ -328,7 +328,7 @@ class BlindedDialecticalComparison:
         )
         
         # Calculate improvement metrics
-        improvement_score = (dialectical_score - single_score) / 10.0  # Normalize to -1 to 1
+        improvement_score = (dialectical_score - single_score) / 100.0  # Normalize to -1 to 1
         # Calculate improvement percentage with proper zero baseline handling
         if single_score == 0:
             # If baseline is 0, improvement is undefined/infinite

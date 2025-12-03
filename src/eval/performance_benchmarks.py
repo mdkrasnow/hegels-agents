@@ -166,7 +166,7 @@ class PerformanceProfiler:
         except Exception as e:
             success = False
             error_message = str(e)
-            self.logger.log_warning(f"Operation {operation_id} failed: {e}")
+            self.logger.log_debug(f"Operation {operation_id} failed: {e}")
         
         # Capture final state
         end_time = datetime.now()
@@ -225,7 +225,7 @@ class PerformanceProfiler:
                 time.sleep(0.1)  # Sample every 100ms
                 
             except Exception as e:
-                self.logger.log_warning(f"Resource monitoring error: {e}")
+                self.logger.log_debug(f"Resource monitoring error: {e}")
                 time.sleep(1)
     
     def _get_memory_usage(self) -> float:
@@ -315,13 +315,13 @@ class BenchmarkSuite:
         """
         benchmark_id = f"latency_{operation_type}_{int(time.time())}"
         
-        self.logger.log_info(f"Running latency benchmark: {benchmark_id}")
+        self.logger.log_debug(f"Running latency benchmark: {benchmark_id}")
         
         start_time = datetime.now()
         metrics = []
         
         # Warmup iterations (not recorded)
-        self.logger.log_info(f"Running {warmup_iterations} warmup iterations...")
+        self.logger.log_debug(f"Running {warmup_iterations} warmup iterations...")
         for i in range(warmup_iterations):
             try:
                 operation()
@@ -329,7 +329,7 @@ class BenchmarkSuite:
                 pass  # Ignore warmup errors
         
         # Actual benchmark iterations
-        self.logger.log_info(f"Running {iterations} benchmark iterations...")
+        self.logger.log_debug(f"Running {iterations} benchmark iterations...")
         successful_operations = 0
         failed_operations = 0
         
@@ -348,7 +348,7 @@ class BenchmarkSuite:
                     failed_operations += 1
                     
             except Exception as e:
-                self.logger.log_warning(f"Benchmark iteration {i} failed: {e}")
+                self.logger.log_debug(f"Benchmark iteration {i} failed: {e}")
                 failed_operations += 1
         
         end_time = datetime.now()
@@ -396,7 +396,7 @@ class BenchmarkSuite:
         """
         benchmark_id = f"throughput_{operation_type}_{int(time.time())}"
         
-        self.logger.log_info(f"Running throughput benchmark: {benchmark_id}")
+        self.logger.log_debug(f"Running throughput benchmark: {benchmark_id}")
         
         start_time = datetime.now()
         end_time_target = start_time + timedelta(seconds=duration_seconds)
@@ -425,7 +425,7 @@ class BenchmarkSuite:
                         failed_operations += 1
                         
                 except Exception as e:
-                    self.logger.log_warning(f"Throughput operation failed: {e}")
+                    self.logger.log_debug(f"Throughput operation failed: {e}")
                     failed_operations += 1
         
         # Run with concurrent workers
@@ -491,7 +491,7 @@ class BenchmarkSuite:
         """
         benchmark_id = f"stress_{operation_type}_{int(time.time())}"
         
-        self.logger.log_info(f"Running stress test: {benchmark_id}")
+        self.logger.log_debug(f"Running stress test: {benchmark_id}")
         
         start_time = datetime.now()
         metrics = []
@@ -526,7 +526,7 @@ class BenchmarkSuite:
                 time.sleep(0.01)  # Brief pause to prevent overwhelming
         
         # Ramp-up phase
-        self.logger.log_info(f"Ramping up to {max_concurrent_workers} workers over {ramp_up_duration}s")
+        self.logger.log_debug(f"Ramping up to {max_concurrent_workers} workers over {ramp_up_duration}s")
         
         ramp_end_time = start_time + timedelta(seconds=ramp_up_duration)
         for current_workers in range(1, max_concurrent_workers + 1):
@@ -551,7 +551,7 @@ class BenchmarkSuite:
                 })
         
         # Steady-state phase
-        self.logger.log_info(f"Maintaining {max_concurrent_workers} workers for {steady_duration}s")
+        self.logger.log_debug(f"Maintaining {max_concurrent_workers} workers for {steady_duration}s")
         steady_end_time = datetime.now() + timedelta(seconds=steady_duration)
         
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_concurrent_workers) as executor:
@@ -709,7 +709,7 @@ class BenchmarkSuite:
         }
         
         self.baseline_metrics[operation_type] = baseline
-        self.logger.log_info(f"Established baseline for {operation_type}")
+        self.logger.log_debug(f"Established baseline for {operation_type}")
         
         return baseline
     
@@ -832,7 +832,7 @@ class BenchmarkSuite:
         with open(summary_file, 'w') as f:
             json.dump(summary, f, indent=2, default=str)
         
-        self.logger.log_info(f"Exported {len(self.benchmark_results)} benchmark results to {output_path}")
+        self.logger.log_debug(f"Exported {len(self.benchmark_results)} benchmark results to {output_path}")
 
 
 # Factory function

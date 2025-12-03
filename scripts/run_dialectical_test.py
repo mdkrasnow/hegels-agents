@@ -264,8 +264,8 @@ def print_summary_results(test_suite: DialecticalTestSuite):
     print(f"\nKey Metrics:")
     print(f"  Average Improvement: {stats['improvement_scores']['mean']:.1%}")
     print(f"  Tests Showing Improvement: {stats['improvement_analysis']['positive_percentage']:.1f}%")
-    print(f"  Single Agent Quality: {stats['quality_scores']['single_agent']['mean']:.2f}/10")
-    print(f"  Dialectical Quality: {stats['quality_scores']['dialectical']['mean']:.2f}/10")
+    print(f"  Single Agent Quality: {stats['quality_scores']['single_agent']['mean']:.2f}/100")
+    print(f"  Dialectical Quality: {stats['quality_scores']['dialectical']['mean']:.2f}/100")
     
     print(f"\nPerformance:")
     print(f"  Single Agent Time: {stats['performance']['single_agent_time']['mean']:.2f}s avg")
@@ -274,7 +274,7 @@ def print_summary_results(test_suite: DialecticalTestSuite):
     
     print(f"\nDebate Analysis:")
     print(f"  Conflicts Identified: {stats['conflicts_and_synthesis']['conflicts_identified_count']}/{stats['num_tests']}")
-    print(f"  Synthesis Effectiveness: {stats['conflicts_and_synthesis']['mean_synthesis_effectiveness']:.2f}/10")
+    print(f"  Synthesis Effectiveness: {stats['conflicts_and_synthesis']['mean_synthesis_effectiveness']:.2f}/100")
     
     # Individual results summary
     print(f"\nIndividual Test Results:")
