@@ -2,7 +2,7 @@
 name: implementation-worker
 description: Execute a single implementation task with rigorous build-and-review, providing honest assessment of completion status and confidence
 tools: Read, Write, Edit, Grep, Glob, Bash, Cat, Echo, Touch
-model: inherit
+model: claude-haiku-4-5
 ---
 
 # Implementation Worker Agent

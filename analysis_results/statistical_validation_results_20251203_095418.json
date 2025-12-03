@@ -1,0 +1,206 @@
+{
+  "analysis_timestamp": "2025-12-03T09:54:18.945774",
+  "sample_size": 20,
+  "configuration": {
+    "sample_size": 20,
+    "confidence_level": 0.95,
+    "significance_level": 0.05,
+    "effect_size_threshold": 0.3,
+    "practical_significance_threshold": 0.05,
+    "power_target": 0.8,
+    "bootstrap_samples": 1000,
+    "random_seed": 42
+  },
+  "data_summary": {
+    "single_agent_scores": {
+      "mean": 71.4,
+      "median": 82.5,
+      "std": 33.969645893139116,
+      "min": 1.0,
+      "max": 98.0,
+      "count": 20
+    },
+    "hegel_scores": {
+      "mean": 91.7,
+      "median": 97.0,
+      "std": 20.629820010950425,
+      "min": 5.0,
+      "max": 98.0,
+      "count": 20
+    },
+    "improvement_scores": {
+      "mean": 0.203,
+      "median": 0.04,
+      "std": 0.4123501322649811,
+      "min": -0.8,
+      "max": 0.97,
+      "count": 20
+    },
+    "single_agent_times": {
+      "mean": 10.731269216537475,
+      "median": 11.08013916015625,
+      "std": 1.443163971034658,
+      "min": 6.417157888412476,
+      "max": 12.218814134597778,
+      "count": 20
+    },
+    "hegel_times": {
+      "mean": 30.05681606531143,
+      "median": 31.572240710258484,
+      "std": 4.060804457737488,
+      "min": 21.15304923057556,
+      "max": 33.577155113220215,
+      "count": 20
+    },
+    "absolute_improvements": {
+      "mean": 20.3,
+      "median": 4.0,
+      "std": 41.235013226498104,
+      "min": -80.0,
+      "max": 97.0,
+      "count": 20
+    },
+    "improvement_rate": 0.7
+  },
+  "statistical_tests": {
+    "quality_analysis": {
+      "paired_t_test": {
+        "test_name": "Paired t-test",
+        "test_statistic": 2.201632854773825,
+        "p_value": 0.040248363725616264,
+        "effect_size": null,
+        "confidence_interval": null,
+        "interpretation": "Significant (p < 0.05)",
+        "sample_size": 20,
+        "power": null
+      },
+      "wilcoxon_test": {
+        "test_name": "Wilcoxon signed-rank test",
+        "test_statistic": 34.0,
+        "p_value": 0.013980655416042672,
+        "effect_size": null,
+        "confidence_interval": null,
+        "interpretation": "Significant (p < 0.05)",
+        "sample_size": 19,
+        "power": null
+      }
+    },
+    "improvement_analysis": {
+      "improvement_t_test": {
+        "test_name": "One-sample t-test (vs zero improvement)",
+        "test_statistic": 2.201632854773825,
+        "p_value": 0.040248363725616264,
+        "effect_size": null,
+        "confidence_interval": null,
+        "interpretation": "Significant (p < 0.05)",
+        "sample_size": 20,
+        "power": null
+      },
+      "sign_test": {
+        "test_name": "Sign test (positive improvements)",
+        "test_statistic": 14,
+        "p_value": 0.11531829833984375,
+        "effect_size": null,
+        "confidence_interval": null,
+        "interpretation": "14/20 positive improvements, Not significant",
+        "sample_size": 20,
+        "power": null
+      }
+    },
+    "performance_analysis": {
+      "timing_summary": {
+        "mean_time_ratio": 2.8211018226930564,
+        "median_time_ratio": 2.808513667088663,
+        "mean_overhead_percent": 182.11018226930565
+      },
+      "timing_t_test": {
+        "test_name": "Paired t-test (timing comparison)",
+        "test_statistic": 26.28907087401662,
+        "p_value": 2.1023694128842458e-16,
+        "effect_size": null,
+        "confidence_interval": null,
+        "interpretation": "Hegel's approach is significantly slower",
+        "sample_size": 20,
+        "power": null
+      }
+    }
+  },
+  "effect_size_analysis": {
+    "quality_cohens_d": {
+      "effect_size": -0.7223498763807147,
+      "interpretation": "medium negative effect (d = -0.722)"
+    },
+    "raw_improvement": {
+      "mean_points_improvement": 20.3,
+      "mean_percentage_improvement": 28.431372549019606
+    },
+    "improvement_confidence_interval": {
+      "confidence_level": 0.95,
+      "lower_bound": 1.0014197610833726,
+      "upper_bound": 39.598580238916625,
+      "interpretation": "We are 95% confident the true improvement is between 1.00 and 39.60 points"
+    }
+  },
+  "practical_significance": {
+    "mean_improvement_points": 20.3,
+    "mean_improvement_percent": 28.431372549019606,
+    "threshold_points": 5.0,
+    "threshold_percent": 5.0,
+    "exceeds_point_threshold": true,
+    "exceeds_percent_threshold": true,
+    "practically_significant": true,
+    "substantial_improvement_rate": 0.5,
+    "number_needed_to_treat": 2.0
+  },
+  "power_analysis": {
+    "observed_effect_size": -0.7223498763807147,
+    "current_sample_size": 20,
+    "current_power": 0.5749814650302445,
+    "target_power": 0.8,
+    "required_sample_size_for_target_power": 1000,
+    "minimum_detectable_effect": 0.8859390348296595,
+    "power_adequate": "False",
+    "interpretation": "Current study has 57.5% power to detect the observed effect size"
+  },
+  "conclusions": {
+    "analysis_timestamp": "2025-12-03T09:54:18.949620",
+    "sample_size_assessment": {
+      "sample_size": 20,
+      "adequacy": "limited",
+      "minimum_recommended": 30,
+      "good_practice": 50,
+      "recommendations": [
+        "Consider increasing sample size for more robust statistics"
+      ]
+    },
+    "statistical_significance_summary": {
+      "significant_tests": [
+        "quality_analysis: Paired t-test",
+        "quality_analysis: Wilcoxon signed-rank test",
+        "improvement_analysis: One-sample t-test (vs zero improvement)",
+        "performance_analysis: Paired t-test (timing comparison)"
+      ],
+      "non_significant_tests": [
+        "improvement_analysis: Sign test (positive improvements)"
+      ],
+      "overall_significance": true,
+      "consensus": true
+    },
+    "practical_significance_summary": {
+      "practically_significant": true,
+      "improvement_points": 20.3,
+      "improvement_percent": 28.431372549019606,
+      "substantial_improvement_rate": 0.5
+    },
+    "overall_recommendation": "LIKELY_ADOPT_HEGELS_APPROACH",
+    "confidence_level": "MODERATE_HIGH",
+    "limitations": [
+      "Small sample size (n=20) limits statistical power"
+    ],
+    "next_steps": [
+      "Increase sample size to at least 30 for robust conclusions",
+      "Consider increasing sample size to 1000 for 80% power"
+    ],
+    "summary": "Hegel's approach shows significant improvement, though effect size requires consideration."
+  }
+}

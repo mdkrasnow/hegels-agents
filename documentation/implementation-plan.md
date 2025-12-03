@@ -1,5 +1,17 @@
 The goal of Hegel's agents is to move from Generative AI (predicting the next word) to Reasoning AI (verifying the truth). It assumes that truth is not a static retrieval, but a process of negotiation and verification between multiple intelligent actors.
 
+It's designed to answer questions that:
+  - Have multiple valid perspectives that reasonable experts could
+  disagree on
+  - Allow for substantive debate between different approaches
+  - Enable meaningful synthesis that goes beyond simple averaging
+  - Test different reasoning types: evaluative, analytical, and
+  comparative
+It's for helping decision making to non-verifiable questions.
+
+The hypothesis:
+The evaluation measures whether the back-and-forth debate and synthesis process results in answers that are more comprehensive, nuanced, and well-reasoned than what a single AI agent would produce alone.
+
 Here's a concrete, research-grade implementation plan that uses **progressive enhancement architecture**:
 
 * Uses **Gemini via the Google GenAI SDK (Python)**

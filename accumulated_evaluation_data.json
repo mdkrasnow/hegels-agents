@@ -1,0 +1,1318 @@
+{
+  "metadata": {
+    "created_at": "2025-12-03T09:24:20.995498",
+    "total_evaluations": 80,
+    "unique_questions_evaluated": [
+      "What is the most compelling interpretation of quantum mechanics and why: the Copenhagen interpretation, Many-worlds theory, or Hidden variables theory?",
+      "For large-scale data processing, what is more important: time complexity optimization or space complexity optimization? Consider practical applications.",
+      "What is the central theme of Hamlet: the corruption of power, the paralysis of thought, or the inevitability of fate? Support your interpretation.",
+      "What is the most important driving force in evolution: natural selection, genetic drift, gene flow, or mutation? Explain your reasoning.",
+      "What was the most decisive factor that led to the Allied victory in World War II: industrial capacity, strategic decisions, technological advantages, or Soviet involvement?",
+      "In teaching calculus, should educators emphasize rigorous theoretical foundations or practical problem-solving applications? What approach better serves students?",
+      "Which ethical framework provides the most practical guidance for modern moral decisions: utilitarianism, deontological ethics, or virtue ethics?",
+      "What is the most effective approach to understanding human learning: behaviorist conditioning, cognitive information processing, or constructivist learning?",
+      "Should governments prioritize controlling inflation or reducing unemployment during economic downturns, and what are the trade-offs?",
+      "What should be the primary focus of future solar system exploration: searching for life on Mars, studying Jupiter's moons, or asteroid mining preparation?"
+    ],
+    "evaluation_sessions": [
+      {
+        "session_id": "20251203_092421",
+        "timestamp": "2025-12-03T09:29:03.292461",
+        "questions_evaluated": 5,
+        "question_selection": "random"
+      },
+      {
+        "session_id": "20251203_092903",
+        "timestamp": "2025-12-03T09:33:46.265765",
+        "questions_evaluated": 5,
+        "question_selection": "random"
+      },
+      {
+        "session_id": "20251203_093748",
+        "timestamp": "2025-12-03T09:42:28.854951",
+        "questions_evaluated": 5,
+        "question_selection": "random"
+      },
+      {
+        "session_id": "20251203_094228",
+        "timestamp": "2025-12-03T09:46:53.483187",
+        "questions_evaluated": 5,
+        "question_selection": "random"
+      },
+      {
+        "session_id": "20251203_100035",
+        "timestamp": "2025-12-03T10:05:09.190222",
+        "questions_evaluated": 5,
+        "question_selection": "random"
+      },
+      {
+        "session_id": "20251203_100509",
+        "timestamp": "2025-12-03T10:09:48.578157",
+        "questions_evaluated": 5,
+        "question_selection": "random"
+      },
+      {
+        "session_id": "20251203_100948",
+        "timestamp": "2025-12-03T10:14:30.036906",
+        "questions_evaluated": 5,
+        "question_selection": "random"
+      },
+      {
+        "session_id": "20251203_101430",
+        "timestamp": "2025-12-03T10:19:23.375041",
+        "questions_evaluated": 5,
+        "question_selection": "random"
+      },
+      {
+        "session_id": "20251203_101923",
+        "timestamp": "2025-12-03T10:24:12.338191",
+        "questions_evaluated": 5,
+        "question_selection": "random"
+      },
+      {
+        "session_id": "20251203_102412",
+        "timestamp": "2025-12-03T10:28:49.661391",
+        "questions_evaluated": 5,
+        "question_selection": "random"
+      },
+      {
+        "session_id": "20251203_102849",
+        "timestamp": "2025-12-03T10:33:21.365644",
+        "questions_evaluated": 5,
+        "question_selection": "random"
+      },
+      {
+        "session_id": "20251203_103321",
+        "timestamp": "2025-12-03T10:37:49.462034",
+        "questions_evaluated": 5,
+        "question_selection": "random"
+      },
+      {
+        "session_id": "20251203_103749",
+        "timestamp": "2025-12-03T10:42:43.353623",
+        "questions_evaluated": 5,
+        "question_selection": "random"
+      },
+      {
+        "session_id": "20251203_104243",
+        "timestamp": "2025-12-03T10:47:27.679296",
+        "questions_evaluated": 5,
+        "question_selection": "random"
+      },
+      {
+        "session_id": "20251203_105455",
+        "timestamp": "2025-12-03T10:59:36.284546",
+        "questions_evaluated": 5,
+        "question_selection": "random"
+      },
+      {
+        "session_id": "20251203_105936",
+        "timestamp": "2025-12-03T11:04:04.262911",
+        "questions_evaluated": 5,
+        "question_selection": "random"
+      }
+    ]
+  },
+  "test_results": [
+    {
+      "question": "Which ethical framework provides the most practical guidance for modern moral decisions: utilitarianism, deontological ethics, or virtue ethics?",
+      "single_agent_quality_score": 75.0,
+      "dialectical_quality_score": 97.0,
+      "improvement_score": 0.22,
+      "single_agent_time": 10.42965292930603,
+      "dialectical_time": 33.441940784454346,
+      "evaluation_timestamp": "2025-12-03T09:25:23.798616",
+      "session_id": "20251203_092421",
+      "question_index_in_session": 0,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the most compelling interpretation of quantum mechanics and why: the Copenhagen interpretation, Many-worlds theory, or Hidden variables theory?",
+      "single_agent_quality_score": 75.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.23,
+      "single_agent_time": 11.14788818359375,
+      "dialectical_time": 33.284249782562256,
+      "evaluation_timestamp": "2025-12-03T09:26:25.504672",
+      "session_id": "20251203_092421",
+      "question_index_in_session": 1,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Should governments prioritize controlling inflation or reducing unemployment during economic downturns, and what are the trade-offs?",
+      "single_agent_quality_score": 97.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.01,
+      "single_agent_time": 10.798831939697266,
+      "dialectical_time": 32.063892126083374,
+      "evaluation_timestamp": "2025-12-03T09:27:19.688901",
+      "session_id": "20251203_092421",
+      "question_index_in_session": 2,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What should be the primary focus of future solar system exploration: searching for life on Mars, studying Jupiter's moons, or asteroid mining preparation?",
+      "single_agent_quality_score": 98.0,
+      "dialectical_quality_score": 96.0,
+      "improvement_score": -0.02,
+      "single_agent_time": 7.242531776428223,
+      "dialectical_time": 21.15304923057556,
+      "evaluation_timestamp": "2025-12-03T09:28:06.353730",
+      "session_id": "20251203_092421",
+      "question_index_in_session": 3,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the most effective approach to understanding human learning: behaviorist conditioning, cognitive information processing, or constructivist learning?",
+      "single_agent_quality_score": 95.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.03,
+      "single_agent_time": 12.047640085220337,
+      "dialectical_time": 32.50112295150757,
+      "evaluation_timestamp": "2025-12-03T09:29:03.292393",
+      "session_id": "20251203_092421",
+      "question_index_in_session": 4,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the most compelling interpretation of quantum mechanics and why: the Copenhagen interpretation, Many-worlds theory, or Hidden variables theory?",
+      "single_agent_quality_score": 85.0,
+      "dialectical_quality_score": 5.0,
+      "improvement_score": -0.8,
+      "single_agent_time": 11.253615856170654,
+      "dialectical_time": 33.577155113220215,
+      "evaluation_timestamp": "2025-12-03T09:30:08.928068",
+      "session_id": "20251203_092903",
+      "question_index_in_session": 0,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Which ethical framework provides the most practical guidance for modern moral decisions: utilitarianism, deontological ethics, or virtue ethics?",
+      "single_agent_quality_score": 35.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.63,
+      "single_agent_time": 10.813544273376465,
+      "dialectical_time": 31.972899198532104,
+      "evaluation_timestamp": "2025-12-03T09:31:06.002047",
+      "session_id": "20251203_092903",
+      "question_index_in_session": 1,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What was the most decisive factor that led to the Allied victory in World War II: industrial capacity, strategic decisions, technological advantages, or Soviet involvement?",
+      "single_agent_quality_score": 1.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.97,
+      "single_agent_time": 11.678324937820435,
+      "dialectical_time": 33.15178298950195,
+      "evaluation_timestamp": "2025-12-03T09:32:02.082338",
+      "session_id": "20251203_092903",
+      "question_index_in_session": 2,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "In teaching calculus, should educators emphasize rigorous theoretical foundations or practical problem-solving applications? What approach better serves students?",
+      "single_agent_quality_score": 96.0,
+      "dialectical_quality_score": 96.0,
+      "improvement_score": 0.0,
+      "single_agent_time": 11.01239013671875,
+      "dialectical_time": 24.106030225753784,
+      "evaluation_timestamp": "2025-12-03T09:32:50.640312",
+      "session_id": "20251203_092903",
+      "question_index_in_session": 3,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Should governments prioritize controlling inflation or reducing unemployment during economic downturns, and what are the trade-offs?",
+      "single_agent_quality_score": 97.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.01,
+      "single_agent_time": 11.149924993515015,
+      "dialectical_time": 30.97764301300049,
+      "evaluation_timestamp": "2025-12-03T09:33:46.265747",
+      "session_id": "20251203_092903",
+      "question_index_in_session": 4,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Which ethical framework provides the most practical guidance for modern moral decisions: utilitarianism, deontological ethics, or virtue ethics?",
+      "single_agent_quality_score": 97.0,
+      "dialectical_quality_score": 96.0,
+      "improvement_score": -0.01,
+      "single_agent_time": 10.56933307647705,
+      "dialectical_time": 29.363415002822876,
+      "evaluation_timestamp": "2025-12-03T09:38:40.689115",
+      "session_id": "20251203_093748",
+      "question_index_in_session": 0,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the most compelling interpretation of quantum mechanics and why: the Copenhagen interpretation, Many-worlds theory, or Hidden variables theory?",
+      "single_agent_quality_score": 5.0,
+      "dialectical_quality_score": 97.0,
+      "improvement_score": 0.92,
+      "single_agent_time": 12.218814134597778,
+      "dialectical_time": 33.18069100379944,
+      "evaluation_timestamp": "2025-12-03T09:39:47.594385",
+      "session_id": "20251203_093748",
+      "question_index_in_session": 1,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Should governments prioritize controlling inflation or reducing unemployment during economic downturns, and what are the trade-offs?",
+      "single_agent_quality_score": 80.0,
+      "dialectical_quality_score": 85.0,
+      "improvement_score": 0.05,
+      "single_agent_time": 10.134665966033936,
+      "dialectical_time": 33.18374681472778,
+      "evaluation_timestamp": "2025-12-03T09:40:49.955773",
+      "session_id": "20251203_093748",
+      "question_index_in_session": 2,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What should be the primary focus of future solar system exploration: searching for life on Mars, studying Jupiter's moons, or asteroid mining preparation?",
+      "single_agent_quality_score": 98.0,
+      "dialectical_quality_score": 95.0,
+      "improvement_score": -0.03,
+      "single_agent_time": 6.417157888412476,
+      "dialectical_time": 21.168933868408203,
+      "evaluation_timestamp": "2025-12-03T09:41:27.535386",
+      "session_id": "20251203_093748",
+      "question_index_in_session": 3,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the most effective approach to understanding human learning: behaviorist conditioning, cognitive information processing, or constructivist learning?",
+      "single_agent_quality_score": 69.0,
+      "dialectical_quality_score": 97.0,
+      "improvement_score": 0.28,
+      "single_agent_time": 10.645781755447388,
+      "dialectical_time": 33.31680989265442,
+      "evaluation_timestamp": "2025-12-03T09:42:28.854918",
+      "session_id": "20251203_093748",
+      "question_index_in_session": 4,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the most compelling interpretation of quantum mechanics and why: the Copenhagen interpretation, Many-worlds theory, or Hidden variables theory?",
+      "single_agent_quality_score": 70.0,
+      "dialectical_quality_score": 97.0,
+      "improvement_score": 0.27,
+      "single_agent_time": 11.5639169216156,
+      "dialectical_time": 31.171582221984863,
+      "evaluation_timestamp": "2025-12-03T09:43:29.082450",
+      "session_id": "20251203_094228",
+      "question_index_in_session": 0,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Which ethical framework provides the most practical guidance for modern moral decisions: utilitarianism, deontological ethics, or virtue ethics?",
+      "single_agent_quality_score": 60.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.38,
+      "single_agent_time": 10.956915855407715,
+      "dialectical_time": 30.10585308074951,
+      "evaluation_timestamp": "2025-12-03T09:44:24.073763",
+      "session_id": "20251203_094228",
+      "question_index_in_session": 1,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What was the most decisive factor that led to the Allied victory in World War II: industrial capacity, strategic decisions, technological advantages, or Soviet involvement?",
+      "single_agent_quality_score": 1.0,
+      "dialectical_quality_score": 92.0,
+      "improvement_score": 0.91,
+      "single_agent_time": 11.830651760101318,
+      "dialectical_time": 24.892961978912354,
+      "evaluation_timestamp": "2025-12-03T09:45:10.779760",
+      "session_id": "20251203_094228",
+      "question_index_in_session": 2,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "In teaching calculus, should educators emphasize rigorous theoretical foundations or practical problem-solving applications? What approach better serves students?",
+      "single_agent_quality_score": 98.0,
+      "dialectical_quality_score": 97.0,
+      "improvement_score": -0.01,
+      "single_agent_time": 11.452183961868286,
+      "dialectical_time": 30.109503030776978,
+      "evaluation_timestamp": "2025-12-03T09:46:01.763191",
+      "session_id": "20251203_094228",
+      "question_index_in_session": 3,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Should governments prioritize controlling inflation or reducing unemployment during economic downturns, and what are the trade-offs?",
+      "single_agent_quality_score": 96.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.02,
+      "single_agent_time": 11.26161789894104,
+      "dialectical_time": 28.41305899620056,
+      "evaluation_timestamp": "2025-12-03T09:46:53.483140",
+      "session_id": "20251203_094228",
+      "question_index_in_session": 4,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Which ethical framework provides the most practical guidance for modern moral decisions: utilitarianism, deontological ethics, or virtue ethics?",
+      "single_agent_quality_score": 95.0,
+      "dialectical_quality_score": 99.0,
+      "improvement_score": 0.04,
+      "single_agent_time": 10.796526193618774,
+      "dialectical_time": 29.082679986953735,
+      "evaluation_timestamp": "2025-12-03T10:01:26.701316",
+      "session_id": "20251203_100035",
+      "question_index_in_session": 0,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the most compelling interpretation of quantum mechanics and why: the Copenhagen interpretation, Many-worlds theory, or Hidden variables theory?",
+      "single_agent_quality_score": 95.0,
+      "dialectical_quality_score": 85.0,
+      "improvement_score": -0.1,
+      "single_agent_time": 10.513051748275757,
+      "dialectical_time": 33.66556167602539,
+      "evaluation_timestamp": "2025-12-03T10:02:28.491192",
+      "session_id": "20251203_100035",
+      "question_index_in_session": 1,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Should governments prioritize controlling inflation or reducing unemployment during economic downturns, and what are the trade-offs?",
+      "single_agent_quality_score": 95.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.03,
+      "single_agent_time": 10.32798719406128,
+      "dialectical_time": 28.77834391593933,
+      "evaluation_timestamp": "2025-12-03T10:03:24.019806",
+      "session_id": "20251203_100035",
+      "question_index_in_session": 2,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What should be the primary focus of future solar system exploration: searching for life on Mars, studying Jupiter's moons, or asteroid mining preparation?",
+      "single_agent_quality_score": 98.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.0,
+      "single_agent_time": 6.575488090515137,
+      "dialectical_time": 23.249483823776245,
+      "evaluation_timestamp": "2025-12-03T10:04:10.465939",
+      "session_id": "20251203_100035",
+      "question_index_in_session": 3,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the most effective approach to understanding human learning: behaviorist conditioning, cognitive information processing, or constructivist learning?",
+      "single_agent_quality_score": 5.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.93,
+      "single_agent_time": 10.714858770370483,
+      "dialectical_time": 29.367543697357178,
+      "evaluation_timestamp": "2025-12-03T10:05:09.190159",
+      "session_id": "20251203_100035",
+      "question_index_in_session": 4,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the most compelling interpretation of quantum mechanics and why: the Copenhagen interpretation, Many-worlds theory, or Hidden variables theory?",
+      "single_agent_quality_score": 60.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.38,
+      "single_agent_time": 11.218287944793701,
+      "dialectical_time": 34.513946771621704,
+      "evaluation_timestamp": "2025-12-03T10:06:14.475290",
+      "session_id": "20251203_100509",
+      "question_index_in_session": 0,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Which ethical framework provides the most practical guidance for modern moral decisions: utilitarianism, deontological ethics, or virtue ethics?",
+      "single_agent_quality_score": 7.0,
+      "dialectical_quality_score": 97.0,
+      "improvement_score": 0.9,
+      "single_agent_time": 11.116144895553589,
+      "dialectical_time": 27.228997945785522,
+      "evaluation_timestamp": "2025-12-03T10:07:02.759925",
+      "session_id": "20251203_100509",
+      "question_index_in_session": 1,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What was the most decisive factor that led to the Allied victory in World War II: industrial capacity, strategic decisions, technological advantages, or Soviet involvement?",
+      "single_agent_quality_score": 85.0,
+      "dialectical_quality_score": 97.0,
+      "improvement_score": 0.12,
+      "single_agent_time": 11.642482995986938,
+      "dialectical_time": 29.60335898399353,
+      "evaluation_timestamp": "2025-12-03T10:08:03.427117",
+      "session_id": "20251203_100509",
+      "question_index_in_session": 2,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "In teaching calculus, should educators emphasize rigorous theoretical foundations or practical problem-solving applications? What approach better serves students?",
+      "single_agent_quality_score": 98.0,
+      "dialectical_quality_score": 99.0,
+      "improvement_score": 0.01,
+      "single_agent_time": 8.081968069076538,
+      "dialectical_time": 32.04782295227051,
+      "evaluation_timestamp": "2025-12-03T10:08:56.109986",
+      "session_id": "20251203_100509",
+      "question_index_in_session": 3,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Should governments prioritize controlling inflation or reducing unemployment during economic downturns, and what are the trade-offs?",
+      "single_agent_quality_score": 98.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.0,
+      "single_agent_time": 10.488415002822876,
+      "dialectical_time": 30.806334018707275,
+      "evaluation_timestamp": "2025-12-03T10:09:48.578133",
+      "session_id": "20251203_100509",
+      "question_index_in_session": 4,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What should be the primary focus of future solar system exploration: searching for life on Mars, studying Jupiter's moons, or asteroid mining preparation?",
+      "single_agent_quality_score": 98.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.0,
+      "single_agent_time": 6.611610174179077,
+      "dialectical_time": 25.66935086250305,
+      "evaluation_timestamp": "2025-12-03T10:10:32.362607",
+      "session_id": "20251203_100948",
+      "question_index_in_session": 0,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Should governments prioritize controlling inflation or reducing unemployment during economic downturns, and what are the trade-offs?",
+      "single_agent_quality_score": 99.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": -0.01,
+      "single_agent_time": 11.561705112457275,
+      "dialectical_time": 30.670031785964966,
+      "evaluation_timestamp": "2025-12-03T10:11:27.513143",
+      "session_id": "20251203_100948",
+      "question_index_in_session": 1,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the most compelling interpretation of quantum mechanics and why: the Copenhagen interpretation, Many-worlds theory, or Hidden variables theory?",
+      "single_agent_quality_score": 93.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.05,
+      "single_agent_time": 11.31678318977356,
+      "dialectical_time": 32.361289978027344,
+      "evaluation_timestamp": "2025-12-03T10:12:24.036598",
+      "session_id": "20251203_100948",
+      "question_index_in_session": 2,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the most effective approach to understanding human learning: behaviorist conditioning, cognitive information processing, or constructivist learning?",
+      "single_agent_quality_score": 5.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.93,
+      "single_agent_time": 11.723148107528687,
+      "dialectical_time": 30.06425905227661,
+      "evaluation_timestamp": "2025-12-03T10:13:25.363104",
+      "session_id": "20251203_100948",
+      "question_index_in_session": 3,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Which ethical framework provides the most practical guidance for modern moral decisions: utilitarianism, deontological ethics, or virtue ethics?",
+      "single_agent_quality_score": 5.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.93,
+      "single_agent_time": 11.774353265762329,
+      "dialectical_time": 32.33003616333008,
+      "evaluation_timestamp": "2025-12-03T10:14:30.036883",
+      "session_id": "20251203_100948",
+      "question_index_in_session": 4,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "For large-scale data processing, what is more important: time complexity optimization or space complexity optimization? Consider practical applications.",
+      "single_agent_quality_score": 98.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.0,
+      "single_agent_time": 11.08469295501709,
+      "dialectical_time": 33.062560081481934,
+      "evaluation_timestamp": "2025-12-03T10:15:27.279556",
+      "session_id": "20251203_101430",
+      "question_index_in_session": 0,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Which ethical framework provides the most practical guidance for modern moral decisions: utilitarianism, deontological ethics, or virtue ethics?",
+      "single_agent_quality_score": 72.0,
+      "dialectical_quality_score": 96.0,
+      "improvement_score": 0.24,
+      "single_agent_time": 10.826776027679443,
+      "dialectical_time": 31.450404167175293,
+      "evaluation_timestamp": "2025-12-03T10:16:29.281080",
+      "session_id": "20251203_101430",
+      "question_index_in_session": 1,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "In teaching calculus, should educators emphasize rigorous theoretical foundations or practical problem-solving applications? What approach better serves students?",
+      "single_agent_quality_score": 98.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.0,
+      "single_agent_time": 10.614012002944946,
+      "dialectical_time": 26.679677963256836,
+      "evaluation_timestamp": "2025-12-03T10:17:18.641335",
+      "session_id": "20251203_101430",
+      "question_index_in_session": 2,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What was the most decisive factor that led to the Allied victory in World War II: industrial capacity, strategic decisions, technological advantages, or Soviet involvement?",
+      "single_agent_quality_score": 95.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.03,
+      "single_agent_time": 12.124015808105469,
+      "dialectical_time": 36.11611771583557,
+      "evaluation_timestamp": "2025-12-03T10:18:20.929840",
+      "session_id": "20251203_101430",
+      "question_index_in_session": 3,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the most compelling interpretation of quantum mechanics and why: the Copenhagen interpretation, Many-worlds theory, or Hidden variables theory?",
+      "single_agent_quality_score": 82.0,
+      "dialectical_quality_score": 96.0,
+      "improvement_score": 0.14,
+      "single_agent_time": 11.691729068756104,
+      "dialectical_time": 29.675939798355103,
+      "evaluation_timestamp": "2025-12-03T10:19:23.374986",
+      "session_id": "20251203_101430",
+      "question_index_in_session": 4,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "In teaching calculus, should educators emphasize rigorous theoretical foundations or practical problem-solving applications? What approach better serves students?",
+      "single_agent_quality_score": 92.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.06,
+      "single_agent_time": 9.471203088760376,
+      "dialectical_time": 23.984438180923462,
+      "evaluation_timestamp": "2025-12-03T10:20:11.536720",
+      "session_id": "20251203_101923",
+      "question_index_in_session": 0,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Which ethical framework provides the most practical guidance for modern moral decisions: utilitarianism, deontological ethics, or virtue ethics?",
+      "single_agent_quality_score": 78.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.2,
+      "single_agent_time": 11.773551225662231,
+      "dialectical_time": 32.6851909160614,
+      "evaluation_timestamp": "2025-12-03T10:21:11.886120",
+      "session_id": "20251203_101923",
+      "question_index_in_session": 1,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the most effective approach to understanding human learning: behaviorist conditioning, cognitive information processing, or constructivist learning?",
+      "single_agent_quality_score": 67.0,
+      "dialectical_quality_score": 82.0,
+      "improvement_score": 0.15,
+      "single_agent_time": 11.966012954711914,
+      "dialectical_time": 29.294129848480225,
+      "evaluation_timestamp": "2025-12-03T10:22:12.616782",
+      "session_id": "20251203_101923",
+      "question_index_in_session": 2,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the most compelling interpretation of quantum mechanics and why: the Copenhagen interpretation, Many-worlds theory, or Hidden variables theory?",
+      "single_agent_quality_score": 30.0,
+      "dialectical_quality_score": 5.0,
+      "improvement_score": -0.25,
+      "single_agent_time": 11.134994983673096,
+      "dialectical_time": 31.088904857635498,
+      "evaluation_timestamp": "2025-12-03T10:23:16.306624",
+      "session_id": "20251203_101923",
+      "question_index_in_session": 3,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Should governments prioritize controlling inflation or reducing unemployment during economic downturns, and what are the trade-offs?",
+      "single_agent_quality_score": 96.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.02,
+      "single_agent_time": 10.88652491569519,
+      "dialectical_time": 33.30318593978882,
+      "evaluation_timestamp": "2025-12-03T10:24:12.338145",
+      "session_id": "20251203_101923",
+      "question_index_in_session": 4,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What was the most decisive factor that led to the Allied victory in World War II: industrial capacity, strategic decisions, technological advantages, or Soviet involvement?",
+      "single_agent_quality_score": 93.0,
+      "dialectical_quality_score": 95.0,
+      "improvement_score": 0.02,
+      "single_agent_time": 11.450968980789185,
+      "dialectical_time": 27.368982076644897,
+      "evaluation_timestamp": "2025-12-03T10:25:04.259541",
+      "session_id": "20251203_102412",
+      "question_index_in_session": 0,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Should governments prioritize controlling inflation or reducing unemployment during economic downturns, and what are the trade-offs?",
+      "single_agent_quality_score": 89.0,
+      "dialectical_quality_score": 99.0,
+      "improvement_score": 0.1,
+      "single_agent_time": 11.025731086730957,
+      "dialectical_time": 32.385807037353516,
+      "evaluation_timestamp": "2025-12-03T10:26:01.725118",
+      "session_id": "20251203_102412",
+      "question_index_in_session": 1,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Which ethical framework provides the most practical guidance for modern moral decisions: utilitarianism, deontological ethics, or virtue ethics?",
+      "single_agent_quality_score": 42.0,
+      "dialectical_quality_score": 97.0,
+      "improvement_score": 0.55,
+      "single_agent_time": 10.371514797210693,
+      "dialectical_time": 29.865485668182373,
+      "evaluation_timestamp": "2025-12-03T10:26:57.534147",
+      "session_id": "20251203_102412",
+      "question_index_in_session": 2,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the most effective approach to understanding human learning: behaviorist conditioning, cognitive information processing, or constructivist learning?",
+      "single_agent_quality_score": 40.0,
+      "dialectical_quality_score": 97.0,
+      "improvement_score": 0.57,
+      "single_agent_time": 11.366974830627441,
+      "dialectical_time": 29.462811946868896,
+      "evaluation_timestamp": "2025-12-03T10:27:53.436241",
+      "session_id": "20251203_102412",
+      "question_index_in_session": 3,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the central theme of Hamlet: the corruption of power, the paralysis of thought, or the inevitability of fate? Support your interpretation.",
+      "single_agent_quality_score": 95.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.03,
+      "single_agent_time": 10.549196004867554,
+      "dialectical_time": 31.228785037994385,
+      "evaluation_timestamp": "2025-12-03T10:28:49.661358",
+      "session_id": "20251203_102412",
+      "question_index_in_session": 4,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the most important driving force in evolution: natural selection, genetic drift, gene flow, or mutation? Explain your reasoning.",
+      "single_agent_quality_score": 96.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.02,
+      "single_agent_time": 8.115739107131958,
+      "dialectical_time": 25.578855991363525,
+      "evaluation_timestamp": "2025-12-03T10:29:33.815276",
+      "session_id": "20251203_102849",
+      "question_index_in_session": 0,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "For large-scale data processing, what is more important: time complexity optimization or space complexity optimization? Consider practical applications.",
+      "single_agent_quality_score": 94.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.04,
+      "single_agent_time": 11.731073141098022,
+      "dialectical_time": 31.619011163711548,
+      "evaluation_timestamp": "2025-12-03T10:30:29.014764",
+      "session_id": "20251203_102849",
+      "question_index_in_session": 1,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "In teaching calculus, should educators emphasize rigorous theoretical foundations or practical problem-solving applications? What approach better serves students?",
+      "single_agent_quality_score": 95.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.03,
+      "single_agent_time": 9.548988819122314,
+      "dialectical_time": 32.37579607963562,
+      "evaluation_timestamp": "2025-12-03T10:31:20.184074",
+      "session_id": "20251203_102849",
+      "question_index_in_session": 2,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Which ethical framework provides the most practical guidance for modern moral decisions: utilitarianism, deontological ethics, or virtue ethics?",
+      "single_agent_quality_score": 5.0,
+      "dialectical_quality_score": 99.0,
+      "improvement_score": 0.94,
+      "single_agent_time": 12.400353908538818,
+      "dialectical_time": 30.78560733795166,
+      "evaluation_timestamp": "2025-12-03T10:32:23.461398",
+      "session_id": "20251203_102849",
+      "question_index_in_session": 3,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the central theme of Hamlet: the corruption of power, the paralysis of thought, or the inevitability of fate? Support your interpretation.",
+      "single_agent_quality_score": 94.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.04,
+      "single_agent_time": 11.735049962997437,
+      "dialectical_time": 29.828919172286987,
+      "evaluation_timestamp": "2025-12-03T10:33:21.365616",
+      "session_id": "20251203_102849",
+      "question_index_in_session": 4,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the central theme of Hamlet: the corruption of power, the paralysis of thought, or the inevitability of fate? Support your interpretation.",
+      "single_agent_quality_score": 98.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.0,
+      "single_agent_time": 10.235076189041138,
+      "dialectical_time": 29.96350908279419,
+      "evaluation_timestamp": "2025-12-03T10:34:13.908575",
+      "session_id": "20251203_103321",
+      "question_index_in_session": 0,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the most effective approach to understanding human learning: behaviorist conditioning, cognitive information processing, or constructivist learning?",
+      "single_agent_quality_score": 95.0,
+      "dialectical_quality_score": 97.0,
+      "improvement_score": 0.02,
+      "single_agent_time": 10.46596884727478,
+      "dialectical_time": 28.85578489303589,
+      "evaluation_timestamp": "2025-12-03T10:35:06.895492",
+      "session_id": "20251203_103321",
+      "question_index_in_session": 1,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Should governments prioritize controlling inflation or reducing unemployment during economic downturns, and what are the trade-offs?",
+      "single_agent_quality_score": 75.0,
+      "dialectical_quality_score": 96.0,
+      "improvement_score": 0.21,
+      "single_agent_time": 10.644361972808838,
+      "dialectical_time": 31.491822957992554,
+      "evaluation_timestamp": "2025-12-03T10:36:08.542783",
+      "session_id": "20251203_103321",
+      "question_index_in_session": 2,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "For large-scale data processing, what is more important: time complexity optimization or space complexity optimization? Consider practical applications.",
+      "single_agent_quality_score": 90.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.08,
+      "single_agent_time": 11.271800994873047,
+      "dialectical_time": 30.049150943756104,
+      "evaluation_timestamp": "2025-12-03T10:37:07.750664",
+      "session_id": "20251203_103321",
+      "question_index_in_session": 3,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "In teaching calculus, should educators emphasize rigorous theoretical foundations or practical problem-solving applications? What approach better serves students?",
+      "single_agent_quality_score": 96.0,
+      "dialectical_quality_score": 97.0,
+      "improvement_score": 0.01,
+      "single_agent_time": 7.7865049839019775,
+      "dialectical_time": 23.55665683746338,
+      "evaluation_timestamp": "2025-12-03T10:37:49.462016",
+      "session_id": "20251203_103321",
+      "question_index_in_session": 4,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "For large-scale data processing, what is more important: time complexity optimization or space complexity optimization? Consider practical applications.",
+      "single_agent_quality_score": 98.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.0,
+      "single_agent_time": 11.323249816894531,
+      "dialectical_time": 34.9473831653595,
+      "evaluation_timestamp": "2025-12-03T10:38:49.571509",
+      "session_id": "20251203_103749",
+      "question_index_in_session": 0,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the most effective approach to understanding human learning: behaviorist conditioning, cognitive information processing, or constructivist learning?",
+      "single_agent_quality_score": 65.0,
+      "dialectical_quality_score": 96.0,
+      "improvement_score": 0.31,
+      "single_agent_time": 10.97729206085205,
+      "dialectical_time": 29.580555200576782,
+      "evaluation_timestamp": "2025-12-03T10:39:47.972160",
+      "session_id": "20251203_103749",
+      "question_index_in_session": 1,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Should governments prioritize controlling inflation or reducing unemployment during economic downturns, and what are the trade-offs?",
+      "single_agent_quality_score": 97.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.01,
+      "single_agent_time": 10.670547008514404,
+      "dialectical_time": 29.846197843551636,
+      "evaluation_timestamp": "2025-12-03T10:40:40.573633",
+      "session_id": "20251203_103749",
+      "question_index_in_session": 2,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the most compelling interpretation of quantum mechanics and why: the Copenhagen interpretation, Many-worlds theory, or Hidden variables theory?",
+      "single_agent_quality_score": 5.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.93,
+      "single_agent_time": 11.448034048080444,
+      "dialectical_time": 29.711477994918823,
+      "evaluation_timestamp": "2025-12-03T10:41:40.786222",
+      "session_id": "20251203_103749",
+      "question_index_in_session": 3,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Which ethical framework provides the most practical guidance for modern moral decisions: utilitarianism, deontological ethics, or virtue ethics?",
+      "single_agent_quality_score": 35.0,
+      "dialectical_quality_score": 85.0,
+      "improvement_score": 0.5,
+      "single_agent_time": 10.953258037567139,
+      "dialectical_time": 30.009292125701904,
+      "evaluation_timestamp": "2025-12-03T10:42:43.353578",
+      "session_id": "20251203_103749",
+      "question_index_in_session": 4,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the most important driving force in evolution: natural selection, genetic drift, gene flow, or mutation? Explain your reasoning.",
+      "single_agent_quality_score": 95.0,
+      "dialectical_quality_score": 96.0,
+      "improvement_score": 0.01,
+      "single_agent_time": 9.981600761413574,
+      "dialectical_time": 26.08167600631714,
+      "evaluation_timestamp": "2025-12-03T10:43:33.119195",
+      "session_id": "20251203_104243",
+      "question_index_in_session": 0,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Should governments prioritize controlling inflation or reducing unemployment during economic downturns, and what are the trade-offs?",
+      "single_agent_quality_score": 88.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.1,
+      "single_agent_time": 11.774510145187378,
+      "dialectical_time": 32.854660749435425,
+      "evaluation_timestamp": "2025-12-03T10:44:35.171136",
+      "session_id": "20251203_104243",
+      "question_index_in_session": 1,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What should be the primary focus of future solar system exploration: searching for life on Mars, studying Jupiter's moons, or asteroid mining preparation?",
+      "single_agent_quality_score": 95.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.03,
+      "single_agent_time": 8.702776670455933,
+      "dialectical_time": 21.401427030563354,
+      "evaluation_timestamp": "2025-12-03T10:45:15.112122",
+      "session_id": "20251203_104243",
+      "question_index_in_session": 2,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Which ethical framework provides the most practical guidance for modern moral decisions: utilitarianism, deontological ethics, or virtue ethics?",
+      "single_agent_quality_score": 95.0,
+      "dialectical_quality_score": 66.0,
+      "improvement_score": -0.29,
+      "single_agent_time": 11.546869993209839,
+      "dialectical_time": 33.81408190727234,
+      "evaluation_timestamp": "2025-12-03T10:46:24.229889",
+      "session_id": "20251203_104243",
+      "question_index_in_session": 3,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "For large-scale data processing, what is more important: time complexity optimization or space complexity optimization? Consider practical applications.",
+      "single_agent_quality_score": 5.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.93,
+      "single_agent_time": 11.62339997291565,
+      "dialectical_time": 33.80570578575134,
+      "evaluation_timestamp": "2025-12-03T10:47:27.679250",
+      "session_id": "20251203_104243",
+      "question_index_in_session": 4,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Which ethical framework provides the most practical guidance for modern moral decisions: utilitarianism, deontological ethics, or virtue ethics?",
+      "single_agent_quality_score": 40.0,
+      "dialectical_quality_score": 97.0,
+      "improvement_score": 0.57,
+      "single_agent_time": 12.768975973129272,
+      "dialectical_time": 32.1018009185791,
+      "evaluation_timestamp": "2025-12-03T10:55:55.156931",
+      "session_id": "20251203_105455",
+      "question_index_in_session": 0,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the most compelling interpretation of quantum mechanics and why: the Copenhagen interpretation, Many-worlds theory, or Hidden variables theory?",
+      "single_agent_quality_score": 55.0,
+      "dialectical_quality_score": 5.0,
+      "improvement_score": -0.5,
+      "single_agent_time": 10.603200912475586,
+      "dialectical_time": 31.697124004364014,
+      "evaluation_timestamp": "2025-12-03T10:57:03.443459",
+      "session_id": "20251203_105455",
+      "question_index_in_session": 1,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Should governments prioritize controlling inflation or reducing unemployment during economic downturns, and what are the trade-offs?",
+      "single_agent_quality_score": 98.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.0,
+      "single_agent_time": 11.079578161239624,
+      "dialectical_time": 28.773972034454346,
+      "evaluation_timestamp": "2025-12-03T10:57:55.383179",
+      "session_id": "20251203_105455",
+      "question_index_in_session": 2,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What should be the primary focus of future solar system exploration: searching for life on Mars, studying Jupiter's moons, or asteroid mining preparation?",
+      "single_agent_quality_score": 98.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.0,
+      "single_agent_time": 7.88270902633667,
+      "dialectical_time": 23.796162128448486,
+      "evaluation_timestamp": "2025-12-03T10:58:40.417003",
+      "session_id": "20251203_105455",
+      "question_index_in_session": 3,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the most effective approach to understanding human learning: behaviorist conditioning, cognitive information processing, or constructivist learning?",
+      "single_agent_quality_score": 95.0,
+      "dialectical_quality_score": 97.0,
+      "improvement_score": 0.02,
+      "single_agent_time": 11.023571014404297,
+      "dialectical_time": 31.77025008201599,
+      "evaluation_timestamp": "2025-12-03T10:59:36.284509",
+      "session_id": "20251203_105455",
+      "question_index_in_session": 4,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What is the most compelling interpretation of quantum mechanics and why: the Copenhagen interpretation, Many-worlds theory, or Hidden variables theory?",
+      "single_agent_quality_score": 98.0,
+      "dialectical_quality_score": 97.0,
+      "improvement_score": -0.01,
+      "single_agent_time": 11.184545040130615,
+      "dialectical_time": 34.28837776184082,
+      "evaluation_timestamp": "2025-12-03T11:00:34.212208",
+      "session_id": "20251203_105936",
+      "question_index_in_session": 0,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Which ethical framework provides the most practical guidance for modern moral decisions: utilitarianism, deontological ethics, or virtue ethics?",
+      "single_agent_quality_score": 62.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.36,
+      "single_agent_time": 10.751188039779663,
+      "dialectical_time": 31.80695915222168,
+      "evaluation_timestamp": "2025-12-03T11:01:28.248778",
+      "session_id": "20251203_105936",
+      "question_index_in_session": 1,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "What was the most decisive factor that led to the Allied victory in World War II: industrial capacity, strategic decisions, technological advantages, or Soviet involvement?",
+      "single_agent_quality_score": 1.0,
+      "dialectical_quality_score": 97.0,
+      "improvement_score": 0.96,
+      "single_agent_time": 12.003204107284546,
+      "dialectical_time": 33.24507689476013,
+      "evaluation_timestamp": "2025-12-03T11:02:21.482584",
+      "session_id": "20251203_105936",
+      "question_index_in_session": 2,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "In teaching calculus, should educators emphasize rigorous theoretical foundations or practical problem-solving applications? What approach better serves students?",
+      "single_agent_quality_score": 95.0,
+      "dialectical_quality_score": 97.0,
+      "improvement_score": 0.02,
+      "single_agent_time": 10.496556043624878,
+      "dialectical_time": 30.030497074127197,
+      "evaluation_timestamp": "2025-12-03T11:03:10.590262",
+      "session_id": "20251203_105936",
+      "question_index_in_session": 3,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    },
+    {
+      "question": "Should governments prioritize controlling inflation or reducing unemployment during economic downturns, and what are the trade-offs?",
+      "single_agent_quality_score": 98.0,
+      "dialectical_quality_score": 98.0,
+      "improvement_score": 0.0,
+      "single_agent_time": 10.680765867233276,
+      "dialectical_time": 29.763248205184937,
+      "evaluation_timestamp": "2025-12-03T11:04:04.262849",
+      "session_id": "20251203_105936",
+      "question_index_in_session": 4,
+      "metadata": {
+        "corpus_dir": "/Users/mkrasnow/Desktop/hegels-agents/corpus_data",
+        "question_selection": "random"
+      }
+    }
+  ]
+}
